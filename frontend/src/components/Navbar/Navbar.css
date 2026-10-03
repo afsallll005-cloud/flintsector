@@ -1,0 +1,1118 @@
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+  --announcement-height: 44px;
+  --navbar-height: 100px;
+
+  --black: #111111;
+  --dark-text: #172033;
+  --gray-text: #737987;
+
+  --border: #eeeeee;
+
+  --cream: #fcfbf7;
+
+  --gold: #c4a46c;
+}
+
+
+/* =========================================================
+   FIXED NAVBAR STACK
+========================================================= */
+
+.navbar-stack {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  width: 100%;
+
+  z-index: 2000;
+}
+
+
+/* =========================================================
+   ANNOUNCEMENT WRAPPER
+========================================================= */
+
+.announcement-bar-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  height: var(--announcement-height);
+
+  max-height: var(--announcement-height);
+
+  overflow: hidden;
+
+  opacity: 1;
+
+  transition:
+    height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.35s ease;
+}
+
+
+/* =========================================================
+   ANNOUNCEMENT SHOW
+========================================================= */
+
+.announcement-bar-wrapper.show {
+  height: var(--announcement-height);
+
+  max-height: var(--announcement-height);
+
+  opacity: 1;
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   ANNOUNCEMENT HIDE
+========================================================= */
+
+.announcement-bar-wrapper.hide {
+  height: 0;
+
+  max-height: 0;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   ANNOUNCEMENT BAR
+========================================================= */
+
+.announcement-bar {
+  width: 100%;
+
+  height: var(--announcement-height);
+
+  background: #1b1b1b;
+
+  color: #ffffff;
+
+  display: flex;
+
+  align-items: center;
+
+  overflow: hidden;
+
+  font-family: var(--font-outfit), sans-serif;
+
+  transform: translateY(0);
+
+  transition:
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* =========================================================
+   ANNOUNCEMENT SLIDE UP
+========================================================= */
+
+.announcement-bar-wrapper.hide .announcement-bar {
+  transform: translateY(-100%);
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.announcement-track {
+  display: flex;
+
+  align-items: center;
+
+  width: max-content;
+
+  white-space: nowrap;
+
+  animation:
+    announcement-scroll 32s linear infinite;
+}
+
+
+.announcement-item {
+  padding-left: 38px;
+
+  padding-right: 38px;
+
+  font-size: 10px;
+
+  font-weight: 500;
+
+  letter-spacing: 2.4px;
+
+  text-transform: uppercase;
+}
+
+
+.announcement-diamond {
+  color: var(--gold);
+
+  font-size: 8px;
+
+  line-height: 1;
+}
+
+
+@keyframes announcement-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+/* =========================================================
+   MAIN HEADER
+========================================================= */
+
+.main-header {
+  position: relative;
+
+  width: 100%;
+
+  height: var(--navbar-height);
+
+  background: #ffffff;
+
+  border-bottom: 1px solid var(--border);
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   NAVBAR CONTAINER
+========================================================= */
+
+.navbar-container {
+  position: relative;
+
+  width: 100%;
+
+  max-width: 1600px;
+
+  height: 100%;
+
+  margin: 0 auto;
+
+  padding-left: 10.3%;
+  padding-right: 10.3%;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+
+/* =========================================================
+   DESKTOP NAVIGATION
+========================================================= */
+
+.desktop-navigation {
+  display: flex;
+
+  align-items: center;
+
+  gap: 40px;
+}
+
+
+.desktop-nav-link {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  height: 100%;
+
+  padding: 5px 0;
+
+  color: var(--gray-text);
+
+  text-decoration: none;
+
+  font-family: var(--font-outfit), sans-serif;
+
+  font-size: 12px;
+
+  font-weight: 500;
+
+  letter-spacing: 2.8px;
+
+  text-transform: uppercase;
+
+  transition: color 0.3s ease;
+}
+
+
+.desktop-nav-link:hover {
+  color: var(--black);
+}
+
+
+.desktop-nav-link.active {
+  color: var(--black);
+}
+
+
+.desktop-nav-link.active::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  bottom: 32px;
+
+  height: 1px;
+
+  background: var(--black);
+}
+
+
+/* =========================================================
+   CENTER LOGO
+========================================================= */
+
+.center-logo {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  white-space: nowrap;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   LOGO
+
+   IMPORTANT:
+   transform-origin keeps the logo centered while
+   resizing, so it doesn't jump.
+========================================================= */
+
+.brand-logo {
+  display: inline-flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  text-decoration: none;
+
+  color: var(--black);
+
+  transform-origin: center center;
+
+  transition:
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* Normal logo */
+
+.center-logo .brand-logo {
+  transform: scale(1);
+}
+
+
+/* =========================================================
+   COMPACT LOGO
+
+   SCROLL DOWN → this class is added
+========================================================= */
+
+.main-header.logo-compact
+  .center-logo
+  .brand-logo {
+
+  transform: scale(0.78);
+}
+
+
+/* Hover */
+
+.center-logo .brand-logo:hover {
+  transform: scale(1.02);
+}
+
+
+/* Compact hover */
+
+.main-header.logo-compact
+  .center-logo
+  .brand-logo:hover {
+
+  transform: scale(0.82);
+}
+
+
+/* =========================================================
+   LOGO WORDMARK
+========================================================= */
+
+.brand-logo-wordmark {
+  font-family:
+    "Bebas Neue",
+    Impact,
+    "Arial Narrow",
+    sans-serif;
+
+  font-size: 26px;
+
+  font-weight: 800;
+
+  letter-spacing: 2.5px;
+
+  line-height: 0.9;
+
+  text-transform: uppercase;
+
+  color: var(--black);
+
+  transition:
+    font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    letter-spacing 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* =========================================================
+   COMPACT WORDMARK
+========================================================= */
+
+.main-header.logo-compact
+  .center-logo
+  .brand-logo-wordmark {
+
+  font-size: 20px;
+
+  letter-spacing: 1.8px;
+}
+
+
+.brand-logo-dot {
+  color: #d12b2b;
+}
+
+
+.brand-logo-tagline {
+  margin-top: 2px;
+
+  font-family: "Outfit", sans-serif;
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+
+  color: rgba(17, 17, 17, 0.55);
+}
+
+
+/* =========================================================
+   RIGHT ACTIONS
+========================================================= */
+
+.navbar-actions {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 22px;
+
+  margin-left: auto;
+
+  color: var(--dark-text);
+}
+
+
+.navbar-action {
+  position: relative;
+
+  width: 28px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: var(--dark-text);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  transition:
+    color 0.25s ease,
+    transform 0.2s ease;
+}
+
+
+.navbar-action:hover {
+  color: #000000;
+
+  transform: translateY(-1px);
+}
+
+
+.account-action {
+  display: flex;
+}
+
+
+.account-icon {
+  width: 21px;
+
+  height: 21px;
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.action-badge {
+  position: absolute;
+
+  top: 5px;
+
+  right: -4px;
+
+  background: var(--gold);
+
+  color: #ffffff;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+.number-badge {
+  min-width: 15px;
+
+  height: 15px;
+
+  padding: 0 3px;
+
+  font-size: 8px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   MOBILE LEFT
+========================================================= */
+
+.mobile-left-actions {
+  display: none;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+
+.mobile-icon-button {
+  width: 30px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: var(--dark-text);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition:
+    color 0.25s ease,
+    transform 0.2s ease;
+}
+
+
+.mobile-icon-button:hover {
+  color: #000000;
+}
+
+
+.mobile-icon-button:active {
+  transform: scale(0.9);
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.mobile-menu {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 3000;
+
+  pointer-events: none;
+}
+
+
+.mobile-menu.open {
+  pointer-events: auto;
+}
+
+
+.mobile-menu-backdrop {
+  position: absolute;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  backdrop-filter: blur(5px);
+
+  opacity: 0;
+
+  transition:
+    opacity 0.45s ease;
+}
+
+
+.mobile-menu.open .mobile-menu-backdrop {
+  opacity: 1;
+}
+
+
+.mobile-menu-drawer {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  width: min(390px, 88vw);
+
+  background: var(--cream);
+
+  padding: 32px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  box-shadow:
+    10px 0 40px rgba(0, 0, 0, 0.12);
+
+  transform:
+    translateX(-100%);
+
+  transition:
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+.mobile-menu.open .mobile-menu-drawer {
+  transform: translateX(0);
+}
+
+
+.mobile-menu-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 55px;
+}
+
+
+.mobile-logo {
+  display: flex;
+
+  align-items: center;
+}
+
+
+.mobile-close-button {
+  width: 38px;
+
+  height: 38px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #737373;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.mobile-close-button:hover {
+  color: #000000;
+
+  transform: rotate(90deg);
+}
+
+
+.mobile-navigation {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 22px;
+
+  font-family: var(--font-outfit), sans-serif;
+
+  font-size: 13px;
+
+  font-weight: 500;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+}
+
+
+.mobile-nav-link {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 6px 0;
+
+  color: #777777;
+
+  text-decoration: none;
+
+  transition:
+    color 0.3s ease,
+    padding-left 0.3s ease;
+}
+
+
+.mobile-nav-link:hover {
+  color: #000000;
+
+  padding-left: 8px;
+}
+
+
+.mobile-nav-link.active {
+  color: #000000;
+
+  padding-left: 10px;
+}
+
+
+.mobile-nav-link.active::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+
+  top: 50%;
+
+  width: 2px;
+
+  height: 18px;
+
+  background: #000000;
+
+  transform:
+    translateY(-50%);
+}
+
+
+.mobile-menu-footer {
+  border-top: 1px solid #e5e3df;
+
+  padding-top: 24px;
+}
+
+
+.mobile-footer-title {
+  margin-bottom: 14px;
+
+  color: #999999;
+
+  font-size: 9px;
+
+  font-weight: 500;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+}
+
+
+.mobile-social-links {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  color: #666666;
+
+  font-size: 11px;
+
+  font-weight: 500;
+}
+
+
+.mobile-social-links a {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  color: #666666;
+
+  text-decoration: none;
+
+  transition:
+    color 0.25s ease;
+}
+
+
+.mobile-social-links a:hover {
+  color: #000000;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .navbar-container {
+    padding-left: 5%;
+
+    padding-right: 5%;
+  }
+
+
+  .desktop-navigation {
+    gap: 25px;
+  }
+
+
+  .desktop-nav-link {
+    font-size: 11px;
+
+    letter-spacing: 2px;
+  }
+
+
+  .navbar-actions {
+    gap: 16px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  :root {
+    --announcement-height: 36px;
+
+    --navbar-height: 70px;
+  }
+
+
+  .navbar-container {
+    padding-left: 18px;
+
+    padding-right: 18px;
+  }
+
+
+  .desktop-navigation {
+    display: none;
+  }
+
+
+  .mobile-left-actions {
+    display: flex;
+  }
+
+
+  .navbar-actions {
+    gap: 12px;
+
+    margin-left: auto;
+  }
+
+
+  .desktop-search {
+    display: none;
+  }
+
+
+  .wishlist-action {
+    display: none;
+  }
+
+
+  .account-action {
+    display: flex;
+  }
+
+
+  .bag-action {
+    display: flex;
+  }
+
+
+  .center-logo {
+    left: 50%;
+
+    top: 50%;
+
+    transform:
+      translate(-50%, -50%);
+  }
+
+
+  /* ---------------------------------------------
+     MOBILE COMPACT LOGO
+     
+     Scroll DOWN → smaller
+  --------------------------------------------- */
+
+  .main-header.logo-compact
+    .center-logo
+    .brand-logo {
+
+    transform: scale(0.84);
+  }
+
+
+  .main-header.logo-compact
+    .center-logo
+    .brand-logo:hover {
+
+    transform: scale(0.88);
+  }
+
+
+  .main-header.logo-compact
+    .center-logo
+    .brand-logo-wordmark {
+
+    font-size: 18px;
+
+    letter-spacing: 1.5px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  :root {
+    --announcement-height: 34px;
+
+    --navbar-height: 64px;
+  }
+
+
+  .navbar-container {
+    padding-left: 16px;
+
+    padding-right: 16px;
+  }
+
+
+  .mobile-left-actions {
+    gap: 8px;
+  }
+
+
+  .mobile-icon-button {
+    width: 27px;
+  }
+
+
+  .navbar-actions {
+    gap: 8px;
+  }
+
+
+  .navbar-action {
+    width: 27px;
+  }
+
+
+  .account-icon {
+    width: 20px;
+
+    height: 20px;
+  }
+
+
+  .announcement-item {
+    font-size: 8px;
+
+    letter-spacing: 1.7px;
+
+    padding-left: 24px;
+
+    padding-right: 24px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .navbar-container {
+    padding-left: 12px;
+
+    padding-right: 12px;
+  }
+
+
+  .mobile-left-actions {
+    gap: 4px;
+  }
+
+
+  .navbar-actions {
+    gap: 4px;
+  }
+
+
+  .mobile-icon-button,
+  .navbar-action {
+    width: 25px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .announcement-track {
+    animation: none;
+  }
+
+
+  .announcement-bar-wrapper,
+  .announcement-bar,
+  .brand-logo,
+  .brand-logo-wordmark,
+  .mobile-menu-drawer,
+  .mobile-menu-backdrop {
+    transition: none;
+  }
+
+}

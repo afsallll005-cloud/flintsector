@@ -1,0 +1,101 @@
+.floating-socials-container {
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(22px, env(safe-area-inset-bottom));
+  z-index: 9999;
+  pointer-events: none;
+  flex-direction: column;
+  gap: 10px;
+  display: flex;
+  position: fixed;
+}
+
+.floating-social-button {
+  color: #111111;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(17, 17, 17, 0.13);
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  text-decoration: none;
+  transition: transform 0.22s, color 0.22s, background 0.22s, border-color 0.22s, box-shadow 0.22s;
+  display: flex;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.13), 0 2px 8px rgba(17, 17, 17, 0.07);
+}
+
+.floating-social-button:hover {
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(17, 17, 17, 0.19), 0 4px 10px rgba(17, 17, 17, 0.09);
+}
+
+.floating-instagram:hover {
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 52%, #fcb045 100%);
+}
+
+.floating-whatsapp:hover {
+  background: #25d366;
+}
+
+.floating-tooltip {
+  color: #ffffff;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  background: #111111;
+  border-radius: 7px;
+  align-items: center;
+  height: 30px;
+  padding: 0 10px;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  transition: opacity 0.18s, transform 0.18s;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 10px);
+  transform: translate(8px, -50%);
+}
+
+.floating-tooltip::after {
+  content: "";
+  border: 5px solid transparent;
+  border-left-color: #111111;
+  border-right-width: 0;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+}
+
+.floating-social-button:hover .floating-tooltip {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+@media (max-width: 768px) {
+  .floating-socials-container {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(14px, env(safe-area-inset-bottom));
+    flex-direction: row;
+    gap: 8px;
+  }
+  .floating-social-button {
+    border-radius: 13px;
+    width: 43px;
+    height: 43px;
+  }
+  .floating-tooltip {
+    display: none;
+  }
+}

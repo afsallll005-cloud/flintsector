@@ -1,0 +1,210 @@
+.footer-section {
+  width: 100%;
+  background: #ffffff;
+  color: #111111;
+  font-family: var(--font-outfit), sans-serif;
+  padding: 64px 18px 28px;
+  border-top: 1px solid rgba(17, 17, 17, 0.1);
+}
+
+.footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.footer-top-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 38px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.14);
+}
+
+@media (min-width: 860px) {
+  .footer-top-grid {
+    grid-template-columns: 1.2fr 1.2fr 1fr;
+    gap: 48px;
+  }
+}
+
+.footer-brand-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  color: #111111;
+}
+
+.footer-brand-wordmark {
+  font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.footer-brand-dot {
+  color: #d12b2b;
+}
+
+.footer-brand-tagline {
+  margin-top: 2px;
+  font-family: "Outfit", sans-serif;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.55);
+}
+
+.footer-brand-desc {
+  margin-top: 20px;
+  max-width: 320px;
+  color: rgba(17, 17, 17, 0.68);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.footer-nav-subgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+
+.footer-column-title {
+  margin: 0 0 22px;
+  color: #111111;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.footer-nav-link {
+  display: block;
+  color: rgba(17, 17, 17, 0.66);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 13px;
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.footer-nav-link:hover {
+  color: #111111;
+  transform: translateX(3px);
+}
+
+.footer-newsletter-text {
+  margin: 0 0 20px;
+  color: rgba(17, 17, 17, 0.66);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.footer-newsletter-form {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.38);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+  transition: border-color 0.2s;
+}
+
+.footer-newsletter-form:focus-within {
+  border-bottom-color: #111111;
+}
+
+.footer-newsletter-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #111111;
+  font-size: 14px;
+  font-family: var(--font-outfit), sans-serif;
+  min-width: 0;
+}
+
+.footer-newsletter-submit {
+  border: none;
+  background: transparent;
+  color: #111111;
+  cursor: pointer;
+  display: flex;
+  padding: 4px;
+  transition: transform 0.2s;
+}
+
+.footer-newsletter-submit:hover {
+  transform: translateX(4px);
+}
+
+.footer-contact-link {
+  color: rgba(17, 17, 17, 0.74);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  margin-bottom: 12px;
+  transition: color 0.2s;
+}
+
+.footer-contact-link:hover {
+  color: #111111;
+}
+
+/* Giant Center Wordmark */
+.footer-center-logo-bar {
+  padding: 34px 0 28px;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-giant-logo {
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: clamp(48px, 12vw, 110px);
+  letter-spacing: 4px;
+  line-height: 0.85;
+  color: #111111;
+  text-align: center;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* Bottom Bar */
+.footer-bottom-bar {
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between;
+  color: rgba(17, 17, 17, 0.52);
+  font-size: 12px;
+}
+
+@media (min-width: 600px) {
+  .footer-bottom-bar {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.footer-legal-links {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.footer-legal-link {
+  color: rgba(17, 17, 17, 0.52);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-legal-link:hover {
+  color: #111111;
+}

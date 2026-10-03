@@ -1,0 +1,135 @@
+.reviews-section {
+  width: 100%;
+  background: #ffffff;
+  color: #111111;
+  font-family: var(--font-outfit), sans-serif;
+  overflow: hidden;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.reviews-inner-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 54px 16px 64px;
+}
+
+.reviews-header-block {
+  margin-bottom: 28px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.reviews-title {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.reviews-rating-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #555;
+}
+
+.reviews-scroll-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 12px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.reviews-scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+.review-card-item {
+  width: min(84vw, 380px);
+  min-height: 220px;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  background: #ffffff;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.review-card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.06);
+}
+
+.review-stars-row {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 18px;
+}
+
+.review-quote-text {
+  margin: 0;
+  color: #3f3a35;
+  font-size: 13px;
+  line-height: 1.72;
+  font-weight: 500;
+}
+
+.review-product-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 8px;
+}
+
+.review-author-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.review-avatar-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #111111;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.review-author-name {
+  font-size: 13px;
+  font-weight: 900;
+  display: block;
+}
+
+.review-verified-badge {
+  font-size: 10px;
+  color: #25d366;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}

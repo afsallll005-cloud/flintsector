@@ -1,0 +1,307 @@
+.reels-section {
+  width: 100%;
+  background: #ffffff;
+  color: #111111;
+  font-family: var(--font-outfit), sans-serif;
+  padding: 68px 0 76px;
+  overflow: hidden;
+}
+
+.reels-header {
+  width: min(92vw, 920px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.reels-category-tag {
+  margin: 0 0 12px;
+  color: #77736c;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2.3px;
+  text-transform: uppercase;
+}
+
+.reels-heading {
+  margin: 0;
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: clamp(52px, 15vw, 84px);
+  line-height: 0.82;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.reels-divider {
+  width: 44px;
+  height: 1px;
+  margin: 19px auto 16px;
+  background: #111111;
+}
+
+.reels-description {
+  max-width: 540px;
+  margin: 0 auto;
+  color: #6f6a63;
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+/* Reels Stage */
+.reels-stage {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reels-shadow-floor {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  width: 78vw;
+  height: 62px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(rgba(17, 17, 17, 0.12) 0%, rgba(17, 17, 17, 0.04) 44%, transparent 72%);
+  filter: blur(14px);
+  pointer-events: none;
+}
+
+.reels-card-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.reels-card-wrapper.active {
+  z-index: 20;
+  opacity: 1;
+  transform: translate(-50%, -50%) translateY(-6px) scale(1);
+}
+
+.reels-card-wrapper.prev {
+  z-index: 10;
+  opacity: 0.55;
+  transform: translate(-50%, -50%) translateX(-220px) translateY(18px) scale(0.85);
+  pointer-events: auto;
+}
+
+.reels-card-wrapper.next {
+  z-index: 10;
+  opacity: 0.55;
+  transform: translate(-50%, -50%) translateX(220px) translateY(18px) scale(0.85);
+  pointer-events: auto;
+}
+
+.reels-card-wrapper.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.7);
+}
+
+.reel-card {
+  width: min(74vw, 300px);
+  aspect-ratio: 9 / 16;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #f1f1f1;
+  border: 1px solid rgba(17, 17, 17, 0.3);
+  box-shadow: 0 24px 60px rgba(17, 17, 17, 0.18);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.reel-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.15) 0%,
+    transparent 30%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  pointer-events: none;
+}
+
+.reel-pill-badge {
+  position: absolute;
+  left: 13px;
+  top: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 12px;
+  background: rgba(17, 17, 17, 0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  z-index: 5;
+}
+
+.reel-audio-btn {
+  position: absolute;
+  right: 13px;
+  top: 13px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(17, 17, 17, 0.55);
+  color: #ffffff;
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 6;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.reel-audio-btn:hover {
+  transform: scale(1.1);
+  background: rgba(17, 17, 17, 0.85);
+}
+
+.reel-bottom-info {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 5;
+}
+
+.reel-bottom-title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+.reel-bottom-sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+/* Reels Controls */
+.reels-controls-row {
+  width: min(92vw, 760px);
+  margin: 16px auto 0;
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  gap: 12px;
+}
+
+.reel-arrow-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(17, 17, 17, 0.22);
+  border-radius: 50%;
+  background: #ffffff;
+  color: #171717;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reel-arrow-btn:hover {
+  background: #111111;
+  color: #ffffff;
+  border-color: #111111;
+}
+
+.reel-dots-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.reel-dot {
+  height: 7px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.reel-dot.active {
+  width: 26px;
+  background: #111111;
+}
+
+.reel-dot.inactive {
+  width: 7px;
+  background: rgba(17, 17, 17, 0.2);
+}
+
+.reels-cta-wrap {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.reels-instagram-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 24px;
+  border: 1px solid #111111;
+  background: #ffffff;
+  color: #111111;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+
+.reels-instagram-link:hover {
+  background: #111111;
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .reels-card-wrapper.prev {
+    transform: translate(-50%, -50%) translateX(-140px) translateY(12px) scale(0.8);
+  }
+  .reels-card-wrapper.next {
+    transform: translate(-50%, -50%) translateX(140px) translateY(12px) scale(0.8);
+  }
+}

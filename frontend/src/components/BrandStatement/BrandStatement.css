@@ -1,0 +1,104 @@
+.brand-statement-section {
+  width: 100%;
+  background: #ffffff;
+  color: #111111;
+  font-family: var(--font-outfit), sans-serif;
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.brand-statement-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(17, 17, 17, 0.14);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.14);
+  padding: 54px 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+.brand-number-tag {
+  margin: 0 0 18px;
+  color: #77736c;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.brand-mini-line {
+  width: 38px;
+  height: 1px;
+  background: #111111;
+  margin-bottom: 24px;
+}
+
+.brand-quote-desc {
+  margin: 0;
+  max-width: 600px;
+  color: rgb(77, 73, 67);
+  font-size: 15px;
+  line-height: 1.75;
+  font-weight: 500;
+}
+
+.brand-marquee-container {
+  overflow: hidden;
+  margin-left: -18px;
+  margin-right: -18px;
+}
+
+.brand-marquee-track {
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid rgba(17, 17, 17, 0.12);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+  padding: 18px 0 14px;
+}
+
+.brand-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  padding-right: 32px;
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: clamp(48px, 9vw, 76px);
+  line-height: 0.86;
+  font-weight: 400;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  color: #111111;
+}
+
+.brand-marquee-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #111111;
+  display: inline-block;
+  margin: 0 24px;
+  opacity: 0.7;
+}
+
+.brand-explore-link {
+  margin-top: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: #111111;
+  text-decoration: none;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: gap 0.2s, color 0.2s;
+}
+
+.brand-explore-link:hover {
+  gap: 20px;
+  color: #d12b2b;
+  border-bottom-color: #d12b2b;
+}

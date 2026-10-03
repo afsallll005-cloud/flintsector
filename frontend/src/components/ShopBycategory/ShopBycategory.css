@@ -1,0 +1,121 @@
+.categories-section {
+  width: 100%;
+  background: #ffffff;
+  padding: 32px 18px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.06);
+}
+
+.categories-scroll-wrapper {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 22px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 6px 4px;
+}
+
+.categories-scroll-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.category-bubble-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 118px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: #171717;
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-bubble-item:hover {
+  transform: translateY(-4px);
+}
+
+.category-circle-frame {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgb(240, 238, 233);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  box-shadow: 0 4px 14px rgba(17, 17, 17, 0.04);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.category-bubble-item:hover .category-circle-frame {
+  border-color: #111111;
+  box-shadow: 0 8px 24px rgba(17, 17, 17, 0.12);
+}
+
+.category-img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.category-bubble-item:hover .category-img {
+  transform: scale(1.08);
+}
+
+.category-img-blur {
+  filter: blur(8px);
+  transform: scale(1.18);
+  opacity: 0.9;
+}
+
+.coming-soon-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ios-spinner-box {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.category-bubble-title {
+  margin-top: 12px;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  line-height: 1.4;
+  color: #111111;
+  text-align: center;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.category-bubble-item:hover .category-bubble-title {
+  color: #d12b2b;
+}
+
+.category-coming-soon-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #888;
+  text-transform: uppercase;
+}
