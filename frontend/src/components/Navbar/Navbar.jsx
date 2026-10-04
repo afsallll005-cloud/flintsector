@@ -22,7 +22,7 @@ import "./Navbar.css";
 
 const BrandLogo = () => (
   <a
-    href="#home"
+    href="/"
     className="brand-logo"
     aria-label="FLINT SECTOR Home"
   >
@@ -374,28 +374,28 @@ const Navbar = () => {
             <nav className="desktop-navigation">
 
               <a
-                href="#home"
+                href="/"
                 className="desktop-nav-link active"
               >
                 Home
               </a>
 
               <a
-                href="#shop"
+                href="/#bestsellers"
                 className="desktop-nav-link"
               >
                 Shop
               </a>
 
               <a
-                href="#collections"
+                href="/#bestsellers"
                 className="desktop-nav-link"
               >
                 Collections
               </a>
 
               <a
-                href="#about"
+                href="/#faq"
                 className="desktop-nav-link"
               >
                 About
@@ -574,7 +574,7 @@ const Navbar = () => {
           <nav className="mobile-navigation">
 
             <a
-              href="#home"
+              href="/"
               className="mobile-nav-link active"
               onClick={closeMobileMenu}
             >
@@ -583,7 +583,7 @@ const Navbar = () => {
 
 
             <a
-              href="#shop"
+              href="/#bestsellers"
               className="mobile-nav-link"
               onClick={closeMobileMenu}
             >
@@ -593,7 +593,7 @@ const Navbar = () => {
 
 
             <a
-              href="#collections"
+              href="/#bestsellers"
               className="mobile-nav-link"
               onClick={closeMobileMenu}
             >
@@ -603,7 +603,7 @@ const Navbar = () => {
 
 
             <a
-              href="#about"
+              href="/#faq"
               className="mobile-nav-link"
               onClick={closeMobileMenu}
             >
@@ -613,7 +613,7 @@ const Navbar = () => {
 
 
             <a
-              href="#bestsellers"
+              href="/#bestsellers"
               className="mobile-nav-link"
               onClick={closeMobileMenu}
             >
@@ -623,7 +623,7 @@ const Navbar = () => {
 
 
             <a
-              href="#faq"
+              href="/#faq"
               className="mobile-nav-link"
               onClick={closeMobileMenu}
             >

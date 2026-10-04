@@ -1,5 +1,4 @@
 import Hme from "./Client/Home/Home";
-import { CartProvider } from "../context/CartContext";
 
 export const metadata = {
   title: "FLINT SECTOR | Oversized T-Shirts & Streetwear India",
@@ -23,9 +22,5 @@ export const metadata = {
 };
 
 export default function Home() {
-  return (
-    <CartProvider>
-      <Hme />
-    </CartProvider>
-  );
+  return <Hme />;
 }

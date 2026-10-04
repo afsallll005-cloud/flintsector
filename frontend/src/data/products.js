@@ -450,3 +450,30 @@ export const FAQS = [
     answer: "Turn the tee inside out, wash in cold water on a gentle cycle with mild detergent, avoid bleach, air-dry in shade, and never iron directly over the graphics or prints."
   }
 ];
+
+const GALLERY_EXTRAS = [
+  "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=900&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=900&auto=format&fit=crop&q=80",
+];
+
+export const SIZE_GUIDE = [
+  { size: "S", chest: "40", length: "27", shoulder: "20" },
+  { size: "M", chest: "42", length: "28", shoulder: "21" },
+  { size: "L", chest: "44", length: "29", shoulder: "22" },
+  { size: "XL", chest: "46", length: "30", shoulder: "23" },
+  { size: "XXL", chest: "48", length: "31", shoulder: "24" },
+];
+
+export function getProductById(id) {
+  return PRODUCTS.find((item) => item.id === id) || null;
+}
+
+export function getProductGallery(product) {
+  if (!product) return [];
+  const unique = [
+    product.frontImage,
+    product.backImage,
+    ...GALLERY_EXTRAS,
+  ].filter((src, index, list) => src && list.indexOf(src) === index);
+  return unique.slice(0, 4);
+}

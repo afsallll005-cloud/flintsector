@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { PRODUCTS } from "../../data/products";
 import { useCart } from "../../context/CartContext";
 import { HeartIcon } from "../common/Icons";
@@ -16,7 +17,7 @@ const CATEGORY_TABS = [
 
 export const Bestsellers = ({ activeCategory = "all", onTabChange }) => {
   const [selectedTab, setSelectedTab] = useState(activeCategory);
-  const { addToCart, toggleWishlist, wishlist, setQuickViewProduct } = useCart();
+  const { addToCart, toggleWishlist, wishlist } = useCart();
 
   const handleTabClick = (tabId) => {
     setSelectedTab(tabId);
@@ -53,10 +54,10 @@ export const Bestsellers = ({ activeCategory = "all", onTabChange }) => {
 
           return (
             <div key={product.id} className="product-card">
-              <div
+              <Link
+                href={`/product/${product.id}`}
                 className="product-image-container"
-                onClick={() => setQuickViewProduct(product)}
-                title={`Quick view ${product.name}`}
+                title={`View ${product.name}`}
               >
                 {/* Dual Image Hover Flip */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -85,6 +86,7 @@ export const Bestsellers = ({ activeCategory = "all", onTabChange }) => {
                   aria-label="Add to wishlist"
                   className="product-wishlist-btn"
                   onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     toggleWishlist(product);
                   }}
@@ -95,7 +97,10 @@ export const Bestsellers = ({ activeCategory = "all", onTabChange }) => {
                 {/* Quick Size Selector on Hover */}
                 <div
                   className="quick-size-hover-bar"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
                 >
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#888", marginRight: "4px" }}>
                     QUICK SIZE:
@@ -105,25 +110,24 @@ export const Bestsellers = ({ activeCategory = "all", onTabChange }) => {
                       key={sz}
                       type="button"
                       className="size-pill-mini"
-                      onClick={() => addToCart(product, sz, 1)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addToCart(product, sz, 1);
+                      }}
                       title={`Add size ${sz}`}
                     >
                       {sz}
                     </button>
                   ))}
                 </div>
-              </div>
+              </Link>
 
               {/* Product Info */}
               <div className="product-info-row">
                 <div style={{ minWidth: 0 }}>
-                  <p
-                    className="product-title"
-                    onClick={() => setQuickViewProduct(product)}
-                    style={{ cursor: "pointer" }}
-                  >
+                  <Link href={`/product/${product.id}`} className="product-title">
                     {product.name}
-                  </p>
+                  </Link>
                   <div className="product-price-box">
                     <span className="price-current">
                       Rs. {product.price.toFixed(2)}

@@ -1,4 +1,5 @@
 import { Outfit, Bebas_Neue } from "next/font/google";
+import { SiteShell } from "@/components/SiteShell/SiteShell";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -34,7 +35,9 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <SiteShell>{children}</SiteShell>
+      </body>
     </html>
   );
 }

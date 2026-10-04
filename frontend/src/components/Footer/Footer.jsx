@@ -33,7 +33,7 @@ export const Footer = () => {
         <div className="footer-top-grid">
           {/* Brand Info */}
           <div>
-            <a href="#home" className="footer-brand-logo" aria-label="FLINT SECTOR Home">
+            <a href="/" className="footer-brand-logo" aria-label="FLINT SECTOR Home">
               <span className="footer-brand-wordmark">
                 FLINT<span className="footer-brand-dot">.</span>SECTOR
               </span>

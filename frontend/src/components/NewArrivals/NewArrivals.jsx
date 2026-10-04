@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { PRODUCTS } from "../../data/products";
 import { useCart } from "../../context/CartContext";
 import { HeartIcon } from "../common/Icons";
 import "./NewArrivals.css";
 
 export const NewArrivals = () => {
-  const { addToCart, toggleWishlist, wishlist, setQuickViewProduct } = useCart();
+  const { addToCart, toggleWishlist, wishlist } = useCart();
   const newProducts = PRODUCTS.filter((p) => p.isNew);
 
   return (
@@ -34,9 +35,9 @@ export const NewArrivals = () => {
 
             return (
               <div key={product.id} className="product-card">
-                <div
+                <Link
+                  href={`/product/${product.id}`}
                   className="product-image-container"
-                  onClick={() => setQuickViewProduct(product)}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -59,23 +60,20 @@ export const NewArrivals = () => {
                     aria-label="Wishlist"
                     className="product-wishlist-btn"
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
                       toggleWishlist(product);
                     }}
                   >
                     <HeartIcon size={14} filled={isWishlisted} />
                   </button>
-                </div>
+                </Link>
 
                 <div className="product-info-row">
                   <div style={{ minWidth: 0 }}>
-                    <p
-                      className="product-title"
-                      onClick={() => setQuickViewProduct(product)}
-                      style={{ cursor: "pointer" }}
-                    >
+                    <Link href={`/product/${product.id}`} className="product-title">
                       {product.name}
-                    </p>
+                    </Link>
                     <div className="product-price-box">
                       <span className="price-current">
                         Rs. {product.price.toFixed(2)}

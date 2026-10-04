@@ -1,14 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useCart } from "../../context/CartContext";
 import { PRODUCTS } from "../../data/products";
-import { SearchIcon, XIcon, ArrowRightIcon } from "../common/Icons";
+import { SearchIcon, XIcon } from "../common/Icons";
 import "./SearchModal.css";
 
 export const SearchModal = () => {
-  const { isSearchOpen, setIsSearchOpen, setQuickViewProduct } = useCart();
+  const { isSearchOpen, setIsSearchOpen } = useCart();
   const [query, setQuery] = useState("");
+  const router = useRouter();
 
   if (!isSearchOpen) return null;
 
@@ -23,7 +25,7 @@ export const SearchModal = () => {
 
   const handleSelect = (product) => {
     setIsSearchOpen(false);
-    setQuickViewProduct(product);
+    router.push(`/product/${product.id}`);
   };
 
   return (
