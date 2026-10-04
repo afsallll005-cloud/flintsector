@@ -8,6 +8,7 @@ import {
   ArrowRightIcon,
   BadgeCheckIcon,
 } from "../common/Icons";
+import { createOrder } from "../../utils/api";
 import "./CartDrawer.css";
 
 // WhatsApp Business / Order Number
@@ -216,6 +217,29 @@ export const CartDrawer = () => {
     const whatsappUrl =
       `https://wa.me/${WHATSAPP_ORDER_NUMBER}` +
       `?text=${encodeURIComponent(message)}`;
+
+    // Asynchronously record order in backend database for Admin dashboard
+    createOrder({
+      orderReference,
+      customer: customerInfo,
+      items: cart.map((item) => ({
+        productId: item.product.id,
+        name: item.product.name,
+        price: item.product.price,
+        quantity: item.quantity,
+        size: item.size,
+        color: item.product.color || "",
+        image: item.product.frontImage || "",
+      })),
+      subtotal,
+      shippingFee,
+      discountAmount,
+      finalTotal,
+      paymentMethod,
+      source: "WhatsApp Checkout",
+    }).catch((err) => {
+      console.warn("Could not sync order to backend:", err.message);
+    });
 
     window.open(
       whatsappUrl,

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   ArrowRightIcon,
   InstagramIcon,
@@ -136,6 +137,7 @@ export const Footer = () => {
             <a href="#faq" className="footer-legal-link">Privacy Policy</a>
             <a href="#faq" className="footer-legal-link">Terms & Conditions</a>
             <a href="#faq" className="footer-legal-link">Refund Policy</a>
+            <Link href="/Admin" className="footer-legal-link" style={{ opacity: 0.6 }}>Admin Ops</Link>
           </div>
         </div>
       </div>

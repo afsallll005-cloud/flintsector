@@ -11,7 +11,21 @@ const nextConfig = {
         protocol: "https",
         hostname: "res.cloudinary.com",
       },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "5000",
+        pathname: "/uploads/**",
+      },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/admin",
+        destination: "/Admin",
+      },
+    ];
   },
 };
 

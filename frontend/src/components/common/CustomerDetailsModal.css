@@ -1,0 +1,724 @@
+
+/* =========================================================
+   FLINTSECTOR — CUSTOMER DETAILS WHATSAPP MODAL
+   Premium / Modern / Minimal Streetwear UI
+   ========================================================= */
+
+:root {
+  --customer-black: #111111;
+  --customer-text: #202020;
+  --customer-muted: #777777;
+  --customer-light: #f7f7f5;
+  --customer-border: #e6e6e2;
+  --customer-green: #25d366;
+  --customer-green-dark: #1ebe5d;
+  --customer-danger: #e5484d;
+  --customer-radius: 14px;
+  --customer-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* =========================================================
+   BACKDROP
+   ========================================================= */
+
+.customer-modal-backdrop {
+  position: fixed;
+  inset: 0;
+
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(10, 10, 10, 0.48);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  animation: customerModalFadeIn 0.3s ease forwards;
+
+  overscroll-behavior: contain;
+}
+
+@keyframes customerModalFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.customer-modal-dialog {
+  position: relative;
+
+  width: min(100%, 500px);
+  max-height: min(90vh, 760px);
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(17, 17, 17, 0.08);
+
+  border-radius: 20px;
+
+  padding: 26px;
+
+  color: var(--customer-text);
+
+  font-family: var(--font-outfit), sans-serif;
+
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.22),
+    0 10px 30px rgba(0, 0, 0, 0.08);
+
+  animation: customerModalSlideUp 0.4s var(--customer-ease) forwards;
+
+  scrollbar-width: thin;
+  scrollbar-color: #ccccca transparent;
+}
+
+.customer-modal-dialog::-webkit-scrollbar {
+  width: 5px;
+}
+
+.customer-modal-dialog::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.customer-modal-dialog::-webkit-scrollbar-thumb {
+  background: #d0d0cd;
+  border-radius: 999px;
+}
+
+@keyframes customerModalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.customer-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 20px;
+
+  padding-bottom: 17px;
+
+  border-bottom: 1px solid var(--customer-border);
+}
+
+.customer-modal-title {
+  margin: 0;
+
+  font-size: 20px;
+  line-height: 1.1;
+
+  font-weight: 950;
+
+  letter-spacing: 1.4px;
+
+  color: #111111;
+
+  text-transform: uppercase;
+}
+
+.customer-modal-title span {
+  color: var(--customer-green);
+}
+
+.customer-modal-subtitle {
+  max-width: 360px;
+
+  margin: 7px 0 0;
+
+  color: #858585;
+
+  font-size: 12px;
+  line-height: 1.55;
+
+  font-weight: 500;
+}
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.customer-modal-close {
+  flex-shrink: 0;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid var(--customer-border);
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: #555555;
+
+  font-size: 22px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.25s ease;
+}
+
+.customer-modal-close:hover {
+  background: #111111;
+
+  border-color: #111111;
+
+  color: #ffffff;
+
+  transform: rotate(90deg);
+}
+
+.customer-modal-close:active {
+  transform: scale(0.92) rotate(90deg);
+}
+
+/* =========================================================
+   ORDER SUMMARY
+   ========================================================= */
+
+.customer-modal-summary {
+  margin-bottom: 21px;
+
+  padding: 14px;
+
+  background: #f8f8f6;
+
+  border: 1px solid var(--customer-border);
+
+  border-radius: 12px;
+
+  font-size: 11px;
+}
+
+.modal-summary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 9px;
+
+  color: #666666;
+
+  line-height: 1.4;
+}
+
+.modal-summary-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.modal-summary-item span {
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.modal-summary-item strong {
+  flex-shrink: 0;
+
+  color: #222222;
+
+  font-size: 11px;
+
+  font-weight: 850;
+}
+
+.modal-summary-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-top: 12px;
+  padding-top: 12px;
+
+  border-top: 1px dashed #d8d8d4;
+
+  color: #111111;
+
+  font-size: 13px;
+
+  font-weight: 900;
+}
+
+.modal-summary-total span:last-child {
+  color: #111111;
+
+  font-size: 17px;
+
+  font-weight: 950;
+
+  letter-spacing: 0.3px;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.customer-modal-dialog form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.customer-form-group {
+  margin-bottom: 16px;
+}
+
+.customer-form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #4d4d4d;
+
+  font-size: 10px;
+  line-height: 1;
+
+  font-weight: 900;
+
+  letter-spacing: 0.85px;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.customer-input,
+.customer-textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #dcdcd8;
+
+  border-radius: 9px;
+
+  color: #111111;
+
+  font-family: var(--font-outfit), sans-serif;
+
+  font-size: 13px;
+
+  font-weight: 500;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.customer-input {
+  height: 46px;
+
+  padding: 0 13px;
+}
+
+.customer-textarea {
+  min-height: 88px;
+
+  padding: 12px 13px;
+
+  resize: vertical;
+
+  line-height: 1.5;
+}
+
+.customer-input::placeholder,
+.customer-textarea::placeholder {
+  color: #aaa9a5;
+}
+
+.customer-input:hover,
+.customer-textarea:hover {
+  border-color: #c6c6c2;
+}
+
+.customer-input:focus,
+.customer-textarea:focus {
+  background: #ffffff;
+
+  border-color: #111111;
+
+  box-shadow:
+    0 0 0 3px rgba(17, 17, 17, 0.06);
+}
+
+.customer-input.error,
+.customer-textarea.error {
+  border-color: var(--customer-danger);
+
+  box-shadow:
+    0 0 0 3px rgba(229, 72, 77, 0.08);
+}
+
+/* =========================================================
+   TWO-COLUMN FIELDS
+   ========================================================= */
+
+/*
+   This targets your existing inline grid:
+   Pincode + Phone Number
+*/
+
+.customer-modal-dialog form > div[style*="grid-template-columns"] {
+  margin-bottom: 0;
+}
+
+.customer-modal-dialog
+  form
+  > div[style*="grid-template-columns"]
+  .customer-form-group {
+  min-width: 0;
+}
+
+/* =========================================================
+   VALIDATION ERROR
+   ========================================================= */
+
+.customer-input-error {
+  margin-top: 5px;
+
+  color: var(--customer-danger);
+
+  font-size: 10px;
+
+  line-height: 1.4;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   WHATSAPP BUTTON
+   ========================================================= */
+
+.customer-whatsapp-submit-btn {
+  position: relative;
+
+  width: 100%;
+  min-height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  margin-top: 5px;
+
+  padding: 0 20px;
+
+  overflow: hidden;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  background: var(--customer-green);
+
+  color: #071b0d;
+
+  font-family: var(--font-outfit), sans-serif;
+
+  font-size: 11px;
+
+  font-weight: 950;
+
+  letter-spacing: 1.1px;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 24px rgba(37, 211, 102, 0.22);
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s var(--customer-ease),
+    box-shadow 0.25s ease;
+}
+
+.customer-whatsapp-submit-btn::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 80%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  transition: left 0.6s ease;
+}
+
+.customer-whatsapp-submit-btn:hover {
+  background: #2be06c;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(37, 211, 102, 0.3);
+}
+
+.customer-whatsapp-submit-btn:hover::before {
+  left: 140%;
+}
+
+.customer-whatsapp-submit-btn:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.customer-whatsapp-submit-btn svg {
+  width: 18px;
+  height: 18px;
+
+  flex-shrink: 0;
+
+  transition: transform 0.2s ease;
+}
+
+.customer-whatsapp-submit-btn:hover svg {
+  transform: scale(1.08);
+}
+
+/* =========================================================
+   PRIVACY / WHATSAPP HINT
+   ========================================================= */
+
+.customer-privacy-hint {
+  max-width: 400px;
+
+  margin: 10px auto 0;
+
+  color: #999995;
+
+  font-size: 10px;
+
+  line-height: 1.55;
+
+  text-align: center;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .customer-modal-backdrop {
+    align-items: flex-end;
+
+    padding: 0;
+  }
+
+  .customer-modal-dialog {
+    width: 100%;
+
+    max-width: none;
+
+    max-height: 92vh;
+
+    padding: 21px 18px 20px;
+
+    border-radius: 20px 20px 0 0;
+
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+
+    box-shadow:
+      0 -15px 50px rgba(0, 0, 0, 0.18);
+
+    animation: customerMobileSlideUp 0.4s var(--customer-ease) forwards;
+  }
+
+  @keyframes customerMobileSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .customer-modal-header {
+    margin-bottom: 17px;
+
+    padding-bottom: 15px;
+  }
+
+  .customer-modal-title {
+    font-size: 18px;
+  }
+
+  .customer-modal-subtitle {
+    font-size: 11px;
+  }
+
+  .customer-modal-close {
+    width: 35px;
+    height: 35px;
+
+    font-size: 20px;
+  }
+
+  .customer-modal-summary {
+    padding: 12px;
+
+    margin-bottom: 18px;
+  }
+
+  .customer-input {
+    height: 45px;
+  }
+
+  .customer-textarea {
+    min-height: 82px;
+  }
+
+  .customer-whatsapp-submit-btn {
+    min-height: 50px;
+  }
+}
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 390px) {
+  .customer-modal-dialog {
+    padding: 18px 15px;
+  }
+
+  .customer-modal-title {
+    font-size: 17px;
+    letter-spacing: 1.1px;
+  }
+
+  .customer-modal-subtitle {
+    font-size: 10px;
+  }
+
+  .customer-form-group {
+    margin-bottom: 13px;
+  }
+
+  .customer-form-group label {
+    font-size: 9px;
+  }
+
+  .customer-input,
+  .customer-textarea {
+    font-size: 12px;
+  }
+
+  .customer-modal-dialog
+    form
+    > div[style*="grid-template-columns"] {
+    gap: 8px !important;
+  }
+
+  .customer-whatsapp-submit-btn {
+    font-size: 10px;
+    letter-spacing: 0.9px;
+  }
+
+  .customer-privacy-hint {
+    font-size: 9px;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+.customer-input:focus-visible,
+.customer-textarea:focus-visible,
+.customer-modal-close:focus-visible,
+.customer-whatsapp-submit-btn:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .customer-modal-backdrop,
+  .customer-modal-dialog,
+  .customer-modal-close,
+  .customer-whatsapp-submit-btn {
+    animation: none;
+    transition: none;
+  }
+}

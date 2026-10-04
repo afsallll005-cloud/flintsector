@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCart } from "../../context/CartContext";
 import { SIZE_GUIDE, getProductGallery } from "../../data/products";
 import { WhatsAppIcon } from "../common/Icons";
+import { CustomerDetailsModal } from "../common/CustomerDetailsModal";
 import "./ProductDetails.css";
 
 const formatInr = (value) =>
@@ -38,15 +39,13 @@ export const ProductDetails = ({ product }) => {
   const [openAccordion, setOpenAccordion] = useState(null);
 
   const savings = Math.max(0, product.originalPrice - product.price);
-  const whatsappHref = `https://wa.me/919605300701?text=${encodeURIComponent(
-    `Hi FLINT SECTOR, I want to order ${product.name} in size ${selectedSize} (qty ${quantity}).`
-  )}`;
+  const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
+
+  const directSubtotal = (product.price || 0) * quantity;
+  const directShipping = directSubtotal >= 999 || directSubtotal === 0 ? 0 : 99;
+  const directTotal = directSubtotal + directShipping;
 
   const handleAddToCart = () => {
-    addToCart(product, selectedSize, quantity);
-  };
-
-  const handleBuyNow = () => {
     addToCart(product, selectedSize, quantity);
   };
 
@@ -152,19 +151,14 @@ export const ProductDetails = ({ product }) => {
             </button>
           </div>
 
-          <button type="button" className="pdp-btn-buy" onClick={handleBuyNow}>
-            Buy It Now
-          </button>
-
-          <a
-            href={whatsappHref}
-            className="pdp-btn-whatsapp"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            className="pdp-btn-buy"
+            onClick={() => setIsCustomerModalOpen(true)}
           >
-            <WhatsAppIcon size={16} />
-            Order on WhatsApp
-          </a>
+            <WhatsAppIcon size={18} />
+            Buy on WhatsApp
+          </button>
 
           <div className="pdp-perks">
             <div>
@@ -260,6 +254,24 @@ export const ProductDetails = ({ product }) => {
       <p className="pdp-back-link">
         <Link href="/#bestsellers">← Back to shop</Link>
       </p>
+
+      {/* WhatsApp Purchase Customer Details Modal */}
+      <CustomerDetailsModal
+        isOpen={isCustomerModalOpen}
+        onClose={() => setIsCustomerModalOpen(false)}
+        items={[
+          {
+            product,
+            size: selectedSize,
+            quantity,
+            variant: product.color || "N/A",
+          },
+        ]}
+        subtotal={directSubtotal}
+        shippingFee={directShipping}
+        total={directTotal}
+        actionTitle="Buy on WhatsApp"
+      />
     </main>
   );
 };

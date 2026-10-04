@@ -232,15 +232,22 @@
 }
 
 .pdp-btn-buy {
-  background: #c62828;
-  color: #ffffff;
-  margin-bottom: 8px;
+  background: #25d366;
+  color: #0b0c10;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
 }
 
-.pdp-btn-whatsapp {
-  background: #25d366;
-  color: #ffffff;
-  margin-bottom: 22px;
+.pdp-btn-buy:hover {
+  background: #2ee271;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
 }
 
 .pdp-perks {
