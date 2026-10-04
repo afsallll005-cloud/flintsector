@@ -1,121 +1,586 @@
+/* =========================================================
+   SHOP BY CATEGORY
+========================================================= */
+
 .categories-section {
   width: 100%;
   background: #ffffff;
-  padding: 32px 18px;
+  padding: 46px 24px 42px;
   overflow: hidden;
-  border-bottom: 1px solid rgba(17, 17, 17, 0.06);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.07);
 }
 
+/* =========================================================
+   CATEGORY WRAPPER
+========================================================= */
+
 .categories-scroll-wrapper {
-  max-width: 1160px;
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
+
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  gap: 22px;
+  align-items: flex-start;
+
+  gap: 28px;
+
   overflow-x: auto;
+  overflow-y: hidden;
+
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  padding: 6px 4px;
+
+  padding: 8px 4px 12px;
 }
 
 .categories-scroll-wrapper::-webkit-scrollbar {
   display: none;
 }
 
+/* =========================================================
+   CATEGORY ITEM
+========================================================= */
+
 .category-bubble-item {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
   flex: 0 0 auto;
-  width: 118px;
-  border: none;
-  background: transparent;
+
+  width: 128px;
+
   padding: 0;
   margin: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
   cursor: pointer;
-  text-decoration: none;
-  color: #171717;
-  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+
+  color: #111111;
+
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .category-bubble-item:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
 }
+
+.category-bubble-item:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 6px;
+  border-radius: 12px;
+}
+
+/* =========================================================
+   CATEGORY IMAGE FRAME
+========================================================= */
 
 .category-circle-frame {
   position: relative;
-  width: 112px;
-  height: 112px;
-  border-radius: 50%;
+
+  width: 118px;
+  height: 118px;
+
+  flex-shrink: 0;
+
   overflow: hidden;
-  background: rgb(240, 238, 233);
+
+  border-radius: 50%;
+
+  background: #f1f0ec;
+
   border: 1px solid rgba(17, 17, 17, 0.08);
-  box-shadow: 0 4px 14px rgba(17, 17, 17, 0.04);
-  transition: border-color 0.25s, box-shadow 0.25s;
+
+  box-shadow:
+    0 2px 4px rgba(17, 17, 17, 0.03),
+    0 8px 24px rgba(17, 17, 17, 0.06);
+
+  transition:
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-circle-frame::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.22),
+      transparent 45%
+    );
+
+  opacity: 0;
+
+  transition: opacity 0.4s ease;
 }
 
 .category-bubble-item:hover .category-circle-frame {
-  border-color: #111111;
-  box-shadow: 0 8px 24px rgba(17, 17, 17, 0.12);
+  border-color: rgba(17, 17, 17, 0.3);
+
+  box-shadow:
+    0 4px 8px rgba(17, 17, 17, 0.04),
+    0 14px 32px rgba(17, 17, 17, 0.12);
+
+  transform: scale(1.02);
 }
+
+.category-bubble-item:hover .category-circle-frame::after {
+  opacity: 1;
+}
+
+/* =========================================================
+   CATEGORY IMAGE
+========================================================= */
 
 .category-img {
   position: absolute;
-  height: 100%;
-  width: 100%;
+
   inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
   object-fit: cover;
   object-position: center;
-  transition: transform 0.5s ease;
+
+  transform: scale(1);
+
+  transition:
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.4s ease;
 }
 
 .category-bubble-item:hover .category-img {
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
+/* =========================================================
+   COMING SOON IMAGE
+========================================================= */
+
 .category-img-blur {
-  filter: blur(8px);
-  transform: scale(1.18);
-  opacity: 0.9;
+  filter: blur(7px) grayscale(0.15);
+
+  transform: scale(1.16);
+
+  opacity: 0.82;
 }
+
+.category-bubble-item:hover .category-img-blur {
+  transform: scale(1.2);
+}
+
+/* =========================================================
+   COMING SOON OVERLAY
+========================================================= */
 
 .coming-soon-overlay {
   position: absolute;
+
   inset: 0;
-  background: rgba(0, 0, 0, 0.25);
+
   display: flex;
+
   align-items: center;
   justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 0, 0, 0.34);
+
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+
+  z-index: 2;
 }
+
+/* =========================================================
+   IOS SPINNER
+========================================================= */
 
 .ios-spinner-box {
   position: relative;
-  width: 32px;
-  height: 32px;
+
+  width: 34px;
+  height: 34px;
+
+  opacity: 0.95;
 }
 
+.ios-spinner-tick {
+  box-shadow:
+    0 0 5px rgba(255, 255, 255, 0.15);
+
+  animation:
+    iosSpinnerFade 1s linear infinite;
+}
+
+@keyframes iosSpinnerFade {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.12;
+  }
+}
+
+/* =========================================================
+   CATEGORY TITLE
+========================================================= */
+
 .category-bubble-title {
-  margin-top: 12px;
-  font-family: var(--font-outfit), sans-serif;
-  font-size: 11px;
+  position: relative;
+
+  margin-top: 15px;
+
+  max-width: 118px;
+
+  font-family:
+    var(--font-outfit),
+    sans-serif;
+
+  font-size: 10px;
+
   font-weight: 800;
-  letter-spacing: 0.8px;
-  line-height: 1.4;
-  color: #111111;
+
+  letter-spacing: 1.2px;
+
+  line-height: 1.35;
+
   text-align: center;
+
   text-transform: uppercase;
-  transition: color 0.2s;
+
+  color: #111111;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
 }
 
 .category-bubble-item:hover .category-bubble-title {
-  color: #d12b2b;
+  color: #111111;
+
+  transform: translateY(-1px);
 }
 
+/* Small underline animation */
+
+.category-bubble-title::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -7px;
+
+  width: 0;
+  height: 1px;
+
+  transform: translateX(-50%);
+
+  background: #111111;
+
+  transition:
+    width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-bubble-item:hover .category-bubble-title::after {
+  width: 24px;
+}
+
+/* =========================================================
+   COMING SOON TAG
+========================================================= */
+
 .category-coming-soon-tag {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #888;
+  margin-top: 7px;
+
+  padding: 4px 8px;
+
+  border-radius: 100px;
+
+  background: #f1f1ef;
+
+  border: 1px solid rgba(17, 17, 17, 0.08);
+
+  font-family:
+    var(--font-outfit),
+    sans-serif;
+
+  font-size: 7px;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  line-height: 1;
+
+  color: #777777;
+
   text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 1000px) {
+  .categories-section {
+    padding: 52px 32px 48px;
+  }
+
+  .categories-scroll-wrapper {
+    justify-content: center;
+
+    gap: 34px;
+
+    overflow-x: visible;
+  }
+
+  .category-bubble-item {
+    width: 132px;
+  }
+
+  .category-circle-frame {
+    width: 122px;
+    height: 122px;
+  }
+
+  .category-bubble-title {
+    font-size: 10px;
+    letter-spacing: 1.3px;
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .categories-section {
+    padding: 38px 20px 36px;
+  }
+
+  .categories-scroll-wrapper {
+    gap: 24px;
+
+    padding-left: 2px;
+    padding-right: 18px;
+  }
+
+  .category-bubble-item {
+    width: 116px;
+  }
+
+  .category-circle-frame {
+    width: 108px;
+    height: 108px;
+  }
+
+  .category-bubble-title {
+    max-width: 108px;
+
+    margin-top: 13px;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+  .categories-section {
+  margin-bottom: -40px;
+
+    padding: 28px 14px 28px;
+
+    border-bottom:
+      1px solid rgba(17, 17, 17, 0.06);
+  }
+
+  .categories-scroll-wrapper {
+    justify-content: flex-start;
+
+    gap: 18px;
+
+    padding:
+      5px
+      8px
+      10px;
+
+    scroll-snap-type: x proximity;
+  }
+
+  .category-bubble-item {
+    width: 94px;
+
+    scroll-snap-align: start;
+  }
+
+  .category-circle-frame {
+    width: 88px;
+    height: 88px;
+
+    box-shadow:
+      0 3px 10px rgba(17, 17, 17, 0.07);
+  }
+
+  .category-bubble-item:hover {
+    transform: translateY(-3px);
+  }
+
+  .category-bubble-item:hover .category-circle-frame {
+    box-shadow:
+      0 8px 20px rgba(17, 17, 17, 0.1);
+  }
+
+  .category-bubble-title {
+    max-width: 92px;
+
+    margin-top: 11px;
+
+    font-size: 8px;
+
+    letter-spacing: 0.9px;
+
+    line-height: 1.35;
+  }
+
+  .category-bubble-title::after {
+    bottom: -5px;
+  }
+
+  .category-bubble-item:hover
+    .category-bubble-title::after {
+    width: 18px;
+  }
+
+  .category-coming-soon-tag {
+    margin-top: 6px;
+
+    padding: 3px 6px;
+
+    font-size: 6px;
+
+    letter-spacing: 0.8px;
+  }
+
+  .ios-spinner-box {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+  .categories-section {
+    padding: 24px 10px 25px;
+  }
+
+  .categories-scroll-wrapper {
+    gap: 15px;
+
+    padding-left: 6px;
+    padding-right: 15px;
+  }
+
+  .category-bubble-item {
+    width: 86px;
+  }
+
+  .category-circle-frame {
+    width: 80px;
+    height: 80px;
+  }
+
+  .category-bubble-title {
+    max-width: 82px;
+
+    margin-top: 10px;
+
+    font-size: 7.5px;
+
+    letter-spacing: 0.7px;
+  }
+
+  .category-coming-soon-tag {
+    font-size: 5.8px;
+
+    padding: 3px 5px;
+  }
+}
+
+/* =========================================================
+   TOUCH DEVICES
+========================================================= */
+
+@media (hover: none) {
+  .category-bubble-item:hover {
+    transform: none;
+  }
+
+  .category-bubble-item:hover .category-circle-frame {
+    transform: none;
+  }
+
+  .category-bubble-item:hover .category-img {
+    transform: scale(1);
+  }
+
+  .category-bubble-item:hover .category-bubble-title {
+    transform: none;
+  }
+
+  .category-bubble-title::after {
+    display: none;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .category-bubble-item,
+  .category-circle-frame,
+  .category-circle-frame::after,
+  .category-img,
+  .category-bubble-title,
+  .category-bubble-title::after,
+  .ios-spinner-tick {
+    transition: none;
+    animation: none;
+  }
 }

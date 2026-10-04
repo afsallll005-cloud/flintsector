@@ -11,6 +11,7 @@ import {
 import { useCart } from "../../context/CartContext";
 import "./Footer.css";
 
+
 export const Footer = () => {
   const [email, setEmail] = useState("");
   const { showToast, setIsCartOpen } = useCart();

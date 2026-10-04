@@ -58,7 +58,7 @@ export const Hme = () => {
         <FAQ />
         {/* <BrandStatement /> */}
 
-        <Perks />
+        {/* <Perks /> */}
       </main>
 
       <Footer />

@@ -11,32 +11,50 @@ const HERO_SLIDES = [
     tagline: "CRAFTED FOR THE CULTURE // 240+ GSM",
     description:
       "Structured boxy silhouettes engineered with heavy combed compact cotton and retro contrast finishes.",
-    image:
-      "./images/bg02.png",
+
+    // Desktop / Laptop image
+    desktopImage: "./images/bg02.png",
+
+    // Mobile image
+    mobileImage: "./images/bg02.png",
+
     badge: "DROP 04 / ACTIVE",
     linkText: "SHOP THE DROP",
     target: "#bestsellers",
   },
+
   {
     id: 2,
     title: "TWO-TONE RAGLAN EDIT",
     tagline: "VINTAGE BASEBALL PROPORTIONS // BIO-WASHED",
     description:
       "Contrasting sleeves, reinforced collar ribbing, and relaxed shoulder drape for an effortless street look.",
-    image:
-      "./images/bg04.png",
+
+    // Desktop / Laptop image
+    desktopImage: "./images/bg04.png",
+
+    // Mobile image
+    mobileImage: "./images/bg04-mobile.png",
+
     badge: "TRENDING NOW",
     linkText: "EXPLORE RAGLAN",
     target: "#shop-category",
   },
+
   {
     id: 3,
     title: "ARCHIVE RINGER TEES",
     tagline: "90s TRACK HERITAGE // CRISP COLLAR FIT",
     description:
       "Thick ribbing that maintains its structure wash after wash. Made in India for the modern streetwear era.",
-    image:
+
+    // Desktop / Laptop image
+    desktopImage:
       "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=1800&auto=format&fit=crop&q=85",
+
+    // Mobile image
+    mobileImage: "./images/bg03-mobile.png",
+
     badge: "LIMITED EDITION",
     linkText: "VIEW COLLECTION",
     target: "#bestsellers",
@@ -67,8 +85,15 @@ export const Hero = () => {
 
   return (
     <>
+      {/* =====================================================
+          HERO SECTION
+      ===================================================== */}
+
       <section className="hero-section">
-        {/* Background Slides */}
+        {/* =====================================================
+            BACKGROUND SLIDES
+        ===================================================== */}
+
         <div className="hero-background">
           {HERO_SLIDES.map((item, index) => (
             <div
@@ -77,45 +102,94 @@ export const Hero = () => {
                 index === currentSlide ? "active" : ""
               }`}
             >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="hero-image"
-                loading={index === 0 ? "eager" : "lazy"}
-              />
+              {/* Responsive Images */}
+              <picture>
+                {/* Mobile image */}
+                <source
+                  media="(max-width: 640px)"
+                  srcSet={item.mobileImage}
+                />
 
+                {/* Desktop / Laptop image */}
+                <img
+                  src={item.desktopImage}
+                  alt={item.title}
+                  className="hero-image"
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+              </picture>
+
+              {/* Image Overlay */}
               <div className="hero-image-overlay" />
             </div>
           ))}
         </div>
 
-        {/* Top Meta */}
-        {/* <div className="hero-top-meta">
-          <span>01 — 03</span>
+        {/* =====================================================
+            TOP META
+        ===================================================== */}
+
+        {/* 
+        <div className="hero-top-meta">
+          <span>
+            {String(currentSlide + 1).padStart(2, "0")} — 03
+          </span>
 
           <span className="hero-top-line" />
 
           <span>NEW SEASON / 2026</span>
-        </div> */}
+        </div>
+        */}
 
-        {/* Main Content */}
+        {/* =====================================================
+            MAIN CONTENT
+        ===================================================== */}
+
         <div className="hero-content">
           <div className="hero-copy">
-            {/* <div className="hero-drop-badge">
+            {/* =================================================
+                DROP BADGE
+            ================================================= */}
+
+            {/*
+            <div className="hero-drop-badge">
               <span className="hero-badge-dot" />
               <span>{slide.badge}</span>
-            </div> */}
+            </div>
+            */}
+
+            {/* =================================================
+                TITLE
+            ================================================= */}
 
             <div className="hero-title-wrap">
-              <span className="hero-eyebrow">{slide.tagline}</span>
+              <span className="hero-eyebrow">
+                {slide.tagline}
+              </span>
 
-              <h1 className="hero-title">{slide.title}</h1>
+              <h1 className="hero-title">
+                {slide.title}
+              </h1>
             </div>
 
-            <p className="hero-description">{slide.description}</p>
+            {/* =================================================
+                DESCRIPTION
+            ================================================= */}
+
+            <p className="hero-description">
+              {slide.description}
+            </p>
+
+            {/* =================================================
+                BUTTONS
+            ================================================= */}
 
             <div className="hero-btn-group">
-              <a href={slide.target} className="hero-primary-btn">
+              {/* Primary Button */}
+              <a
+                href={slide.target}
+                className="hero-primary-btn"
+              >
                 <span>{slide.linkText}</span>
 
                 <span className="hero-arrow">
@@ -123,18 +197,29 @@ export const Hero = () => {
                 </span>
               </a>
 
-              <a href="#shop-category" className="hero-secondary-btn">
+              {/* Secondary Button */}
+              <a
+                href="#shop-category"
+                className="hero-secondary-btn"
+              >
                 BROWSE CATEGORIES
               </a>
             </div>
           </div>
         </div>
 
-        {/* Bottom Information */}
-        {/* <div className="hero-bottom">
+        {/* =====================================================
+            BOTTOM INFORMATION
+        ===================================================== */}
+
+        {/*
+        <div className="hero-bottom">
           <div className="hero-scroll">
             <span className="scroll-line" />
-            <span>SCROLL TO EXPLORE</span>
+
+            <span>
+              SCROLL TO EXPLORE
+            </span>
           </div>
 
           <div className="hero-slide-counter">
@@ -142,13 +227,19 @@ export const Hero = () => {
               {String(currentSlide + 1).padStart(2, "0")}
             </span>
 
-            <span className="counter-divider">/</span>
+            <span className="counter-divider">
+              /
+            </span>
 
             <span>03</span>
           </div>
-        </div> */}
+        </div>
+        */}
 
-        {/* Slide Navigation */}
+        {/* =====================================================
+            SLIDE INDICATORS
+        ===================================================== */}
+
         <div className="hero-indicators">
           {HERO_SLIDES.map((item, index) => (
             <button
@@ -160,26 +251,38 @@ export const Hero = () => {
               }`}
               onClick={() => setCurrentSlide(index)}
             >
-              <span>0{index + 1}</span>
+              <span>
+                0{index + 1}
+              </span>
+
               <span className="indicator-line" />
             </button>
           ))}
         </div>
       </section>
 
-      {/* Modern Ticker */}
+      {/* =====================================================
+          MODERN TICKER
+      ===================================================== */}
+
       <div className="sub-ticker-bar">
         <div className="marquee-container">
           <div className="marquee-content">
-            {[...SUB_TICKER_ITEMS, ...SUB_TICKER_ITEMS].map(
-              (text, index) => (
-                <span className="sub-ticker-item" key={index}>
-                  {text}
+            {[
+              ...SUB_TICKER_ITEMS,
+              ...SUB_TICKER_ITEMS,
+            ].map((text, index) => (
+              <span
+                className="sub-ticker-item"
+                key={index}
+              >
+                {text}
 
-                  <span className="ticker-star">✦</span>
+                <span className="ticker-star">
+                  ✦
                 </span>
-              )
-            )}
+              </span>
+            ))}
           </div>
         </div>
       </div>

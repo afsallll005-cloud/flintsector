@@ -16,6 +16,7 @@ const SPINNER_TICKS = [
   { rotate: 315, delay: -0.125 },
 ];
 
+
 export const ShopBycategory = ({ onSelectCategory }) => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
 
