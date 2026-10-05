@@ -1,156 +1,133 @@
-/* =========================================================
+/* =========================================
    SHOP BY CATEGORY
-========================================================= */
+========================================= */
 
-.categories-section {
+.shop-category {
   width: 100%;
+  padding: 90px 7%;
   background: #ffffff;
-  padding: 46px 24px 42px;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(17, 17, 17, 0.07);
+  box-sizing: border-box;
 }
 
-/* =========================================================
-   CATEGORY WRAPPER
-========================================================= */
 
-.categories-scroll-wrapper {
+/* =========================================
+   HEADER
+========================================= */
+
+.shop-category-header {
   width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
 
   display: flex;
-  align-items: flex-start;
-
-  gap: 28px;
-
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-
-  padding: 8px 4px 12px;
-}
-
-.categories-scroll-wrapper::-webkit-scrollbar {
-  display: none;
-}
-
-/* =========================================================
-   CATEGORY ITEM
-========================================================= */
-
-.category-bubble-item {
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 
-  flex: 0 0 auto;
+  margin-bottom: 42px;
+}
 
-  width: 128px;
 
-  padding: 0;
+/* TITLE */
+
+.shop-category-header h2 {
   margin: 0;
-
-  border: none;
-  outline: none;
-
-  background: transparent;
-
-  cursor: pointer;
 
   color: #111111;
 
-  -webkit-tap-highlight-color: transparent;
+  font-size: clamp(38px, 4vw, 58px);
 
-  transition:
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: -2.5px;
 }
 
-.category-bubble-item:hover {
-  transform: translateY(-6px);
+.shop-category-header h2 span {
+  font-weight: 700;
 }
 
-.category-bubble-item:focus-visible {
-  outline: 2px solid #111111;
-  outline-offset: 6px;
-  border-radius: 12px;
+
+/* VIEW ALL */
+
+.view-all {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  color: #111111;
+
+  text-decoration: none;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  letter-spacing: 1.5px;
 }
 
-/* =========================================================
-   CATEGORY IMAGE FRAME
-========================================================= */
+.view-all b {
+  display: flex;
 
-.category-circle-frame {
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+
+  font-weight: 400;
+
+  transition: 0.3s ease;
+}
+
+.view-all:hover b {
+  transform: translate(4px, -4px);
+}
+
+
+/* =========================================
+   CATEGORY GRID
+========================================= */
+
+.category-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+
+/* =========================================
+   CATEGORY CARD
+========================================= */
+
+.category-card {
   position: relative;
 
-  width: 118px;
-  height: 118px;
+  display: block;
 
-  flex-shrink: 0;
+  width: 100%;
+
+  height: 500px;
 
   overflow: hidden;
 
-  border-radius: 50%;
+  border-radius: 5px;
 
-  background: #f1f0ec;
+  text-decoration: none;
 
-  border: 1px solid rgba(17, 17, 17, 0.08);
+  background: #eeeeee;
 
-  box-shadow:
-    0 2px 4px rgba(17, 17, 17, 0.03),
-    0 8px 24px rgba(17, 17, 17, 0.06);
-
-  transition:
-    border-color 0.4s ease,
-    box-shadow 0.4s ease,
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  isolation: isolate;
 }
 
-.category-circle-frame::after {
-  content: "";
 
-  position: absolute;
-  inset: 0;
+/* =========================================
+   IMAGE
+========================================= */
 
-  border-radius: 50%;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.22),
-      transparent 45%
-    );
-
-  opacity: 0;
-
-  transition: opacity 0.4s ease;
-}
-
-.category-bubble-item:hover .category-circle-frame {
-  border-color: rgba(17, 17, 17, 0.3);
-
-  box-shadow:
-    0 4px 8px rgba(17, 17, 17, 0.04),
-    0 14px 32px rgba(17, 17, 17, 0.12);
-
-  transform: scale(1.02);
-}
-
-.category-bubble-item:hover .category-circle-frame::after {
-  opacity: 1;
-}
-
-/* =========================================================
-   CATEGORY IMAGE
-========================================================= */
-
-.category-img {
+.category-card-image {
   position: absolute;
 
   inset: 0;
@@ -158,429 +135,435 @@
   width: 100%;
   height: 100%;
 
-  display: block;
-
   object-fit: cover;
+
   object-position: center;
 
-  transform: scale(1);
-
   transition:
-    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.4s ease;
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.category-bubble-item:hover .category-img {
-  transform: scale(1.1);
+
+/* IMAGE HOVER */
+
+.category-card:hover .category-card-image {
+  transform: scale(1.06);
 }
 
-/* =========================================================
-   COMING SOON IMAGE
-========================================================= */
 
-.category-img-blur {
-  filter: blur(7px) grayscale(0.15);
+/* =========================================
+   OVERLAY
+========================================= */
 
-  transform: scale(1.16);
-
-  opacity: 0.82;
-}
-
-.category-bubble-item:hover .category-img-blur {
-  transform: scale(1.2);
-}
-
-/* =========================================================
-   COMING SOON OVERLAY
-========================================================= */
-
-.coming-soon-overlay {
+.category-overlay {
   position: absolute;
 
   inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      to top,
+
+      rgba(0, 0, 0, 0.78) 0%,
+
+      rgba(0, 0, 0, 0.40) 25%,
+
+      rgba(0, 0, 0, 0.10) 50%,
+
+      rgba(0, 0, 0, 0) 70%
+    );
+}
+
+
+/* =========================================
+   CARD CONTENT
+========================================= */
+
+.category-info {
+  position: absolute;
+
+  z-index: 2;
+
+  left: 28px;
+  right: 28px;
+
+  bottom: 27px;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  color: #ffffff;
+}
+
+
+/* TEXT */
+
+.category-text h3 {
+  margin: 0 0 6px;
+
+  font-size: 30px;
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: -0.8px;
+}
+
+.category-text p {
+  margin: 0;
+
+  font-size: 11px;
+
+  font-weight: 400;
+
+  letter-spacing: 1.4px;
+
+  opacity: 0.8;
+}
+
+
+/* =========================================
+   ARROW
+========================================= */
+
+.category-arrow {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
 
   display: flex;
 
   align-items: center;
   justify-content: center;
 
+  border: 1px solid rgba(255, 255, 255, 0.85);
+
   border-radius: 50%;
 
-  background:
-    rgba(0, 0, 0, 0.34);
+  color: #ffffff;
 
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
+  font-size: 20px;
 
-  z-index: 2;
+  font-weight: 400;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
-/* =========================================================
-   IOS SPINNER
-========================================================= */
 
-.ios-spinner-box {
-  position: relative;
+/* ARROW HOVER */
 
-  width: 34px;
-  height: 34px;
-
-  opacity: 0.95;
-}
-
-.ios-spinner-tick {
-  box-shadow:
-    0 0 5px rgba(255, 255, 255, 0.15);
-
-  animation:
-    iosSpinnerFade 1s linear infinite;
-}
-
-@keyframes iosSpinnerFade {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0.12;
-  }
-}
-
-/* =========================================================
-   CATEGORY TITLE
-========================================================= */
-
-.category-bubble-title {
-  position: relative;
-
-  margin-top: 15px;
-
-  max-width: 118px;
-
-  font-family:
-    var(--font-outfit),
-    sans-serif;
-
-  font-size: 10px;
-
-  font-weight: 800;
-
-  letter-spacing: 1.2px;
-
-  line-height: 1.35;
-
-  text-align: center;
-
-  text-transform: uppercase;
+.category-card:hover .category-arrow {
+  background: #ffffff;
 
   color: #111111;
 
-  transition:
-    color 0.25s ease,
-    transform 0.25s ease;
+  transform: translate(3px, -3px);
 }
 
-.category-bubble-item:hover .category-bubble-title {
-  color: #111111;
 
-  transform: translateY(-1px);
-}
-
-/* Small underline animation */
-
-.category-bubble-title::after {
-  content: "";
-
-  position: absolute;
-
-  left: 50%;
-  bottom: -7px;
-
-  width: 0;
-  height: 1px;
-
-  transform: translateX(-50%);
-
-  background: #111111;
-
-  transition:
-    width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.category-bubble-item:hover .category-bubble-title::after {
-  width: 24px;
-}
-
-/* =========================================================
-   COMING SOON TAG
-========================================================= */
-
-.category-coming-soon-tag {
-  margin-top: 7px;
-
-  padding: 4px 8px;
-
-  border-radius: 100px;
-
-  background: #f1f1ef;
-
-  border: 1px solid rgba(17, 17, 17, 0.08);
-
-  font-family:
-    var(--font-outfit),
-    sans-serif;
-
-  font-size: 7px;
-
-  font-weight: 800;
-
-  letter-spacing: 1px;
-
-  line-height: 1;
-
-  color: #777777;
-
-  text-transform: uppercase;
-
-  white-space: nowrap;
-}
-
-/* =========================================================
-   DESKTOP
-========================================================= */
-
-@media (min-width: 1000px) {
-  .categories-section {
-    padding: 52px 32px 48px;
-  }
-
-  .categories-scroll-wrapper {
-    justify-content: center;
-
-    gap: 34px;
-
-    overflow-x: visible;
-  }
-
-  .category-bubble-item {
-    width: 132px;
-  }
-
-  .category-circle-frame {
-    width: 122px;
-    height: 122px;
-  }
-
-  .category-bubble-title {
-    font-size: 10px;
-    letter-spacing: 1.3px;
-  }
-}
-
-/* =========================================================
+/* =========================================
    TABLET
-========================================================= */
+========================================= */
 
-@media (max-width: 900px) {
-  .categories-section {
-    padding: 38px 20px 36px;
+@media (max-width: 1000px) {
+
+  .shop-category {
+    padding: 70px 5%;
   }
 
-  .categories-scroll-wrapper {
-    gap: 24px;
-
-    padding-left: 2px;
-    padding-right: 18px;
+  .category-grid {
+    gap: 14px;
   }
 
-  .category-bubble-item {
-    width: 116px;
+  .category-card {
+    height: 430px;
   }
 
-  .category-circle-frame {
-    width: 108px;
-    height: 108px;
+  .category-info {
+    left: 22px;
+    right: 22px;
+
+    bottom: 22px;
   }
 
-  .category-bubble-title {
-    max-width: 108px;
+  .category-text h3 {
+    font-size: 25px;
+  }
 
-    margin-top: 13px;
+  .category-arrow {
+    width: 44px;
+    height: 44px;
 
+    font-size: 18px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+   1 BIG + 2 SMALL
+========================================= */
+
+@media (max-width: 650px) {
+
+  .shop-category {
+    padding: 55px 20px;
+  }
+
+
+  /* HEADER */
+
+  .shop-category-header {
+    margin-bottom: 28px;
+  }
+
+  .shop-category-header h2 {
+    font-size: 34px;
+
+    letter-spacing: -1.7px;
+  }
+
+  .view-all {
+    gap: 7px;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+  }
+
+  .view-all b {
+    font-size: 18px;
+  }
+
+
+  /* GRID */
+
+  .category-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-rows: 430px 225px;
+
+    gap: 12px;
+  }
+
+
+  /* =====================================
+     FIRST CARD
+     FULL WIDTH / BIG
+  ===================================== */
+
+  .category-card:nth-child(1) {
+
+    grid-column: 1 / -1;
+
+    grid-row: 1;
+
+    height: 430px;
+  }
+
+
+  /* =====================================
+     SECOND CARD
+     SMALL
+  ===================================== */
+
+  .category-card:nth-child(2) {
+
+    grid-column: 1;
+
+    grid-row: 2;
+
+    height: 225px;
+  }
+
+
+  /* =====================================
+     THIRD CARD
+     SMALL
+  ===================================== */
+
+  .category-card:nth-child(3) {
+
+    grid-column: 2;
+
+    grid-row: 2;
+
+    height: 225px;
+  }
+
+
+  /* CONTENT */
+
+  .category-info {
+    left: 18px;
+    right: 18px;
+
+    bottom: 18px;
+  }
+
+
+  /* BIG CARD TITLE */
+
+  .category-card:nth-child(1) .category-text h3 {
+    font-size: 27px;
+  }
+
+
+  /* SMALL CARD TITLES */
+
+  .category-card:nth-child(2) .category-text h3,
+  .category-card:nth-child(3) .category-text h3 {
+
+    font-size: 19px;
+
+    letter-spacing: -0.4px;
+  }
+
+
+  /* PRODUCT TEXT */
+
+  .category-text p {
     font-size: 9px;
 
     letter-spacing: 1px;
   }
-}
 
-/* =========================================================
-   MOBILE
-========================================================= */
 
-@media (max-width: 640px) {
-  .categories-section {
-  margin-bottom: -40px;
+  /* ARROW */
 
-    padding: 28px 14px 28px;
+  .category-arrow {
+    width: 38px;
+    height: 38px;
 
-    border-bottom:
-      1px solid rgba(17, 17, 17, 0.06);
+    font-size: 16px;
   }
 
-  .categories-scroll-wrapper {
-    justify-content: flex-start;
 
-    gap: 18px;
+  /* SMALL CARD ARROW */
 
-    padding:
-      5px
-      8px
-      10px;
+  .category-card:nth-child(2) .category-arrow,
+  .category-card:nth-child(3) .category-arrow {
 
-    scroll-snap-type: x proximity;
-  }
+    width: 34px;
+    height: 34px;
 
-  .category-bubble-item {
-    width: 94px;
-
-    scroll-snap-align: start;
-  }
-
-  .category-circle-frame {
-    width: 88px;
-    height: 88px;
-
-    box-shadow:
-      0 3px 10px rgba(17, 17, 17, 0.07);
-  }
-
-  .category-bubble-item:hover {
-    transform: translateY(-3px);
-  }
-
-  .category-bubble-item:hover .category-circle-frame {
-    box-shadow:
-      0 8px 20px rgba(17, 17, 17, 0.1);
-  }
-
-  .category-bubble-title {
-    max-width: 92px;
-
-    margin-top: 11px;
-
-    font-size: 8px;
-
-    letter-spacing: 0.9px;
-
-    line-height: 1.35;
-  }
-
-  .category-bubble-title::after {
-    bottom: -5px;
-  }
-
-  .category-bubble-item:hover
-    .category-bubble-title::after {
-    width: 18px;
-  }
-
-  .category-coming-soon-tag {
-    margin-top: 6px;
-
-    padding: 3px 6px;
-
-    font-size: 6px;
-
-    letter-spacing: 0.8px;
-  }
-
-  .ios-spinner-box {
-    width: 28px;
-    height: 28px;
+    font-size: 14px;
   }
 }
 
-/* =========================================================
+
+/* =========================================
    SMALL MOBILE
-========================================================= */
+========================================= */
 
-@media (max-width: 390px) {
-  .categories-section {
-    padding: 24px 10px 25px;
+@media (max-width: 400px) {
+
+  .shop-category {
+    padding: 45px 15px;
   }
 
-  .categories-scroll-wrapper {
-    gap: 15px;
 
-    padding-left: 6px;
-    padding-right: 15px;
+  /* HEADER */
+
+  .shop-category-header h2 {
+    font-size: 29px;
   }
 
-  .category-bubble-item {
-    width: 86px;
+  .view-all {
+    font-size: 9px;
   }
 
-  .category-circle-frame {
-    width: 80px;
-    height: 80px;
+
+  /* GRID */
+
+  .category-grid {
+
+    grid-template-rows: 380px 200px;
+
+    gap: 10px;
   }
 
-  .category-bubble-title {
-    max-width: 82px;
 
-    margin-top: 10px;
+  /* BIG CARD */
 
-    font-size: 7.5px;
+  .category-card:nth-child(1) {
+    height: 380px;
+  }
+
+
+  /* SMALL CARDS */
+
+  .category-card:nth-child(2),
+  .category-card:nth-child(3) {
+
+    height: 200px;
+  }
+
+
+  /* CONTENT */
+
+  .category-info {
+
+    left: 14px;
+    right: 14px;
+
+    bottom: 14px;
+  }
+
+
+  /* BIG TITLE */
+
+  .category-card:nth-child(1) .category-text h3 {
+    font-size: 24px;
+  }
+
+
+  /* SMALL TITLE */
+
+  .category-card:nth-child(2) .category-text h3,
+  .category-card:nth-child(3) .category-text h3 {
+
+    font-size: 17px;
+  }
+
+
+  /* PRODUCT */
+
+  .category-text p {
+    font-size: 8px;
 
     letter-spacing: 0.7px;
   }
 
-  .category-coming-soon-tag {
-    font-size: 5.8px;
 
-    padding: 3px 5px;
-  }
-}
+  /* ARROWS */
 
-/* =========================================================
-   TOUCH DEVICES
-========================================================= */
+  .category-arrow {
 
-@media (hover: none) {
-  .category-bubble-item:hover {
-    transform: none;
+    width: 34px;
+    height: 34px;
+
+    font-size: 14px;
   }
 
-  .category-bubble-item:hover .category-circle-frame {
-    transform: none;
-  }
+  .category-card:nth-child(2) .category-arrow,
+  .category-card:nth-child(3) .category-arrow {
 
-  .category-bubble-item:hover .category-img {
-    transform: scale(1);
-  }
+    width: 30px;
+    height: 30px;
 
-  .category-bubble-item:hover .category-bubble-title {
-    transform: none;
-  }
-
-  .category-bubble-title::after {
-    display: none;
-  }
-}
-
-/* =========================================================
-   ACCESSIBILITY
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-  .category-bubble-item,
-  .category-circle-frame,
-  .category-circle-frame::after,
-  .category-img,
-  .category-bubble-title,
-  .category-bubble-title::after,
-  .ios-spinner-tick {
-    transition: none;
-    animation: none;
+    font-size: 13px;
   }
 }

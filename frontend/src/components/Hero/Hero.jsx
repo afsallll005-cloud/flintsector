@@ -240,7 +240,7 @@ export const Hero = () => {
             SLIDE INDICATORS
         ===================================================== */}
 
-        <div className="hero-indicators">
+        {/* <div className="hero-indicators">
           {HERO_SLIDES.map((item, index) => (
             <button
               key={item.id}
@@ -258,14 +258,14 @@ export const Hero = () => {
               <span className="indicator-line" />
             </button>
           ))}
-        </div>
+        </div> */}
       </section>
 
       {/* =====================================================
           MODERN TICKER
       ===================================================== */}
 
-      <div className="sub-ticker-bar">
+      {/* <div className="sub-ticker-bar">
         <div className="marquee-container">
           <div className="marquee-content">
             {[
@@ -285,7 +285,7 @@ export const Hero = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

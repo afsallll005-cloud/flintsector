@@ -277,33 +277,15 @@ export const CATEGORIES = [
     ],
     status: "active"
   },
-  {
-    id: "lovely",
-    name: "LOVELY",
-    count: "Coming Soon",
-    images: [
-      "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&auto=format&fit=crop&q=80"
-    ],
-    status: "coming_soon"
-  },
-  {
-    id: "terry",
-    name: "TERRY",
-    count: "Coming Soon",
-    images: [
-      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=80"
-    ],
-    status: "coming_soon"
-  },
-  {
-    id: "polo",
-    name: "POLO",
-    count: "Coming Soon",
-    images: [
-      "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&auto=format&fit=crop&q=80"
-    ],
-    status: "coming_soon"
-  }
+  // {
+  //   id: "lovely",
+  //   name: "LOVELY",
+  //   count: "Coming Soon",
+  //   images: [
+  //     "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&auto=format&fit=crop&q=80"
+  //   ],
+  //   status: "coming_soon"
+  // }
 ];
 
 export const ACCESSORIES = [

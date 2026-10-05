@@ -80,6 +80,10 @@
 }
 
 
+/* =========================================================
+   ANNOUNCEMENT BAR
+========================================================= */
+
 .announcement-bar {
   width: 100%;
 
@@ -130,6 +134,7 @@
 
 .announcement-item {
   padding-left: 38px;
+
   padding-right: 38px;
 
   font-size: 10px;
@@ -151,7 +156,12 @@
 }
 
 
+/* =========================================================
+   MARQUEE ANIMATION
+========================================================= */
+
 @keyframes announcement-scroll {
+
   from {
     transform: translateX(0);
   }
@@ -159,6 +169,7 @@
   to {
     transform: translateX(-50%);
   }
+
 }
 
 
@@ -254,7 +265,7 @@
 
 
 /* =========================================================
-   DESKTOP NAV
+   DESKTOP NAVIGATION
 ========================================================= */
 
 .desktop-navigation {
@@ -305,6 +316,10 @@
   color: var(--black);
 }
 
+
+/* =========================================================
+   ACTIVE UNDERLINE
+========================================================= */
 
 .desktop-nav-link.active::after {
   content: "";
@@ -478,44 +493,96 @@
 
 
 /* =========================================================
-   CART BADGE
+   MINIMAL SHOPPING BAG
 ========================================================= */
 
-.action-badge {
-  position: absolute;
+.minimal-bag-icon {
+  position: relative;
 
-  top: 1px;
-  right: -3px;
+  width: 25px;
 
-  min-width: 16px;
+  height: 29px;
 
-  height: 16px;
-
-  padding: 0 4px;
-
-  box-sizing: border-box;
-
-  background: var(--gold);
-
-  color: #ffffff;
-
-  border-radius: 50%;
-
-  display: flex;
+  display: inline-flex;
 
   align-items: center;
 
   justify-content: center;
 
-  font-family: var(--font-outfit), sans-serif;
+  color: var(--dark-text);
 
-  font-size: 8px;
+  flex-shrink: 0;
 
-  line-height: 1;
+  transition:
+    transform 0.25s ease;
+}
 
-  font-weight: 600;
 
-  pointer-events: none;
+.minimal-bag-icon svg {
+  display: block;
+
+  width: 25px;
+
+  height: 29px;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   BAG HOVER
+========================================================= */
+
+.bag-action:hover
+.minimal-bag-icon {
+  transform:
+    translateY(-1px);
+}
+
+
+/* =========================================================
+   GOLD BAG DOT
+========================================================= */
+
+.bag-status-dot {
+  position: absolute;
+
+  top: -3px;
+
+  right: -5px;
+
+  width: 9px;
+
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: var(--gold);
+
+  box-shadow:
+    0 0 0 1px #ffffff;
+
+  animation:
+    bag-dot-in 0.35s ease-out;
+}
+
+
+@keyframes bag-dot-in {
+
+  from {
+    opacity: 0;
+
+    transform:
+      scale(0.4);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1);
+  }
+
 }
 
 
@@ -548,11 +615,14 @@
 
   inset: 0;
 
-  background: rgba(0, 0, 0, 0.42);
+  background:
+    rgba(0, 0, 0, 0.42);
 
-  backdrop-filter: blur(6px);
+  backdrop-filter:
+    blur(6px);
 
-  -webkit-backdrop-filter: blur(6px);
+  -webkit-backdrop-filter:
+    blur(6px);
 
   opacity: 0;
 
@@ -580,7 +650,8 @@
 
   width: min(390px, 88vw);
 
-  background: var(--cream);
+  background:
+    var(--cream);
 
   padding: 32px;
 
@@ -590,30 +661,27 @@
 
   flex-direction: column;
 
-  /*
-     IMPORTANT:
-     Navigation stays below logo.
-     Footer is pushed to bottom.
-  */
-
   justify-content: flex-start;
 
   overflow-y: auto;
 
   box-shadow:
-    10px 0 40px rgba(0, 0, 0, 0.12);
+    10px 0 40px
+    rgba(0, 0, 0, 0.12);
 
   transform:
     translateX(-100%);
 
   transition:
-    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.5s
+    cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 
 .mobile-menu.open
 .mobile-menu-drawer {
-  transform: translateX(0);
+  transform:
+    translateX(0);
 }
 
 
@@ -697,13 +765,14 @@
 .mobile-close-button:hover {
   color: #000000;
 
-  transform: rotate(90deg);
+  transform:
+    rotate(90deg);
 }
 
 
 /* =========================================================
    MOBILE NAVIGATION
-   ↓↓↓ THIS IS THE IMPORTANT CHANGE
+   DIRECTLY BELOW LOGO
 ========================================================= */
 
 .mobile-navigation {
@@ -713,17 +782,15 @@
 
   width: 100%;
 
-  /*
-     Logo-ന്റെ തൊട്ടുതാഴെ navigation.
-  */
+  margin-top: 48px;
 
-  margin-top: 52px;
-
-  gap: 14px;
+  gap: 12px;
 
   flex-shrink: 0;
 
-  font-family: var(--font-outfit), sans-serif;
+  font-family:
+    var(--font-outfit),
+    sans-serif;
 
   font-size: 13px;
 
@@ -775,7 +842,8 @@
 
 
 .mobile-nav-link:active {
-  transform: scale(0.985);
+  transform:
+    scale(0.985);
 }
 
 
@@ -811,7 +879,7 @@
 
 
 /* =========================================================
-   ARROW
+   MOBILE ARROW
 ========================================================= */
 
 .mobile-nav-link svg {
@@ -828,13 +896,13 @@
 .mobile-nav-link:hover svg {
   color: #000000;
 
-  transform: translateX(4px);
+  transform:
+    translateX(4px);
 }
 
 
 /* =========================================================
    MOBILE FOOTER
-   ↓↓↓ PUSH TO BOTTOM
 ========================================================= */
 
 .mobile-menu-footer {
@@ -844,7 +912,8 @@
 
   padding-top: 24px;
 
-  border-top: 1px solid #e5e3df;
+  border-top:
+    1px solid #e5e3df;
 
   flex-shrink: 0;
 }
@@ -909,6 +978,7 @@
 
   .navbar-container {
     padding-left: 4%;
+
     padding-right: 4%;
   }
 
@@ -945,17 +1015,21 @@
 
   :root {
     --announcement-height: 36px;
+
     --navbar-height: 70px;
   }
 
 
   .navbar-container {
     padding-left: 18px;
+
     padding-right: 18px;
   }
 
 
-  /* LEFT */
+  /* =============================================
+     LEFT
+  ============================================== */
 
   .navbar-left {
     flex: 0 0 auto;
@@ -964,7 +1038,9 @@
   }
 
 
-  /* MENU */
+  /* =============================================
+     TWO LINE MENU
+  ============================================== */
 
   .menu-button {
     width: 28px;
@@ -1001,7 +1077,8 @@
 
 
   .menu-button:active {
-    transform: scale(0.9);
+    transform:
+      scale(0.9);
   }
 
 
@@ -1014,17 +1091,22 @@
   }
 
 
-  /* HIDE DESKTOP NAV */
+  /* =============================================
+     HIDE DESKTOP NAV
+  ============================================== */
 
   .desktop-navigation {
     display: none;
   }
 
 
-  /* CENTER LOGO */
+  /* =============================================
+     CENTER LOGO
+  ============================================== */
 
   .center-logo {
     left: 50%;
+
     top: 50%;
 
     transform:
@@ -1038,7 +1120,9 @@
   }
 
 
-  /* ACTIONS */
+  /* =============================================
+     RIGHT ACTIONS
+  ============================================== */
 
   .navbar-actions {
     flex: 0 0 auto;
@@ -1062,21 +1146,54 @@
   }
 
 
-  /* COMPACT LOGO */
+  /* =============================================
+     MOBILE BAG
+  ============================================== */
+
+  .minimal-bag-icon {
+    width: 24px;
+
+    height: 28px;
+  }
+
+
+  .minimal-bag-icon svg {
+    width: 24px;
+
+    height: 28px;
+  }
+
+
+  .bag-status-dot {
+    width: 8px;
+
+    height: 8px;
+
+    top: -3px;
+
+    right: -4px;
+  }
+
+
+  /* =============================================
+     COMPACT LOGO
+  ============================================== */
 
   .main-header.logo-compact
   .center-logo
   .brand-logo {
-    transform: scale(0.84);
+    transform:
+      scale(0.84);
   }
 
 
-  /* =====================================================
+  /* =============================================
      MOBILE DRAWER
-  ===================================================== */
+  ============================================== */
 
   .mobile-menu-drawer {
-    width: min(390px, 90vw);
+    width:
+      min(390px, 90vw);
 
     padding:
       30px
@@ -1085,9 +1202,9 @@
   }
 
 
-  /* =====================================================
-     NAV DIRECTLY UNDER LOGO
-  ===================================================== */
+  /* =============================================
+     NAV DIRECTLY BELOW LOGO
+  ============================================== */
 
   .mobile-navigation {
     margin-top: 48px;
@@ -1111,12 +1228,14 @@
 
   :root {
     --announcement-height: 34px;
+
     --navbar-height: 64px;
   }
 
 
   .navbar-container {
     padding-left: 16px;
+
     padding-right: 16px;
   }
 
@@ -1128,6 +1247,7 @@
 
   .two-line-menu-icon {
     width: 23px;
+
     height: 15px;
   }
 
@@ -1154,19 +1274,53 @@
   }
 
 
+  /* =============================================
+     BAG
+  ============================================== */
+
+  .minimal-bag-icon {
+    width: 23px;
+
+    height: 27px;
+  }
+
+
+  .minimal-bag-icon svg {
+    width: 23px;
+
+    height: 27px;
+  }
+
+
+  .bag-status-dot {
+    width: 8px;
+
+    height: 8px;
+
+    top: -3px;
+
+    right: -4px;
+  }
+
+
+  /* =============================================
+     ANNOUNCEMENT
+  ============================================== */
+
   .announcement-item {
     font-size: 8px;
 
     letter-spacing: 1.7px;
 
     padding-left: 24px;
+
     padding-right: 24px;
   }
 
 
-  /* =====================================================
+  /* =============================================
      DRAWER
-  ===================================================== */
+  ============================================== */
 
   .mobile-menu-drawer {
     width: 90vw;
@@ -1178,9 +1332,9 @@
   }
 
 
-  /* =====================================================
+  /* =============================================
      NAV
-  ===================================================== */
+  ============================================== */
 
   .mobile-navigation {
     margin-top: 42px;
@@ -1208,7 +1362,9 @@
   }
 
 
-  /* FOOTER */
+  /* =============================================
+     FOOTER
+  ============================================== */
 
   .mobile-menu-footer {
     padding-top: 20px;
@@ -1239,6 +1395,7 @@
 
   .navbar-container {
     padding-left: 12px;
+
     padding-right: 12px;
   }
 
@@ -1250,6 +1407,7 @@
 
   .two-line-menu-icon {
     width: 22px;
+
     height: 14px;
   }
 
@@ -1275,6 +1433,39 @@
     width: 100px;
   }
 
+
+  /* =============================================
+     VERY SMALL BAG
+  ============================================== */
+
+  .minimal-bag-icon {
+    width: 22px;
+
+    height: 26px;
+  }
+
+
+  .minimal-bag-icon svg {
+    width: 22px;
+
+    height: 26px;
+  }
+
+
+  .bag-status-dot {
+    width: 7px;
+
+    height: 7px;
+
+    top: -3px;
+
+    right: -3px;
+  }
+
+
+  /* =============================================
+     DRAWER
+  ============================================== */
 
   .mobile-menu-drawer {
     width: 92vw;
@@ -1316,17 +1507,34 @@
 
 
   .announcement-bar-wrapper,
+
   .announcement-bar,
+
   .brand-logo,
+
   .brand-logo-image,
+
   .mobile-menu-drawer,
+
   .mobile-menu-backdrop,
+
   .navbar-action,
+
   .menu-button,
+
+  .minimal-bag-icon,
+
   .mobile-nav-link,
+
   .mobile-nav-link svg,
+
   .mobile-close-button {
     transition: none;
+  }
+
+
+  .bag-status-dot {
+    animation: none;
   }
 
 }
