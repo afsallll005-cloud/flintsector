@@ -5,10 +5,8 @@ import { useCart } from "../../context/CartContext";
 
 import {
   ShoppingBagIcon,
-  MenuIcon,
   XIcon,
   SearchIcon,
-  HeartIcon,
   ArrowRightIcon,
   WhatsAppIcon,
   InstagramIcon,
@@ -26,17 +24,41 @@ const BrandLogo = () => (
     className="brand-logo"
     aria-label="FLINT SECTOR Home"
   >
-    <span className="brand-logo-wordmark">
-      FLINT<span className="brand-logo-dot"></span>SECTOR
-    </span>
-
-    {/* Optional tagline */}
-    {/* <span className="brand-logo-tagline">
-      Heavyweight Streetwear
-    </span> */}
+    <img
+      src="/images/logo.png"
+      alt="FLINT SECTOR"
+      className="brand-logo-image"
+    />
   </a>
 );
 
+/* =====================================================
+   TWO LINE MOBILE MENU ICON
+===================================================== */
+
+const TwoLineMenuIcon = () => (
+  <svg
+    className="two-line-menu-icon"
+    viewBox="0 0 28 18"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <path
+      d="M1 3H27"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+    />
+
+    <path
+      d="M1 15H27"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+    />
+  </svg>
+);
 
 /* =====================================================
    NAVBAR
@@ -45,42 +67,24 @@ const BrandLogo = () => (
 const Navbar = () => {
   const {
     cartTotalCount,
-    wishlist,
     setIsCartOpen,
     isMobileMenuOpen,
     setIsMobileMenuOpen,
     setIsSearchOpen,
   } = useCart();
 
-
   /* =====================================================
      SCROLL STATE
-
-     true  = announcement visible
-     false = announcement hidden
-
-     false = normal logo
-     true  = compact logo
   ===================================================== */
 
-  const [showAnnouncement, setShowAnnouncement] = useState(true);
-  const [isLogoCompact, setIsLogoCompact] = useState(false);
+  const [showAnnouncement, setShowAnnouncement] =
+    useState(true);
 
+  const [isLogoCompact, setIsLogoCompact] =
+    useState(false);
 
   /* =====================================================
-     SCROLL DIRECTION DETECTION
-
-     SCROLL DOWN:
-       announcement → hide
-       logo → compact
-
-     SCROLL UP:
-       announcement → show
-       logo → normal
-
-     TOP:
-       announcement → show
-       logo → normal
+     SCROLL DIRECTION
   ===================================================== */
 
   useEffect(() => {
@@ -90,38 +94,22 @@ const Navbar = () => {
     let previousScrollY = window.scrollY;
     let ticking = false;
 
-    // Local values prevent unnecessary React state updates.
     let currentAnnouncementState = true;
     let currentLogoState = false;
 
-
-    const updateNavbarState = (atTop, scrollingDown) => {
-
-      /*
-       * At top:
-       * announcement visible
-       * logo normal
-       */
+    const updateNavbarState = (
+      atTop,
+      scrollingDown
+    ) => {
       const nextAnnouncementState =
         atTop || !scrollingDown;
 
-      /*
-       * Scrolling down:
-       * logo becomes compact
-       *
-       * Scrolling up:
-       * logo returns to normal
-       */
       const nextLogoState =
         !atTop && scrollingDown;
 
-
-      /* ---------------------------------------------
-         Announcement
-      --------------------------------------------- */
-
       if (
-        nextAnnouncementState !== currentAnnouncementState
+        nextAnnouncementState !==
+        currentAnnouncementState
       ) {
         currentAnnouncementState =
           nextAnnouncementState;
@@ -131,13 +119,9 @@ const Navbar = () => {
         );
       }
 
-
-      /* ---------------------------------------------
-         Logo
-      --------------------------------------------- */
-
       if (
-        nextLogoState !== currentLogoState
+        nextLogoState !==
+        currentLogoState
       ) {
         currentLogoState =
           nextLogoState;
@@ -147,7 +131,6 @@ const Navbar = () => {
         );
       }
     };
-
 
     const updateFromScroll = () => {
       const currentScrollY = Math.max(
@@ -161,13 +144,7 @@ const Navbar = () => {
       const atTop =
         currentScrollY <= TOP_OFFSET;
 
-
-      /* ---------------------------------------------
-         At top
-      --------------------------------------------- */
-
       if (atTop) {
-
         updateNavbarState(
           true,
           false
@@ -175,17 +152,10 @@ const Navbar = () => {
 
         previousScrollY =
           currentScrollY;
-      }
-
-
-      /* ---------------------------------------------
-         Direction changed enough
-      --------------------------------------------- */
-
-      else if (
-        Math.abs(delta) >= SCROLL_THRESHOLD
+      } else if (
+        Math.abs(delta) >=
+        SCROLL_THRESHOLD
       ) {
-
         const scrollingDown =
           delta > 0;
 
@@ -198,20 +168,11 @@ const Navbar = () => {
           currentScrollY;
       }
 
-
       ticking = false;
     };
 
-
     const handleScroll = () => {
-
-      /*
-       * Prevent multiple animation frames
-       * from being queued during fast scrolling.
-       */
-      if (ticking) {
-        return;
-      }
+      if (ticking) return;
 
       ticking = true;
 
@@ -220,10 +181,7 @@ const Navbar = () => {
       );
     };
 
-
-    /* Initial state */
     updateFromScroll();
-
 
     window.addEventListener(
       "scroll",
@@ -233,7 +191,6 @@ const Navbar = () => {
       }
     );
 
-
     return () => {
       window.removeEventListener(
         "scroll",
@@ -241,7 +198,6 @@ const Navbar = () => {
       );
     };
   }, []);
-
 
   /* =====================================================
      ANNOUNCEMENT CONTENT
@@ -254,7 +210,6 @@ const Navbar = () => {
     "EXPRESS WORLDWIDE DELIVERY",
   ];
 
-
   /* =====================================================
      CLOSE MOBILE MENU
   ===================================================== */
@@ -263,32 +218,29 @@ const Navbar = () => {
     setIsMobileMenuOpen(false);
   };
 
+  /* =====================================================
+     RENDER
+  ===================================================== */
 
   return (
     <>
       {/* =================================================
           NAVBAR STACK
-
-          Announcement always stays above navbar.
       ================================================= */}
 
       <div className="navbar-stack">
 
-        {/* ===============================================
+        {/* =================================================
             ANNOUNCEMENT BAR
-        ================================================ */}
+        ================================================= */}
 
         <div
           className={`announcement-bar-wrapper ${
-            showAnnouncement
-              ? "show"
-              : "hide"
+            showAnnouncement ? "show" : "hide"
           }`}
           aria-hidden={!showAnnouncement}
         >
-
           <div className="announcement-bar">
-
             <div className="announcement-track">
 
               {[
@@ -312,15 +264,12 @@ const Navbar = () => {
               ))}
 
             </div>
-
           </div>
-
         </div>
 
-
-        {/* ===============================================
+        {/* =================================================
             MAIN NAVBAR
-        ================================================ */}
+        ================================================= */}
 
         <header
           className={`main-header ${
@@ -329,172 +278,92 @@ const Navbar = () => {
               : ""
           }`}
         >
-
           <div className="navbar-container">
 
+            {/* =================================================
+                LEFT
+            ================================================= */}
 
-            {/* =========================================
-                MOBILE LEFT
+            <div className="navbar-left">
 
-                Hamburger + Search
-            ========================================== */}
-
-            <div className="mobile-left-actions">
+              {/* MOBILE MENU */}
 
               <button
                 type="button"
-                className="mobile-icon-button"
+                className="menu-button"
                 onClick={() =>
                   setIsMobileMenuOpen(true)
                 }
                 aria-label="Open Menu"
               >
-                <MenuIcon size={25} />
+                <TwoLineMenuIcon />
               </button>
 
+              {/* DESKTOP NAVIGATION */}
 
-              <button
-                type="button"
-                className="mobile-icon-button"
-                onClick={() =>
-                  setIsSearchOpen(true)
-                }
-                aria-label="Search"
-              >
-                <SearchIcon size={22} />
-              </button>
+              <nav className="desktop-navigation">
+
+                <a
+                  href="/"
+                  className="desktop-nav-link active"
+                >
+                  Home
+                </a>
+
+                <a
+                  href="/#bestsellers"
+                  className="desktop-nav-link"
+                >
+                  Shop
+                </a>
+
+                <a
+                  href="/#bestsellers"
+                  className="desktop-nav-link"
+                >
+                  Collections
+                </a>
+
+                <a
+                  href="/#faq"
+                  className="desktop-nav-link"
+                >
+                  About
+                </a>
+
+              </nav>
 
             </div>
 
-
-            {/* =========================================
-                DESKTOP NAVIGATION
-            ========================================== */}
-
-            <nav className="desktop-navigation">
-
-              <a
-                href="/"
-                className="desktop-nav-link active"
-              >
-                Home
-              </a>
-
-              <a
-                href="/#bestsellers"
-                className="desktop-nav-link"
-              >
-                Shop
-              </a>
-
-              <a
-                href="/#bestsellers"
-                className="desktop-nav-link"
-              >
-                Collections
-              </a>
-
-              <a
-                href="/#faq"
-                className="desktop-nav-link"
-              >
-                About
-              </a>
-
-            </nav>
-
-
-            {/* =========================================
+            {/* =================================================
                 CENTER LOGO
-            ========================================== */}
+            ================================================= */}
 
             <div className="center-logo">
               <BrandLogo />
             </div>
 
-
-            {/* =========================================
+            {/* =================================================
                 RIGHT ACTIONS
-            ========================================== */}
+            ================================================= */}
 
             <div className="navbar-actions">
 
-              {/* Search */}
+              {/* SEARCH */}
 
               <button
                 type="button"
-                className="navbar-action desktop-search"
+                className="navbar-action search-action"
                 onClick={() =>
                   setIsSearchOpen(true)
                 }
                 aria-label="Search"
                 title="Search"
               >
-                <SearchIcon size={20} />
+                <SearchIcon size={21} />
               </button>
 
-
-              {/* Wishlist */}
-
-              <a
-                href="#wishlist"
-                className="navbar-action wishlist-action"
-                aria-label="Wishlist"
-                title="Wishlist"
-              >
-
-                <HeartIcon
-                  size={20}
-                  filled={
-                    wishlist.length > 0
-                  }
-                />
-
-                {wishlist.length > 0 && (
-                  <span className="action-badge number-badge">
-                    {wishlist.length}
-                  </span>
-                )}
-
-              </a>
-
-
-              {/* Account */}
-
-              <button
-                type="button"
-                className="navbar-action account-action"
-                aria-label="Account"
-                title="Account"
-              >
-
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.4"
-                  stroke="currentColor"
-                  className="account-icon"
-                >
-
-                  <circle
-                    cx="12"
-                    cy="8"
-                    r="3.5"
-                  />
-
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 20c.7-3.5 3.2-5.5 7.5-5.5s6.8 2 7.5 5.5"
-                  />
-
-                </svg>
-
-              </button>
-
-
-              {/* Shopping Bag */}
+              {/* BAG */}
 
               <button
                 type="button"
@@ -505,25 +374,20 @@ const Navbar = () => {
                 aria-label="Shopping Bag"
                 title="Shopping Bag"
               >
-
-                <ShoppingBagIcon size={21} />
+                <ShoppingBagIcon size={22} />
 
                 {cartTotalCount > 0 && (
-                  <span className="action-badge number-badge">
+                  <span className="action-badge">
                     {cartTotalCount}
                   </span>
                 )}
-
               </button>
 
             </div>
 
           </div>
-
         </header>
-
       </div>
-
 
       {/* =================================================
           MOBILE MENU
@@ -531,25 +395,26 @@ const Navbar = () => {
 
       <div
         className={`mobile-menu ${
-          isMobileMenuOpen
-            ? "open"
-            : ""
+          isMobileMenuOpen ? "open" : ""
         }`}
       >
 
-        {/* Backdrop */}
+        {/* BACKDROP */}
 
         <div
           className="mobile-menu-backdrop"
           onClick={closeMobileMenu}
         />
 
-
-        {/* Drawer */}
+        {/* =================================================
+            DRAWER
+        ================================================= */}
 
         <aside className="mobile-menu-drawer">
 
-          {/* Header */}
+          {/* =================================================
+              HEADER
+          ================================================= */}
 
           <div className="mobile-menu-header">
 
@@ -568,10 +433,13 @@ const Navbar = () => {
 
           </div>
 
-
-          {/* Navigation */}
+          {/* =================================================
+              NAVIGATION
+          ================================================= */}
 
           <nav className="mobile-navigation">
+
+            {/* HOME */}
 
             <a
               href="/"
@@ -581,6 +449,7 @@ const Navbar = () => {
               <span>Home</span>
             </a>
 
+            {/* SHOP */}
 
             <a
               href="/#bestsellers"
@@ -588,9 +457,11 @@ const Navbar = () => {
               onClick={closeMobileMenu}
             >
               <span>Shop</span>
+
               <ArrowRightIcon size={15} />
             </a>
 
+            {/* COLLECTIONS */}
 
             <a
               href="/#bestsellers"
@@ -598,9 +469,11 @@ const Navbar = () => {
               onClick={closeMobileMenu}
             >
               <span>Collections</span>
+
               <ArrowRightIcon size={15} />
             </a>
 
+            {/* ABOUT */}
 
             <a
               href="/#faq"
@@ -608,9 +481,11 @@ const Navbar = () => {
               onClick={closeMobileMenu}
             >
               <span>About</span>
+
               <ArrowRightIcon size={15} />
             </a>
 
+            {/* BEST SELLERS */}
 
             <a
               href="/#bestsellers"
@@ -618,9 +493,11 @@ const Navbar = () => {
               onClick={closeMobileMenu}
             >
               <span>Best Sellers</span>
+
               <ArrowRightIcon size={15} />
             </a>
 
+            {/* FAQ */}
 
             <a
               href="/#faq"
@@ -628,13 +505,15 @@ const Navbar = () => {
               onClick={closeMobileMenu}
             >
               <span>FAQ</span>
+
               <ArrowRightIcon size={15} />
             </a>
 
           </nav>
 
-
-          {/* Footer */}
+          {/* =================================================
+              FOOTER
+          ================================================= */}
 
           <div className="mobile-menu-footer">
 

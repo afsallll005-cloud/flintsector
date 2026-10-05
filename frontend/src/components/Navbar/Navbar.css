@@ -36,7 +36,7 @@
 
 
 /* =========================================================
-   ANNOUNCEMENT WRAPPER
+   ANNOUNCEMENT
 ========================================================= */
 
 .announcement-bar-wrapper {
@@ -45,7 +45,6 @@
   width: 100%;
 
   height: var(--announcement-height);
-
   max-height: var(--announcement-height);
 
   overflow: hidden;
@@ -59,10 +58,6 @@
 }
 
 
-/* =========================================================
-   ANNOUNCEMENT SHOW
-========================================================= */
-
 .announcement-bar-wrapper.show {
   height: var(--announcement-height);
 
@@ -74,10 +69,6 @@
 }
 
 
-/* =========================================================
-   ANNOUNCEMENT HIDE
-========================================================= */
-
 .announcement-bar-wrapper.hide {
   height: 0;
 
@@ -88,10 +79,6 @@
   pointer-events: none;
 }
 
-
-/* =========================================================
-   ANNOUNCEMENT BAR
-========================================================= */
 
 .announcement-bar {
   width: 100%;
@@ -117,11 +104,8 @@
 }
 
 
-/* =========================================================
-   ANNOUNCEMENT SLIDE UP
-========================================================= */
-
-.announcement-bar-wrapper.hide .announcement-bar {
+.announcement-bar-wrapper.hide
+.announcement-bar {
   transform: translateY(-100%);
 }
 
@@ -146,7 +130,6 @@
 
 .announcement-item {
   padding-left: 38px;
-
   padding-right: 38px;
 
   font-size: 10px;
@@ -195,6 +178,9 @@
   border-bottom: 1px solid var(--border);
 
   z-index: 1;
+
+  transition:
+    height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
@@ -205,7 +191,7 @@
 .navbar-container {
   position: relative;
 
-  width: 100%;
+  width: 96%;
 
   max-width: 1600px;
 
@@ -213,8 +199,8 @@
 
   margin: 0 auto;
 
-  padding-left: 10.3%;
-  padding-right: 10.3%;
+  padding-left: 3.3%;
+  padding-right: 3.3%;
 
   box-sizing: border-box;
 
@@ -227,7 +213,48 @@
 
 
 /* =========================================================
-   DESKTOP NAVIGATION
+   LEFT
+========================================================= */
+
+.navbar-left {
+  display: flex;
+
+  align-items: center;
+
+  gap: 48px;
+
+  flex: 1;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   DESKTOP MENU BUTTON
+========================================================= */
+
+.menu-button {
+  display: none;
+}
+
+
+/* =========================================================
+   TWO LINE MENU
+========================================================= */
+
+.two-line-menu-icon {
+  width: 24px;
+
+  height: 16px;
+
+  display: block;
+
+  color: var(--dark-text);
+}
+
+
+/* =========================================================
+   DESKTOP NAV
 ========================================================= */
 
 .desktop-navigation {
@@ -264,7 +291,8 @@
 
   text-transform: uppercase;
 
-  transition: color 0.3s ease;
+  transition:
+    color 0.3s ease;
 }
 
 
@@ -286,7 +314,7 @@
   left: 0;
   right: 0;
 
-  bottom: 32px;
+  bottom: -7px;
 
   height: 1px;
 
@@ -320,17 +348,11 @@
 
 
 /* =========================================================
-   LOGO
-
-   IMPORTANT:
-   transform-origin keeps the logo centered while
-   resizing, so it doesn't jump.
+   BRAND LOGO
 ========================================================= */
 
 .brand-logo {
   display: inline-flex;
-
-  flex-direction: column;
 
   align-items: center;
 
@@ -345,110 +367,45 @@
   transform-origin: center center;
 
   transition:
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.25s ease;
+}
+
+
+.brand-logo-image {
+  display: block;
+
+  width: 155px;
+
+  height: auto;
+
+  max-width: 100%;
+
+  object-fit: contain;
+
+  user-select: none;
+
+  -webkit-user-drag: none;
+
+  transition:
+    width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
-/* Normal logo */
-
-.center-logo .brand-logo {
-  transform: scale(1);
+.brand-logo:hover {
+  opacity: 0.8;
 }
 
 
 /* =========================================================
    COMPACT LOGO
-
-   SCROLL DOWN → this class is added
 ========================================================= */
 
 .main-header.logo-compact
-  .center-logo
-  .brand-logo {
-
-  transform: scale(0.78);
-}
-
-
-/* Hover */
-
-.center-logo .brand-logo:hover {
-  transform: scale(1.02);
-}
-
-
-/* Compact hover */
-
-.main-header.logo-compact
-  .center-logo
-  .brand-logo:hover {
-
+.center-logo
+.brand-logo {
   transform: scale(0.82);
-}
-
-
-/* =========================================================
-   LOGO WORDMARK
-========================================================= */
-
-.brand-logo-wordmark {
-  font-family:
-    "Bebas Neue",
-    Impact,
-    "Arial Narrow",
-    sans-serif;
-
-  font-size: 26px;
-
-  font-weight: 800;
-
-  letter-spacing: 2.5px;
-
-  line-height: 0.9;
-
-  text-transform: uppercase;
-
-  color: var(--black);
-
-  transition:
-    font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    letter-spacing 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-
-/* =========================================================
-   COMPACT WORDMARK
-========================================================= */
-
-.main-header.logo-compact
-  .center-logo
-  .brand-logo-wordmark {
-
-  font-size: 20px;
-
-  letter-spacing: 1.8px;
-}
-
-
-.brand-logo-dot {
-  color: #d12b2b;
-}
-
-
-.brand-logo-tagline {
-  margin-top: 2px;
-
-  font-family: "Outfit", sans-serif;
-
-  font-size: 8px;
-
-  font-weight: 800;
-
-  letter-spacing: 3px;
-
-  text-transform: uppercase;
-
-  color: rgba(17, 17, 17, 0.55);
 }
 
 
@@ -463,7 +420,11 @@
 
   justify-content: flex-end;
 
-  gap: 22px;
+  gap: 26px;
+
+  flex: 1;
+
+  min-width: 0;
 
   margin-left: auto;
 
@@ -471,10 +432,14 @@
 }
 
 
+/* =========================================================
+   NAVBAR ACTION
+========================================================= */
+
 .navbar-action {
   position: relative;
 
-  width: 28px;
+  width: 32px;
 
   height: 40px;
 
@@ -496,41 +461,39 @@
 
   text-decoration: none;
 
+  flex-shrink: 0;
+
   transition:
     color 0.25s ease,
-    transform 0.2s ease;
+    transform 0.25s ease;
 }
 
 
 .navbar-action:hover {
   color: #000000;
 
-  transform: translateY(-1px);
-}
-
-
-.account-action {
-  display: flex;
-}
-
-
-.account-icon {
-  width: 21px;
-
-  height: 21px;
+  transform:
+    translateY(-1px);
 }
 
 
 /* =========================================================
-   BADGE
+   CART BADGE
 ========================================================= */
 
 .action-badge {
   position: absolute;
 
-  top: 5px;
+  top: 1px;
+  right: -3px;
 
-  right: -4px;
+  min-width: 16px;
+
+  height: 16px;
+
+  padding: 0 4px;
+
+  box-sizing: border-box;
 
   background: var(--gold);
 
@@ -543,74 +506,21 @@
   align-items: center;
 
   justify-content: center;
-}
 
-
-.number-badge {
-  min-width: 15px;
-
-  height: 15px;
-
-  padding: 0 3px;
+  font-family: var(--font-outfit), sans-serif;
 
   font-size: 8px;
 
-  font-weight: 700;
+  line-height: 1;
+
+  font-weight: 600;
+
+  pointer-events: none;
 }
 
 
 /* =========================================================
-   MOBILE LEFT
-========================================================= */
-
-.mobile-left-actions {
-  display: none;
-
-  align-items: center;
-
-  gap: 14px;
-}
-
-
-.mobile-icon-button {
-  width: 30px;
-
-  height: 40px;
-
-  padding: 0;
-
-  border: none;
-
-  background: transparent;
-
-  color: var(--dark-text);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  cursor: pointer;
-
-  transition:
-    color 0.25s ease,
-    transform 0.2s ease;
-}
-
-
-.mobile-icon-button:hover {
-  color: #000000;
-}
-
-
-.mobile-icon-button:active {
-  transform: scale(0.9);
-}
-
-
-/* =========================================================
-   MOBILE MENU
+   MOBILE MENU OVERLAY
 ========================================================= */
 
 .mobile-menu {
@@ -629,14 +539,20 @@
 }
 
 
+/* =========================================================
+   BACKDROP
+========================================================= */
+
 .mobile-menu-backdrop {
   position: absolute;
 
   inset: 0;
 
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.42);
 
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(6px);
+
+  -webkit-backdrop-filter: blur(6px);
 
   opacity: 0;
 
@@ -645,10 +561,15 @@
 }
 
 
-.mobile-menu.open .mobile-menu-backdrop {
+.mobile-menu.open
+.mobile-menu-backdrop {
   opacity: 1;
 }
 
+
+/* =========================================================
+   MOBILE DRAWER
+========================================================= */
 
 .mobile-menu-drawer {
   position: absolute;
@@ -669,7 +590,15 @@
 
   flex-direction: column;
 
-  justify-content: space-between;
+  /*
+     IMPORTANT:
+     Navigation stays below logo.
+     Footer is pushed to bottom.
+  */
+
+  justify-content: flex-start;
+
+  overflow-y: auto;
 
   box-shadow:
     10px 0 40px rgba(0, 0, 0, 0.12);
@@ -682,28 +611,59 @@
 }
 
 
-.mobile-menu.open .mobile-menu-drawer {
+.mobile-menu.open
+.mobile-menu-drawer {
   transform: translateX(0);
 }
 
 
+/* =========================================================
+   MOBILE HEADER
+========================================================= */
+
 .mobile-menu-header {
+  width: 100%;
+
   display: flex;
 
   align-items: center;
 
   justify-content: space-between;
 
-  margin-bottom: 55px;
+  flex-shrink: 0;
+
+  margin: 0;
+
+  padding: 0;
 }
 
+
+/* =========================================================
+   MOBILE LOGO
+========================================================= */
 
 .mobile-logo {
   display: flex;
 
   align-items: center;
+
+  max-width: 65%;
 }
 
+
+.mobile-logo
+.brand-logo-image {
+  width: 125px;
+
+  max-width: 100%;
+
+  height: auto;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
 
 .mobile-close-button {
   width: 38px;
@@ -726,9 +686,11 @@
 
   cursor: pointer;
 
+  flex-shrink: 0;
+
   transition:
     color 0.25s ease,
-    transform 0.25s ease;
+    transform 0.3s ease;
 }
 
 
@@ -739,12 +701,27 @@
 }
 
 
+/* =========================================================
+   MOBILE NAVIGATION
+   ↓↓↓ THIS IS THE IMPORTANT CHANGE
+========================================================= */
+
 .mobile-navigation {
   display: flex;
 
   flex-direction: column;
 
-  gap: 22px;
+  width: 100%;
+
+  /*
+     Logo-ന്റെ തൊട്ടുതാഴെ navigation.
+  */
+
+  margin-top: 52px;
+
+  gap: 14px;
+
+  flex-shrink: 0;
 
   font-family: var(--font-outfit), sans-serif;
 
@@ -758,14 +735,24 @@
 }
 
 
+/* =========================================================
+   MOBILE NAV LINK
+========================================================= */
+
 .mobile-nav-link {
   position: relative;
+
+  width: 100%;
+
+  min-height: 48px;
 
   display: flex;
 
   align-items: center;
 
   justify-content: space-between;
+
+  box-sizing: border-box;
 
   padding: 6px 0;
 
@@ -775,21 +762,31 @@
 
   transition:
     color 0.3s ease,
-    padding-left 0.3s ease;
+    padding-left 0.3s ease,
+    transform 0.3s ease;
 }
 
 
 .mobile-nav-link:hover {
   color: #000000;
 
-  padding-left: 8px;
+  padding-left: 6px;
 }
 
+
+.mobile-nav-link:active {
+  transform: scale(0.985);
+}
+
+
+/* =========================================================
+   ACTIVE HOME
+========================================================= */
 
 .mobile-nav-link.active {
   color: #000000;
 
-  padding-left: 10px;
+  padding-left: 12px;
 }
 
 
@@ -804,7 +801,7 @@
 
   width: 2px;
 
-  height: 18px;
+  height: 21px;
 
   background: #000000;
 
@@ -813,10 +810,43 @@
 }
 
 
+/* =========================================================
+   ARROW
+========================================================= */
+
+.mobile-nav-link svg {
+  flex-shrink: 0;
+
+  color: #777777;
+
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+
+.mobile-nav-link:hover svg {
+  color: #000000;
+
+  transform: translateX(4px);
+}
+
+
+/* =========================================================
+   MOBILE FOOTER
+   ↓↓↓ PUSH TO BOTTOM
+========================================================= */
+
 .mobile-menu-footer {
-  border-top: 1px solid #e5e3df;
+  width: 100%;
+
+  margin-top: auto;
 
   padding-top: 24px;
+
+  border-top: 1px solid #e5e3df;
+
+  flex-shrink: 0;
 }
 
 
@@ -878,26 +908,30 @@
 @media (max-width: 1000px) {
 
   .navbar-container {
-    padding-left: 5%;
+    padding-left: 4%;
+    padding-right: 4%;
+  }
 
-    padding-right: 5%;
+
+  .navbar-left {
+    gap: 28px;
   }
 
 
   .desktop-navigation {
-    gap: 25px;
+    gap: 24px;
   }
 
 
   .desktop-nav-link {
-    font-size: 11px;
+    font-size: 10px;
 
     letter-spacing: 2px;
   }
 
 
   .navbar-actions {
-    gap: 16px;
+    gap: 18px;
   }
 
 }
@@ -911,58 +945,86 @@
 
   :root {
     --announcement-height: 36px;
-
     --navbar-height: 70px;
   }
 
 
   .navbar-container {
     padding-left: 18px;
-
     padding-right: 18px;
   }
 
+
+  /* LEFT */
+
+  .navbar-left {
+    flex: 0 0 auto;
+
+    gap: 0;
+  }
+
+
+  /* MENU */
+
+  .menu-button {
+    width: 28px;
+
+    height: 40px;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: var(--dark-text);
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+    transition:
+      color 0.25s ease,
+      transform 0.2s ease;
+  }
+
+
+  .menu-button:hover {
+    color: #000000;
+  }
+
+
+  .menu-button:active {
+    transform: scale(0.9);
+  }
+
+
+  .two-line-menu-icon {
+    width: 24px;
+
+    height: 16px;
+
+    display: block;
+  }
+
+
+  /* HIDE DESKTOP NAV */
 
   .desktop-navigation {
     display: none;
   }
 
 
-  .mobile-left-actions {
-    display: flex;
-  }
-
-
-  .navbar-actions {
-    gap: 12px;
-
-    margin-left: auto;
-  }
-
-
-  .desktop-search {
-    display: none;
-  }
-
-
-  .wishlist-action {
-    display: none;
-  }
-
-
-  .account-action {
-    display: flex;
-  }
-
-
-  .bag-action {
-    display: flex;
-  }
-
+  /* CENTER LOGO */
 
   .center-logo {
     left: 50%;
-
     top: 50%;
 
     transform:
@@ -970,35 +1032,72 @@
   }
 
 
-  /* ---------------------------------------------
-     MOBILE COMPACT LOGO
-     
-     Scroll DOWN → smaller
-  --------------------------------------------- */
+  .center-logo
+  .brand-logo-image {
+    width: 125px;
+  }
+
+
+  /* ACTIONS */
+
+  .navbar-actions {
+    flex: 0 0 auto;
+
+    gap: 12px;
+
+    margin-left: auto;
+  }
+
+
+  .navbar-action {
+    width: 30px;
+
+    height: 40px;
+  }
+
+
+  .search-action,
+  .bag-action {
+    display: flex;
+  }
+
+
+  /* COMPACT LOGO */
 
   .main-header.logo-compact
-    .center-logo
-    .brand-logo {
-
+  .center-logo
+  .brand-logo {
     transform: scale(0.84);
   }
 
 
-  .main-header.logo-compact
-    .center-logo
-    .brand-logo:hover {
+  /* =====================================================
+     MOBILE DRAWER
+  ===================================================== */
 
-    transform: scale(0.88);
+  .mobile-menu-drawer {
+    width: min(390px, 90vw);
+
+    padding:
+      30px
+      32px
+      28px;
   }
 
 
-  .main-header.logo-compact
-    .center-logo
-    .brand-logo-wordmark {
+  /* =====================================================
+     NAV DIRECTLY UNDER LOGO
+  ===================================================== */
 
-    font-size: 18px;
+  .mobile-navigation {
+    margin-top: 48px;
 
-    letter-spacing: 1.5px;
+    gap: 12px;
+  }
+
+
+  .mobile-nav-link {
+    min-height: 48px;
   }
 
 }
@@ -1012,25 +1111,24 @@
 
   :root {
     --announcement-height: 34px;
-
     --navbar-height: 64px;
   }
 
 
   .navbar-container {
     padding-left: 16px;
-
     padding-right: 16px;
   }
 
 
-  .mobile-left-actions {
-    gap: 8px;
+  .menu-button {
+    width: 27px;
   }
 
 
-  .mobile-icon-button {
-    width: 27px;
+  .two-line-menu-icon {
+    width: 23px;
+    height: 15px;
   }
 
 
@@ -1040,14 +1138,19 @@
 
 
   .navbar-action {
-    width: 27px;
+    width: 28px;
   }
 
 
-  .account-icon {
-    width: 20px;
+  .center-logo
+  .brand-logo-image {
+    width: 110px;
+  }
 
-    height: 20px;
+
+  .mobile-logo
+  .brand-logo-image {
+    width: 110px;
   }
 
 
@@ -1057,8 +1160,72 @@
     letter-spacing: 1.7px;
 
     padding-left: 24px;
-
     padding-right: 24px;
+  }
+
+
+  /* =====================================================
+     DRAWER
+  ===================================================== */
+
+  .mobile-menu-drawer {
+    width: 90vw;
+
+    padding:
+      28px
+      26px
+      24px;
+  }
+
+
+  /* =====================================================
+     NAV
+  ===================================================== */
+
+  .mobile-navigation {
+    margin-top: 42px;
+
+    gap: 9px;
+
+    font-size: 12px;
+
+    letter-spacing: 2.8px;
+  }
+
+
+  .mobile-nav-link {
+    min-height: 46px;
+  }
+
+
+  .mobile-nav-link.active {
+    padding-left: 11px;
+  }
+
+
+  .mobile-nav-link.active::before {
+    height: 20px;
+  }
+
+
+  /* FOOTER */
+
+  .mobile-menu-footer {
+    padding-top: 20px;
+  }
+
+
+  .mobile-footer-title {
+    font-size: 8px;
+
+    letter-spacing: 1.8px;
+  }
+
+
+  .mobile-social-links {
+    font-size: 10px;
+
+    gap: 10px;
   }
 
 }
@@ -1072,13 +1239,18 @@
 
   .navbar-container {
     padding-left: 12px;
-
     padding-right: 12px;
   }
 
 
-  .mobile-left-actions {
-    gap: 4px;
+  .menu-button {
+    width: 25px;
+  }
+
+
+  .two-line-menu-icon {
+    width: 22px;
+    height: 14px;
   }
 
 
@@ -1087,9 +1259,46 @@
   }
 
 
-  .mobile-icon-button,
   .navbar-action {
     width: 25px;
+  }
+
+
+  .center-logo
+  .brand-logo-image {
+    width: 100px;
+  }
+
+
+  .mobile-logo
+  .brand-logo-image {
+    width: 100px;
+  }
+
+
+  .mobile-menu-drawer {
+    width: 92vw;
+
+    padding:
+      24px
+      22px
+      20px;
+  }
+
+
+  .mobile-navigation {
+    margin-top: 36px;
+
+    gap: 6px;
+
+    font-size: 11px;
+
+    letter-spacing: 2.5px;
+  }
+
+
+  .mobile-nav-link {
+    min-height: 44px;
   }
 
 }
@@ -1109,9 +1318,14 @@
   .announcement-bar-wrapper,
   .announcement-bar,
   .brand-logo,
-  .brand-logo-wordmark,
+  .brand-logo-image,
   .mobile-menu-drawer,
-  .mobile-menu-backdrop {
+  .mobile-menu-backdrop,
+  .navbar-action,
+  .menu-button,
+  .mobile-nav-link,
+  .mobile-nav-link svg,
+  .mobile-close-button {
     transition: none;
   }
 

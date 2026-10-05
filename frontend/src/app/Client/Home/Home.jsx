@@ -27,7 +27,7 @@ export const Hme = () => {
         onTabChange={setActiveCategory}
       />
       <EditorialBanner />
-      <Accessories />
+      {/* <Accessories /> */}
       <NewArrivals />
       <Reviews />
       <FAQ />
