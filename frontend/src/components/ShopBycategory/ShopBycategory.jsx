@@ -4,28 +4,26 @@ import "./ShopBycategory.css";
 
 const categories = [
   {
-    name: "Oversize T-shirts",
-    products: "24 PRODUCTS",
-    // image: "/images/oversize.png",
+    name: "Outerwear",
+    slug: "outerwear",
+    products: "2 STYLES",
     image: "/images/tshirtwithicon.png",
-
   },
   {
-    name: "Jerseys",
-    products: "12 PRODUCTS",
-    // image: "/images/jersey.png",
+    name: "Tops & Hoodies",
+    slug: "tops",
+    products: "1 STYLE",
     image: "/images/jerseywithicon.png",
-
   },
   {
-    name: "Pants",
-    products: "18 PRODUCTS",
-    // image: "/images/pants.png",
+    name: "Pants & Bottoms",
+    slug: "bottoms",
+    products: "5 STYLES",
     image: "/images/pantwithicon.png",
   },
 ];
 
-export default function ShopByCategory() {
+export default function ShopByCategory({ onSelectCategory }) {
   return (
     <section id="shop-category" className="shop-category">
 
@@ -36,7 +34,11 @@ export default function ShopByCategory() {
           Shop by <span>Category</span>
         </h2>
 
-        <a href="#" className="view-all">
+        <a
+          href="#shop"
+          className="view-all"
+          onClick={() => onSelectCategory && onSelectCategory("all")}
+        >
           <span>VIEW ALL</span>
           <b>↗</b>
         </a>
@@ -50,9 +52,10 @@ export default function ShopByCategory() {
         {categories.map((category, index) => (
 
           <a
-            href="#"
+            href="#shop"
             className={`category-card category-${index + 1}`}
             key={category.name}
+            onClick={() => onSelectCategory && onSelectCategory(category.slug)}
           >
 
             {/* IMAGE */}

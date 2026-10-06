@@ -1,151 +1,243 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useCart } from "../../context/CartContext";
-import { SIZE_GUIDE, getProductGallery } from "../../data/products";
-import { WhatsAppIcon } from "../common/Icons";
+import { PRODUCTS } from "../../data/products";
 import { CustomerDetailsModal } from "../common/CustomerDetailsModal";
+import {
+  generateWhatsAppOrderMessage,
+  openWhatsAppOrder,
+} from "../../utils/whatsappOrder";
 import "./ProductDetails.css";
 
-const formatInr = (value) =>
-  `₹${Number(value).toLocaleString("en-IN", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
+// Official Flint Sector WhatsApp number
+const WHATSAPP_NUMBER = "919526304560";
 
-const ACCORDIONS = [
-  {
-    id: "shipping",
-    title: "Shipping & Returns",
-    body: "Free shipping on prepaid orders. Cash on Delivery is available across most Indian pin codes. Orders dispatch within 24 hours. Easy 7-day size exchange on unworn items with original tags.",
-  },
-  {
-    id: "care",
-    title: "Material & Care",
-  },
-  {
-    id: "size",
-    title: "Size Guide",
-  },
-];
-
-export const ProductDetails = ({ product }) => {
-  const { addToCart } = useCart();
-  const gallery = useMemo(() => getProductGallery(product), [product]);
-  const [activeImage, setActiveImage] = useState(0);
-  const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0] || "L");
-  const [quantity, setQuantity] = useState(1);
-  const [openAccordion, setOpenAccordion] = useState(null);
-
-  if (!product) {
-    return (
-      <main className="pdp-page" style={{ padding: "80px 20px", textAlign: "center" }}>
-        <h2>Product Not Found</h2>
-        <p style={{ marginTop: "16px" }}>
-          <Link href="/#bestsellers">← Back to shop</Link>
-        </p>
-      </main>
-    );
+const formatPrice = (val) => {
+  if (typeof val === "number") return `₹${val.toLocaleString("en-IN")}`;
+  if (typeof val === "string") {
+    if (val.startsWith("₹") || val.startsWith("Rs") || val.startsWith("$")) return val;
+    return `₹${val}`;
   }
+  return "₹0";
+};
 
-  const savings = Math.max(0, (product.originalPrice || 0) - (product.price || 0));
+const getProductImages = (prod) => {
+  if (!prod) return ["/images/Product01.png"];
+  if (Array.isArray(prod.images) && prod.images.length > 0) return prod.images;
+  const list = [prod.frontImage, prod.backImage, prod.image].filter(Boolean);
+  return list.length > 0 ? list : ["/images/Product01.png"];
+};
+
+export function ProductDetails({ product: initialProduct }) {
+  const product = initialProduct || PRODUCTS[0];
+  const { addToCart, setQuickViewProduct } = useCart();
+
+  const images = getProductImages(product);
+  const [selectedImage, setSelectedImage] = useState(0);
+
+  const availableSizes =
+    Array.isArray(product?.sizes) && product.sizes.length > 0
+      ? product.sizes
+      : ["S", "M", "L", "XL", "XXL"];
+
+  const [selectedSize, setSelectedSize] = useState(availableSizes[0] || "L");
+  const [quantity, setQuantity] = useState(1);
+  const [cartMessage, setCartMessage] = useState("");
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
 
-  const directSubtotal = (product.price || 0) * quantity;
+  const activeImage = images[Math.min(selectedImage, images.length - 1)] || images[0];
+
+  const numPrice =
+    typeof product.price === "number"
+      ? product.price
+      : parseFloat(String(product.price).replace(/[^0-9.]/g, "")) || 0;
+
+  const directSubtotal = numPrice * quantity;
   const directShipping = directSubtotal >= 999 || directSubtotal === 0 ? 0 : 99;
   const directTotal = directSubtotal + directShipping;
 
+  const increaseQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const decreaseQuantity = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  };
+
   const handleAddToCart = () => {
-    addToCart(product, selectedSize, quantity);
+    if (!selectedSize) {
+      alert("Please select a size before adding to cart.");
+      return;
+    }
+
+    const cartItemProduct = {
+      ...product,
+      id: product.id,
+      name: product.name,
+      price: numPrice,
+      frontImage: activeImage || images[0],
+      color: product.color || "Standard",
+    };
+
+    addToCart(cartItemProduct, selectedSize, quantity);
+    setCartMessage("ADDED TO CART");
+
+    setTimeout(() => {
+      setCartMessage("");
+    }, 2200);
   };
 
-  const openSizeGuide = () => {
-    setOpenAccordion("size");
-    document.getElementById("pdp-size-guide")?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
+  const handleWhatsAppOrder = () => {
+    if (!selectedSize) {
+      alert("Please select a size before ordering.");
+      return;
+    }
+    setIsCustomerModalOpen(true);
   };
 
-  const availableSizes = product.sizes && product.sizes.length > 0 ? product.sizes : ["S", "M", "L", "XL"];
+  // Build specifications list
+  const detailsList =
+    Array.isArray(product?.details) && product.details.length > 0
+      ? product.details
+      : [
+          ["Material", product?.fabric || "100% Combed Heavy Cotton, Bio-washed"],
+          ["Silhouette", product?.fit || "Box-Fit Oversized"],
+          ["GSM / Weight", product?.gsm || "240+ GSM Heavyweight"],
+          ["Colorway", product?.color || "Heritage Streetwear Dye"],
+          ["Category", product?.categoryName || product?.category || "Streetwear"],
+          ["Care", "Cold machine wash inside-out, tumble dry low, do not iron on print"],
+        ];
+
+  // Related products from catalog
+  const relatedProducts = PRODUCTS.filter((item) => item.id !== product.id).slice(0, 4);
 
   return (
-    <main className="pdp-page">
-      <div className="pdp-layout">
-        <section className="pdp-gallery" aria-label="Product images">
-          <div className="pdp-main-image-wrap">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={gallery[activeImage]}
-              alt={`${product.name} view ${activeImage + 1}`}
-              className="pdp-main-image"
-            />
-            <span className="pdp-image-counter">
-              {String(activeImage + 1).padStart(2, "0")} /{" "}
-              {String(gallery.length).padStart(2, "0")}
+    <main className="product-details-page">
+      {/* BREADCRUMB */}
+      <nav className="product-breadcrumb" aria-label="Breadcrumb">
+        <Link href="/#shop" className="breadcrumb-back">
+          <span>←</span> Back to All Products
+        </Link>
+        <span className="breadcrumb-sep">/</span>
+        <span>{product.categoryName || product.category || "Collection"}</span>
+        <span className="breadcrumb-sep">/</span>
+        <span className="breadcrumb-current">{product.name}</span>
+      </nav>
+
+      <div className="product-details-container">
+        {/* =================================================
+            PRODUCT GALLERY
+        ================================================= */}
+        <div className="product-gallery">
+          {/* THUMBNAILS */}
+          {images.length > 1 && (
+            <div className="product-thumbnails">
+              {images.map((image, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  className={`product-thumbnail ${
+                    selectedImage === index ? "active" : ""
+                  }`}
+                  onClick={() => setSelectedImage(index)}
+                  aria-label={`View product image ${index + 1}`}
+                >
+                  <img src={image} alt={`${product.name} thumbnail ${index + 1}`} />
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* MAIN IMAGE */}
+          <div className="product-main-image">
+            <img src={activeImage} alt={product.name} />
+
+            {product.badge && (
+              <span className="product-badge-overlay">{product.badge}</span>
+            )}
+
+            <span className="product-image-label">FLINT SECTOR</span>
+          </div>
+        </div>
+
+        {/* =================================================
+            PRODUCT INFORMATION
+        ================================================= */}
+        <div className="product-info">
+          {/* CATEGORY & BADGE ROW */}
+          <div className="product-category-row">
+            <span className="product-category">
+              FLINT SECTOR / {product.categoryName || product.category || "COLLECTION"}
             </span>
+            {product.gsm && <span className="product-gsm-pill">{product.gsm}</span>}
           </div>
 
-          <div className="pdp-thumbs" role="list">
-            {gallery.map((src, index) => (
-              <button
-                key={src}
-                type="button"
-                role="listitem"
-                className={`pdp-thumb ${activeImage === index ? "active" : ""}`}
-                onClick={() => setActiveImage(index)}
-                aria-label={`Show image ${index + 1}`}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="" />
-              </button>
-            ))}
-          </div>
-        </section>
+          {/* NAME */}
+          <h1 className="product-name">{product.name}</h1>
 
-        <aside className="pdp-buybox">
-          <p className="pdp-collection">
-            {product.categoryName} Collection
-          </p>
-          <h1 className="pdp-title">{product.name}</h1>
-          <p className="pdp-color">{product.color}</p>
-
-          <div className="pdp-price-row">
-            <span className="pdp-price-old">{formatInr(product.originalPrice)}</span>
-            <span className="pdp-price-now">{formatInr(product.price)}</span>
-            {savings > 0 && (
-              <span className="pdp-save-badge">SAVE {formatInr(savings)}</span>
+          {/* PRICE & DISCOUNT */}
+          <div className="product-price-row">
+            <span className="product-price">{formatPrice(product.price)}</span>
+            {product.originalPrice ? (
+              <span className="product-old-price">{formatPrice(product.originalPrice)}</span>
+            ) : null}
+            {product.discount && (
+              <span className="product-discount-pill">{product.discount}</span>
             )}
           </div>
 
-          <p className="pdp-description">{product.description}</p>
+          <p className="product-taxes-note">
+            Inclusive of all taxes. Free express shipping on prepaid orders over ₹999.
+          </p>
 
-          <div className="pdp-size-header">
-            <span>Select Size</span>
-            <button type="button" className="pdp-size-guide-link" onClick={openSizeGuide}>
-              Size Guide →
-            </button>
+          <div className="product-divider" />
+
+          {/* DESCRIPTION */}
+          <p className="product-description">{product.description}</p>
+
+          {/* =================================================
+              SIZE SELECTOR
+          ================================================= */}
+          <div className="product-option">
+            <div className="option-header">
+              <span>SELECT SIZE</span>
+              {selectedSize && (
+                <span className="selected-size">
+                  SIZE: {selectedSize} (True to Box-Fit)
+                </span>
+              )}
+            </div>
+
+            <div className="size-options">
+              {availableSizes.map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  className={`size-button ${
+                    selectedSize === size ? "selected" : ""
+                  }`}
+                  onClick={() => setSelectedSize(size)}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="pdp-sizes" role="group" aria-label="Select size">
-            {availableSizes.map((size) => (
-              <button
-                key={size}
-                type="button"
-                className={`pdp-size-btn ${selectedSize === size ? "active" : ""}`}
-                onClick={() => setSelectedSize(size)}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
+          {/* =================================================
+              QUANTITY SELECTOR
+          ================================================= */}
+          <div className="product-option quantity-option">
+            <div className="option-header">
+              <span>QUANTITY</span>
+            </div>
 
-          <div className="pdp-cart-row">
-            <div className="pdp-qty" aria-label="Quantity">
+            <div className="quantity-selector">
               <button
                 type="button"
-                onClick={() => setQuantity((qty) => Math.max(1, qty - 1))}
+                onClick={decreaseQuantity}
                 aria-label="Decrease quantity"
               >
                 −
@@ -153,122 +245,161 @@ export const ProductDetails = ({ product }) => {
               <span>{quantity}</span>
               <button
                 type="button"
-                onClick={() => setQuantity((qty) => qty + 1)}
+                onClick={increaseQuantity}
                 aria-label="Increase quantity"
               >
                 +
               </button>
             </div>
-            <button type="button" className="pdp-btn-cart" onClick={handleAddToCart}>
-              Add to Cart
+          </div>
+
+          {/* =================================================
+              ACTION BUTTONS
+          ================================================= */}
+          <div className="product-actions">
+            {/* ADD TO CART */}
+            <button
+              type="button"
+              className={`add-to-cart-button ${
+                cartMessage ? "added" : ""
+              }`}
+              onClick={handleAddToCart}
+            >
+              <span>{cartMessage || `ADD TO BAG • ${formatPrice(product.price)}`}</span>
+              <span className="cart-arrow">
+                {cartMessage ? "✓" : "+"}
+              </span>
+            </button>
+
+            {/* WHATSAPP */}
+            <button
+              type="button"
+              className="whatsapp-order-button"
+              onClick={handleWhatsAppOrder}
+            >
+              <span>BUY ON WHATSAPP</span>
+              <span className="whatsapp-order-arrow">↗</span>
             </button>
           </div>
 
-          <button
-            type="button"
-            className="pdp-btn-buy"
-            onClick={() => setIsCustomerModalOpen(true)}
-          >
-            <WhatsAppIcon size={18} />
-            Buy on WhatsApp
-          </button>
+          <p className="order-note">
+            Select your size and quantity before adding to cart or ordering on WhatsApp.
+          </p>
 
-          <div className="pdp-perks">
-            <div>
-              <strong>Free Shipping</strong>
-              <span>On prepaid orders</span>
+          {/* =================================================
+              PERKS & GUARANTEES
+          ================================================= */}
+          <div className="product-perks-box">
+            <div className="product-perk-item">
+              <span className="perk-icon">⚡</span>
+              <div>
+                <strong>Dispatched in 24 Hours</strong>
+                <p>Fast track fulfillment across India</p>
+              </div>
             </div>
-            <div>
-              <strong>COD Available</strong>
-              <span>Pay on delivery</span>
+            <div className="product-perk-item">
+              <span className="perk-icon">📦</span>
+              <div>
+                <strong>Free Express Shipping</strong>
+                <p>On all prepaid orders over ₹999</p>
+              </div>
             </div>
-            <div>
-              <strong>Easy Size Exchange</strong>
-              <span>7-day window</span>
+            <div className="product-perk-item">
+              <span className="perk-icon">🔄</span>
+              <div>
+                <strong>7-Day Size Exchange</strong>
+                <p>Hassle-free fit guarantee</p>
+              </div>
             </div>
-            <div>
-              <strong>Dispatch within 24 Hours</strong>
-              <span>Priority packing</span>
+            <div className="product-perk-item">
+              <span className="perk-icon">💵</span>
+              <div>
+                <strong>Cash on Delivery (COD)</strong>
+                <p>Available on 25,000+ pin codes</p>
+              </div>
             </div>
           </div>
 
-          <div className="pdp-accordions">
-            {ACCORDIONS.map((item) => {
-              const isOpen = openAccordion === item.id;
-              return (
-                <div
-                  key={item.id}
-                  id={item.id === "size" ? "pdp-size-guide" : undefined}
-                  className="pdp-accordion"
-                >
-                  <button
-                    type="button"
-                    className="pdp-accordion-trigger"
-                    aria-expanded={isOpen}
-                    onClick={() =>
-                      setOpenAccordion((current) =>
-                        current === item.id ? null : item.id
-                      )
-                    }
-                  >
-                    <span>{item.title}</span>
-                    <span className="pdp-accordion-icon">{isOpen ? "−" : "+"}</span>
-                  </button>
-                  {isOpen && (
-                    <div className="pdp-accordion-body">
-                      {item.id === "care" && (
-                        <>
-                          <p>
-                            <strong>Fabric:</strong> {product.fabric}
-                          </p>
-                          <p>
-                            <strong>Weight:</strong> {product.gsm} · {product.fit}
-                          </p>
-                          <p>
-                            Cold machine wash inside-out. Do not bleach. Tumble
-                            dry low or hang dry in shade.
-                          </p>
-                        </>
-                      )}
-                      {item.id === "shipping" && <p>{item.body}</p>}
-                      {item.id === "size" && (
-                        <table className="pdp-size-table">
-                          <thead>
-                            <tr>
-                              <th>Size</th>
-                              <th>Chest</th>
-                              <th>Length</th>
-                              <th>Shoulder</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {SIZE_GUIDE.filter((row) =>
-                              availableSizes.includes(row.size)
-                            ).map((row) => (
-                              <tr key={row.size}>
-                                <td>{row.size}</td>
-                                <td>{row.chest}&quot;</td>
-                                <td>{row.length}&quot;</td>
-                                <td>{row.shoulder}&quot;</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      )}
-                    </div>
-                  )}
+          {/* =================================================
+              PRODUCT DETAILS SPECIFICATIONS
+          ================================================= */}
+          <div className="product-details-section">
+            <div className="details-heading">PRODUCT SPECIFICATIONS</div>
+
+            <div className="details-list">
+              {detailsList.map(([label, value]) => (
+                <div className="detail-row" key={label}>
+                  <span>{label}</span>
+                  <strong>{value}</strong>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
-        </aside>
+        </div>
       </div>
 
-      <p className="pdp-back-link">
-        <Link href="/#bestsellers">← Back to shop</Link>
-      </p>
+      {/* =================================================
+          RELATED PRODUCTS SECTION
+      ================================================= */}
+      {relatedProducts.length > 0 && (
+        <section className="related-products-section">
+          <div className="related-header">
+            <div>
+              <span className="related-eyebrow">COMPLETE THE LOOK</span>
+              <h2 className="related-title">More From Flint Sector</h2>
+            </div>
+            <Link href="/#shop" className="related-view-all">
+              VIEW ALL ITEMS ↗
+            </Link>
+          </div>
 
-      {/* WhatsApp Purchase Customer Details Modal */}
+          <div className="related-grid">
+            {relatedProducts.map((rel) => (
+              <article className="related-card" key={rel.id}>
+                <div className="related-image-wrapper">
+                  <Link href={`/product/${rel.id}`} className="related-image-link">
+                    <img
+                      src={rel.frontImage || rel.image}
+                      alt={rel.name}
+                      className="related-image"
+                      loading="lazy"
+                    />
+                  </Link>
+
+                  {rel.badge && (
+                    <span className="product-badge">{rel.badge}</span>
+                  )}
+
+                  <button
+                    type="button"
+                    className="quick-view"
+                    aria-label={`Quick view ${rel.name}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setQuickViewProduct(rel);
+                    }}
+                  >
+                    ↗
+                  </button>
+                </div>
+
+                <Link href={`/product/${rel.id}`} className="related-details-link">
+                  <div className="product-details">
+                    <span className="product-category">
+                      {rel.categoryName || rel.category?.toUpperCase()}
+                    </span>
+                    <h3>{rel.name}</h3>
+                    <p className="product-price">{formatPrice(rel.price)}</p>
+                  </div>
+                </Link>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* CUSTOMER DETAILS MODAL FOR WHATSAPP ORDER */}
       <CustomerDetailsModal
         isOpen={isCustomerModalOpen}
         onClose={() => setIsCustomerModalOpen(false)}
@@ -277,7 +408,6 @@ export const ProductDetails = ({ product }) => {
             product,
             size: selectedSize,
             quantity,
-            variant: product.color || "N/A",
           },
         ]}
         subtotal={directSubtotal}
@@ -287,6 +417,6 @@ export const ProductDetails = ({ product }) => {
       />
     </main>
   );
-};
+}
 
 export default ProductDetails;

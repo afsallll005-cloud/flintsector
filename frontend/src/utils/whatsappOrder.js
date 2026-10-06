@@ -3,17 +3,17 @@
 export const WHATSAPP_PHONE_NUMBER = "919526304560";
 
 /**
- * Format price as integer or decimal rupees: e.g. ₹699, ₹1,299
+ * Format price as rupees: e.g. ₹699, ₹1650
  */
 export const formatRupees = (val) => {
-  const num = Number(val) || 0;
-  return `₹${num.toLocaleString("en-IN")}`;
+  const num = Math.round(Number(String(val).replace(/[^0-9.]/g, "")) || 0);
+  return `₹${num}`;
 };
 
 /**
  * Generate a unique, short, uppercase alphanumeric order reference
  * Format: FL-XXXXXXXX (8 random alphanumeric characters)
- * Example: FL-7A42K9P1
+ * Example: FL-Z4GRTD7A
  */
 export const generateOrderReference = () => {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -28,11 +28,13 @@ export const generateOrderReference = () => {
  * Get dynamic product URL resolving origin in browser / fallback
  */
 export const getProductUrl = (product) => {
-  const origin =
-    typeof window !== "undefined" && window.location.origin
-      ? window.location.origin
-      : "https://flintsector.com";
-  
+  let origin = "https://flintsector-1eqj.vercel.app";
+  if (typeof window !== "undefined" && window.location.origin) {
+    const cur = window.location.origin;
+    if (!cur.includes("localhost") && !cur.includes("127.0.0.1") && !cur.includes("0.0.0.0")) {
+      origin = cur;
+    }
+  }
   const id = product?.id || product?.slug || "";
   return `${origin}/product/${id}`;
 };
@@ -42,14 +44,14 @@ export const getProductUrl = (product) => {
  * - Name: required
  * - Delivery Address: required
  * - Pincode: exactly 6 digits
- * - Phone: exactly 10 digits
+ * - Phone: at least 10 digits
  */
 export const validateCustomerDetails = (details) => {
   const errors = {};
 
   const name = String(details?.name || "").trim();
   if (!name) {
-    errors.name = "Enter your name";
+    errors.name = "Enter your full name";
   }
 
   const address = String(details?.address || "").trim();
@@ -59,12 +61,12 @@ export const validateCustomerDetails = (details) => {
 
   const cleanPincode = String(details?.pincode || "").replace(/\D/g, "");
   if (!cleanPincode || cleanPincode.length !== 6) {
-    errors.pincode = "Enter 6-digit pincode";
+    errors.pincode = "Enter a valid 6-digit pincode";
   }
 
   const cleanPhone = String(details?.phone || "").replace(/\D/g, "");
-  if (!cleanPhone || cleanPhone.length !== 10) {
-    errors.phone = "Enter 10-digit mobile number";
+  if (!cleanPhone || cleanPhone.length < 10) {
+    errors.phone = "Enter a valid 10-digit mobile number";
   }
 
   return {
@@ -75,86 +77,89 @@ export const validateCustomerDetails = (details) => {
 
 /**
  * Generate exact WhatsApp order message required by FlintSector specification
- * 
- * Structure:
+ *
+ * Visual format:
  * FLINTSECTOR CART ORDER
- * 
- * Order Reference: FL-XXXXXXXX
+ * Order Reference: FL-Z4GRTD7A
  * Source: FLINTSECTOR Website
- * Number of Products: X
- * 
- * 1. Product Name
- *    Variant: ...
- *    Size: ...
- *    Quantity: ...
- *    Unit Price: ₹...
- *    Item Total: ₹...
- *    Product Link: ...
- * 
- * ORDER SUMMARY
- * Subtotal: ₹...
- * Shipping: ₹...
- * Total: ₹...
- * 
- * Customer Details
+ * Number of Products: 1
+ *
+ * Raglan Half Sleeve Olive Green
+ * Variant: Green & Cream
+ * Size: S
+ * Quantity: 1
+ * Unit Price: ₹699
+ * Item Total: ₹699
+ * Product Link: https://flintsector-1eqj.vercel.app/product/raglan-half-green
+ *
+ * *ORDER SUMMARY*
+ * Subtotal: ₹699
+ * Shipping: ₹99
+ * Total: ₹798
+ *
+ * *Customer Details*
  * Name: ...
  * Delivery Address: ...
  * Pincode: ...
  * Phone Number: ...
- * 
+ *
  * Please confirm product availability, delivery details, payment method, and the final order total.
  */
 export const generateWhatsAppOrderMessage = ({
-  cartItems,
-  customerDetails,
-  subtotal,
-  shippingFee,
-  total,
+  cartItems = [],
+  customerDetails = {},
+  subtotal = 0,
+  shippingFee = 0,
+  total = 0,
   orderReference,
 }) => {
   const ref = orderReference || generateOrderReference();
-  const itemsCount = cartItems?.length || 0;
+  const items = Array.isArray(cartItems) ? cartItems : [];
+  const numberOfProducts = items.length;
 
-  const productBlocks = (cartItems || []).map((item, index) => {
+  const productBlocks = items.map((item) => {
     const product = item.product || item;
-    const name = product.name || "Flint Sector Streetwear";
-    const variant = product.color || item.variant || "N/A";
-    const size = item.size || "N/A";
+    const name = product.name || "Flint Sector Product";
+    const variant = product.color || item.variant || "Standard";
+    const size = item.size || "Free Size";
     const quantity = Number(item.quantity) || 1;
-    const unitPrice = Number(product.price) || 0;
+    const rawPrice =
+      typeof product.price === "number"
+        ? product.price
+        : parseFloat(String(product.price).replace(/[^0-9.]/g, "")) || 0;
+    const unitPrice = Math.round(rawPrice);
     const itemTotal = unitPrice * quantity;
     const productLink = getProductUrl(product);
 
     return [
-      `${index + 1}. ${name}`,
-      `   Variant: ${variant}`,
-      `   Size: ${size}`,
-      `   Quantity: ${quantity}`,
-      `   Unit Price: ${formatRupees(unitPrice)}`,
-      `   Item Total: ${formatRupees(itemTotal)}`,
-      `   Product Link: ${productLink}`,
+      name,
+      `Variant: ${variant}`,
+      `Size: ${size}`,
+      `Quantity: ${quantity}`,
+      `Unit Price: ${formatRupees(unitPrice)}`,
+      `Item Total: ${formatRupees(itemTotal)}`,
+      `Product Link: ${productLink}`,
     ].join("\n");
   });
 
   const lines = [
     "FLINTSECTOR CART ORDER",
-    "",
     `Order Reference: ${ref}`,
     "Source: FLINTSECTOR Website",
-    `Number of Products: ${itemsCount}`,
+    `Number of Products: ${numberOfProducts}`,
     "",
     productBlocks.join("\n\n"),
     "",
-    "ORDER SUMMARY",
+    "*ORDER SUMMARY*",
     `Subtotal: ${formatRupees(subtotal)}`,
     `Shipping: ${formatRupees(shippingFee)}`,
     `Total: ${formatRupees(total)}`,
     "",
-    "Customer Details",
-    `Name: ${customerDetails?.name?.trim() || ""}`,
-    `Delivery Address: ${customerDetails?.address?.trim() || ""}`,
-    `Pincode: ${customerDetails?.pincode?.trim() || ""}`,
-    `Phone Number: ${customerDetails?.phone?.trim() || ""}`,
+    "*Customer Details*",
+    `Name: ${customerDetails?.name ? String(customerDetails.name).trim() : ""}`,
+    `Delivery Address: ${customerDetails?.address ? String(customerDetails.address).trim() : ""}`,
+    `Pincode: ${customerDetails?.pincode ? String(customerDetails.pincode).trim() : ""}`,
+    `Phone Number: ${customerDetails?.phone ? String(customerDetails.phone).trim() : ""}`,
     "",
     "Please confirm product availability, delivery details, payment method, and the final order total.",
   ];

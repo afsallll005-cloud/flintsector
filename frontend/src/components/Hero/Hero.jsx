@@ -6,7 +6,7 @@ import "./Hero.css";
 const slides = [
   {
     desktop: "/images/Oversize.png",
-    mobile: "/images/hero02.png",
+    mobile: "/images/hero-mob01.png",
     eyebrow: "FLINT SECTOR / 01",
     title: (
       <>
@@ -23,7 +23,7 @@ const slides = [
   },
   {
     desktop: "/images/hero-2-desktop.jpg",
-    mobile: "/images/hero03.png",
+    mobile: "/images/hero-mob02.png",
     eyebrow: "FLINT SECTOR / 02",
     title: (
       <>
@@ -40,7 +40,7 @@ const slides = [
   },
   {
     desktop: "/images/hero-3-desktop.jpg",
-    mobile: "/images/hero-3-mobile.jpg",
+    mobile: "/images/hero-mob03.png",
     eyebrow: "FLINT SECTOR / 03",
     title: (
       <>

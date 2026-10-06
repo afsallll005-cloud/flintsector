@@ -8,9 +8,10 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const { id } = await params;
-  let product = getProductById(id);
-  if (!product) {
+  const resolvedParams = await Promise.resolve(params);
+  const id = resolvedParams?.id ? decodeURIComponent(resolvedParams.id) : null;
+  let product = id ? getProductById(id) : null;
+  if (!product && id) {
     try {
       product = await fetchProductById(id);
     } catch (e) {
@@ -27,9 +28,10 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ProductPage({ params }) {
-  const { id } = await params;
-  let product = getProductById(id);
-  if (!product) {
+  const resolvedParams = await Promise.resolve(params);
+  const id = resolvedParams?.id ? decodeURIComponent(resolvedParams.id) : null;
+  let product = id ? getProductById(id) : null;
+  if (!product && id) {
     try {
       product = await fetchProductById(id);
     } catch (e) {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useCart } from "../../context/CartContext";
 import {
   XIcon,
@@ -9,106 +9,17 @@ import {
   BadgeCheckIcon,
 } from "../common/Icons";
 import { createOrder } from "../../utils/api";
+import {
+  generateWhatsAppOrderMessage,
+  openWhatsAppOrder,
+  generateOrderReference,
+  validateCustomerDetails,
+  WHATSAPP_PHONE_NUMBER,
+} from "../../utils/whatsappOrder";
 import "./CartDrawer.css";
 
-// WhatsApp Business / Order Number
-// Country Code: 91
-// WhatsApp Number: 9526304560
-const WHATSAPP_ORDER_NUMBER = "919526304560";
-
-const formatInr = (value) => `₹${Number(value).toFixed(2)}`;
-
-const slugify = (value) =>
-  String(value || "")
-    .toLowerCase()
-    .trim()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-const compactSlug = (value) =>
-  String(value || "")
-    .toLowerCase()
-    .trim()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "");
-
-const getProductOrderSlug = (product) => {
-  const nameSlug = slugify(product?.name);
-  const variantSlug = compactSlug(product?.color);
-
-  return [nameSlug, variantSlug].filter(Boolean).join("-");
-};
-
-const getProductOrderLink = (product) =>
-  `https://flintsector/product/${getProductOrderSlug(product)}`;
-
-const generateOrderReference = () => {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-  let token = "";
-
-  for (let i = 0; i < 6; i += 1) {
-    token += chars[Math.floor(Math.random() * chars.length)];
-  }
-
-  return `FL-${token}`;
-};
-
-const buildCartWhatsAppMessage = ({
-  cart,
-  subtotal,
-  shippingFee,
-  finalTotal,
-  customerInfo,
-  orderReference,
-  paymentMethod,
-}) => {
-  const productLines = cart.map((item, index) => {
-    const unitPrice = Number(item.product.price);
-    const quantity = Number(item.quantity);
-    const itemTotal = unitPrice * quantity;
-
-    const variant =
-      item.product.color ||
-      item.variant ||
-      "—";
-
-    return [
-      `${index + 1}. ${item.product.name}`,
-      `Variant: ${variant}`,
-      `Size: ${item.size}`,
-      `Quantity: ${quantity}`,
-      `Unit Price: ${formatInr(unitPrice)}`,
-      `Item Total: ${formatInr(itemTotal)}`,
-      `Product Link: ${getProductOrderLink(item.product)}`,
-    ].join("\n");
-  });
-
-  return [
-    "FLINTSECTOR CART ORDER",
-    "",
-    `Order Reference: ${orderReference}`,
-    "Source: FLINTSECTOR Website",
-    `Number of Products: ${cart.length}`,
-    "",
-    productLines.join("\n\n"),
-    "",
-    "ORDER SUMMARY",
-    `Subtotal: ${formatInr(subtotal)}`,
-    `Shipping: ${formatInr(shippingFee)}`,
-    `Total: ${formatInr(finalTotal)}`,
-    "",
-    "Customer Details",
-    `Name: ${customerInfo.name}`,
-    `Delivery Address: ${customerInfo.address}`,
-    `Pincode: ${customerInfo.pincode}`,
-    `Phone Number: ${customerInfo.phone}`,
-    `Payment Method: ${paymentMethod}`,
-    "",
-    "Please confirm product availability, delivery details, payment method, and the final order total.",
-  ].join("\n");
-};
+// WhatsApp Business Number
+const WHATSAPP_ORDER_NUMBER = WHATSAPP_PHONE_NUMBER;
 
 export const CartDrawer = () => {
   const {
@@ -143,6 +54,25 @@ export const CartDrawer = () => {
     pincode: "",
   });
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("flint_customer_info");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          setCustomerInfo({
+            name: parsed.name || "",
+            phone: parsed.phone || "",
+            address: parsed.address || "",
+            pincode: parsed.pincode || "",
+          });
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+  }, [isCheckingOut]);
+
   const remainingForFreeShipping = Math.max(
     0,
     freeShippingThreshold - subtotal
@@ -167,56 +97,42 @@ export const CartDrawer = () => {
   const handlePlaceOrder = (e) => {
     e.preventDefault();
 
-    if (
-      !customerInfo.name.trim() ||
-      !customerInfo.phone.trim() ||
-      !customerInfo.address.trim() ||
-      !customerInfo.pincode.trim()
-    ) {
-      showToast(
-        "Please fill in your delivery details",
-        "error"
-      );
-
+    const validation = validateCustomerDetails(customerInfo);
+    if (!validation.isValid) {
+      const firstError = Object.values(validation.errors)[0];
+      showToast(firstError || "Please fill in your delivery details", "error");
       return;
     }
 
     if (!cart.length) {
-      showToast(
-        "Your bag is empty",
-        "error"
-      );
-
+      showToast("Your bag is empty", "error");
       return;
     }
 
+    // Save for convenience
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem("flint_customer_info", JSON.stringify(customerInfo));
+      } catch (err) {
+        // ignore
+      }
+    }
+
     const orderReference = generateOrderReference();
+
+    const { message } = generateWhatsAppOrderMessage({
+      cartItems: cart,
+      customerDetails: customerInfo,
+      subtotal,
+      shippingFee,
+      total: finalTotal,
+      orderReference,
+    });
 
     const paymentMethod =
       deliveryMethod === "cod"
         ? "Cash on Delivery"
         : "UPI / Prepaid";
-
-    const message = buildCartWhatsAppMessage({
-      cart,
-      subtotal,
-      shippingFee,
-      finalTotal,
-      customerInfo,
-      orderReference,
-      paymentMethod,
-    });
-
-    /*
-      WhatsApp number:
-      +91 95263 04560
-
-      wa.me requires:
-      919526304560
-    */
-    const whatsappUrl =
-      `https://wa.me/${WHATSAPP_ORDER_NUMBER}` +
-      `?text=${encodeURIComponent(message)}`;
 
     // Asynchronously record order in backend database for Admin dashboard
     createOrder({
@@ -241,18 +157,11 @@ export const CartDrawer = () => {
       console.warn("Could not sync order to backend:", err.message);
     });
 
-    window.open(
-      whatsappUrl,
-      "_blank",
-      "noopener,noreferrer"
-    );
+    // Open WhatsApp with properly URL-encoded message
+    openWhatsAppOrder(message);
 
     setCheckoutStep(2);
-
-    showToast(
-      "Opening WhatsApp with your order details...",
-      "success"
-    );
+    showToast("Opening WhatsApp with your order details...", "success");
   };
 
   return (
@@ -555,7 +464,7 @@ export const CartDrawer = () => {
               }}
             >
               <span>
-                PROCEED TO CHECKOUT
+                BUY ON WHATSAPP
               </span>
 
               <ArrowRightIcon size={14} />
@@ -901,7 +810,7 @@ export const CartDrawer = () => {
                     }}
                   >
                     <span>
-                      PLACE ORDER ON WHATSAPP
+                      BUY ON WHATSAPP
                     </span>
                   </button>
                 </form>

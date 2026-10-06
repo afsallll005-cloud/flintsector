@@ -2,290 +2,206 @@
 
 export const PRODUCTS = [
   {
-    id: "raglan-half-green",
-    name: "Raglan Half Sleeve Olive Green",
-    category: "raglan-half",
-    categoryName: "Raglan Half",
-    price: 699,
-    originalPrice: 999,
-    discount: "30% OFF",
-    frontImage: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&auto=format&fit=crop&q=80",
-    color: "Green & Cream",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    badge: "BESTSELLER",
-    isBestseller: true,
-    isNew: false,
-    gsm: "240 GSM",
-    fabric: "100% Combed Cotton, Bio-washed",
+    id: "suede-moto-jacket",
+    name: "Suede Moto Jacket",
+    category: "outerwear",
+    categoryName: "Outerwear",
+    price: 4900,
+    originalPrice: 6500,
+    discount: "25% OFF",
+    frontImage: "/images/Product01.png",
+    backImage: "/images/Product01.png",
+    image: "/images/Product01.png",
+    color: "Mocha Brown",
+    sizes: ["S", "M", "L", "XL"],
+    badge: "LIMITED",
+    isBestseller: false,
+    isNew: true,
+    gsm: "380 GSM Heavy Suede",
+    fabric: "Premium Faux Suede & Satin Lining",
     fit: "Box-Fit Oversized",
-    description: "Signature two-tone Raglan cut featuring heavy ribbed collar and premium heavyweight 240 GSM combed cotton. Built with drop-shoulders for an effortless streetwear silhouette."
+    description: "Custom cropped boxy moto silhouette crafted from luxury heavyweight 380 GSM faux suede. Features antiqued matte hardware, drop shoulders, and reinforced utility seam construction."
   },
   {
-    id: "raglan-full-grey",
-    name: "Raglan Full Sleeve Heather Grey",
-    category: "raglan-full",
-    categoryName: "Raglan Full",
-    price: 799,
-    originalPrice: 1099,
-    discount: "27% OFF",
-    frontImage: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&auto=format&fit=crop&q=80",
-    color: "Grey & Black",
+    id: "elevation-oversized-jacket",
+    name: "Elevation Oversized Jacket",
+    category: "outerwear",
+    categoryName: "Outerwear",
+    price: 2850,
+    originalPrice: 3800,
+    discount: "25% OFF",
+    frontImage: "/images/Product02.png",
+    backImage: "/images/Product02.png",
+    image: "/images/Product02.png",
+    color: "Washed Charcoal",
     sizes: ["S", "M", "L", "XL", "XXL"],
-    badge: "POPULAR",
+    badge: "NEW",
+    isBestseller: false,
+    isNew: true,
+    gsm: "360 GSM Cotton Twill",
+    fabric: "100% Heavy Brushed Cotton Twill",
+    fit: "Relaxed Drop-Shoulder",
+    description: "Raw streetwear utility aesthetic with modern clean lines. Dual oversized chest flap pockets, full metallic zip, and structured boxy shoulders built for layering."
+  },
+  {
+    id: "kinetic-hoodie",
+    name: "Kinetic Hoodie",
+    category: "tops",
+    categoryName: "Tops",
+    price: 1950,
+    originalPrice: 2600,
+    discount: "25% OFF",
+    frontImage: "/images/Product03.png",
+    backImage: "/images/Product03.png",
+    image: "/images/Product03.png",
+    color: "Obsidian Black",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    badge: "BEST SELLER",
     isBestseller: true,
     isNew: false,
-    gsm: "260 GSM",
-    fabric: "100% Heavy Combed Cotton",
-    fit: "Structured Oversized",
-    description: "Athletic-inspired raglan full sleeve with contrasting charcoal sleeves and heather grey body. Double-needle stitched hems for zero distortion after multiple washes."
-  },
-  {
-    id: "raglan-full-white",
-    name: "Raglan Full Sleeve Vintage Off-White",
-    category: "raglan-full",
-    categoryName: "Raglan Full",
-    price: 799,
-    originalPrice: 1099,
-    discount: "27% OFF",
-    frontImage: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop&q=80",
-    color: "White & Black",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    badge: "HOT DROP",
-    isBestseller: true,
-    isNew: true,
-    gsm: "260 GSM",
-    fabric: "100% Organic Cotton",
+    gsm: "420 GSM French Terry",
+    fabric: "100% Super-Combed French Terry Cotton",
     fit: "Heavy Boxy Cut",
-    description: "A timeless retro baseball silhouette remastered for modern urban wear. Clean drop shoulders, contrast pitch-black sleeves, and pre-shrunk heavyweight jersey."
+    description: "Ultra-heavyweight 420 GSM French Terry hoodie engineered for supreme streetwear comfort. Double-layered hood without drawstring clutter, ribbed side gussets, and seamless kangaroo pocket."
   },
   {
-    id: "raglan-full-black",
-    name: "Raglan Full Sleeve Jet Black",
-    category: "raglan-full",
-    categoryName: "Raglan Full",
-    price: 799,
-    originalPrice: 1098,
-    discount: "27% OFF",
-    frontImage: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=800&auto=format&fit=crop&q=80",
-    color: "Black & Vintage Cream",
+    id: "shadow-slim-trouser",
+    name: "Shadow Slim Trouser",
+    category: "bottoms",
+    categoryName: "Bottoms",
+    price: 1650,
+    originalPrice: 2200,
+    discount: "25% OFF",
+    frontImage: "/images/Product04.png",
+    backImage: "/images/Product04.png",
+    image: "/images/Product04.png",
+    color: "Pitch Black",
     sizes: ["S", "M", "L", "XL"],
     badge: "LIMITED",
-    isBestseller: true,
+    isBestseller: false,
     isNew: false,
-    gsm: "260 GSM",
-    fabric: "100% Super-Combed Cotton",
-    fit: "Oversized Fit",
-    description: "Monochrome elegance with deep jet-black body and off-white contrasting raglan sleeves. Heavyweight drape that keeps its structured shape all day."
+    gsm: "290 GSM Stretch Twill",
+    fabric: "Cotton-Elastane Engineered Blend",
+    fit: "Tapered Relaxed",
+    description: "Tailored streetwear pant featuring knee dart articulation, elasticated back waistband with internal drawcord, and deep welt pockets. Pairs impeccably with box-fit tees."
   },
   {
-    id: "raglan-half-black",
-    name: "Raglan Half Sleeve Obsidian Black",
-    category: "raglan-half",
-    categoryName: "Raglan Half",
-    price: 699,
-    originalPrice: 999,
-    discount: "30% OFF",
-    frontImage: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1503342452485-86b7f54527ef?w=800&auto=format&fit=crop&q=80",
-    color: "Black & Chalk",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    badge: "BESTSELLER",
-    isBestseller: true,
-    isNew: false,
-    gsm: "240 GSM",
-    fabric: "100% Combed Cotton",
-    fit: "Boxy Relaxed",
-    description: "Clean contrast baseball half sleeves, high rib neckline, and relaxed body width. Designed to pair seamlessly with baggy denim or pleated trousers."
-  },
-  {
-    id: "raglan-half-brown",
-    name: "Raglan Half Sleeve Mocha Brown",
-    category: "raglan-half",
-    categoryName: "Raglan Half",
-    price: 699,
-    originalPrice: 999,
-    discount: "30% OFF",
-    frontImage: "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=800&auto=format&fit=crop&q=80",
-    color: "Brown & Cream",
-    sizes: ["M", "L", "XL", "XXL"],
-    badge: "TRENDING",
-    isBestseller: true,
-    isNew: true,
-    gsm: "240 GSM",
-    fabric: "100% Ring-Spun Cotton",
-    fit: "Streetwear Box-Fit",
-    description: "Warm mocha earthy tones balanced with off-white cream panels. Silicon-washed for ultra-smooth hand feel with unmatched breathable durability."
-  },
-  {
-    id: "ringer-tee-white",
-    name: "Classic Ringer Tee Optic White",
-    category: "ringer",
-    categoryName: "Ringer",
-    price: 699,
-    originalPrice: 999,
-    discount: "30% OFF",
-    frontImage: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80",
-    color: "White & Black Trim",
+    id: "tactical-cargo-pant",
+    name: "Tactical Utility Cargo",
+    category: "bottoms",
+    categoryName: "Bottoms",
+    price: 1850,
+    originalPrice: 2450,
+    discount: "24% OFF",
+    frontImage: "/images/Product05.png",
+    backImage: "/images/Product05.png",
+    image: "/images/Product05.png",
+    color: "Slate Grey",
     sizes: ["S", "M", "L", "XL"],
-    badge: "RETRO CORE",
-    isBestseller: true,
-    isNew: false,
-    gsm: "230 GSM",
-    fabric: "100% Combed Compact Cotton",
-    fit: "Loose Box-Cut",
-    description: "90s archival ringer tee aesthetic upgraded with modern box-fit proportions. Heavy ribbed collar and sleeve cuffs that won't curl or sag."
-  },
-  {
-    id: "ringer-tee-black",
-    name: "Classic Ringer Tee Washed Black",
-    category: "ringer",
-    categoryName: "Ringer",
-    price: 699,
-    originalPrice: 999,
-    discount: "30% OFF",
-    frontImage: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&auto=format&fit=crop&q=80",
-    color: "Black & Off-White Trim",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    badge: "ARCHIVE",
-    isBestseller: true,
-    isNew: false,
-    gsm: "240 GSM",
-    fabric: "100% Carbon-Brushed Cotton",
-    fit: "Oversized Fit",
-    description: "Deep faded black hue with contrasting off-white ribbing. Subtle branding embroidery on back neck. Perfect everyday statement piece."
-  },
-  {
-    id: "ringer-tee-maroon",
-    name: "Archive Ringer Tee Crimson Maroon",
-    category: "ringer",
-    categoryName: "Ringer",
-    price: 699,
-    originalPrice: 999,
-    discount: "30% OFF",
-    frontImage: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=800&auto=format&fit=crop&q=80",
-    color: "Maroon & Cream Trim",
-    sizes: ["S", "M", "L", "XL"],
-    badge: "POPULAR",
-    isBestseller: true,
-    isNew: false,
-    gsm: "240 GSM",
-    fabric: "100% Pure Combed Cotton",
-    fit: "Relaxed Box-Fit",
-    description: "Rich heritage maroon body complemented by vintage cream ribbed trims. Fade-resistant reactive dye process keeps the tones vibrant wash after wash."
-  },
-  {
-    id: "ringer-tee-golden",
-    name: "Retro Ringer Tee Golden Ochre",
-    category: "ringer",
-    categoryName: "Ringer",
-    price: 699,
-    originalPrice: 999,
-    discount: "30% OFF",
-    frontImage: "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=800&auto=format&fit=crop&q=80",
-    color: "Off-White & Golden Yellow Trim",
-    sizes: ["S", "M", "L", "XL", "XXL"],
     badge: "LIMITED",
-    isBestseller: true,
-    isNew: true,
-    gsm: "230 GSM",
-    fabric: "100% Combed Cotton",
-    fit: "Boxy Street Fit",
-    description: "Golden yellow collar and cuff accents over a warm off-white body. Evokes 70s track culture updated for contemporary oversized street style."
-  },
-  {
-    id: "heavy-box-drop-dark",
-    name: "Heavy Heavyweight Box Tee Acid Black",
-    category: "new-drops",
-    categoryName: "New Drops",
-    price: 849,
-    originalPrice: 1199,
-    discount: "29% OFF",
-    frontImage: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&auto=format&fit=crop&q=80",
-    color: "Acid Wash Black",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    badge: "NEW DROP",
     isBestseller: false,
     isNew: true,
-    gsm: "280 GSM",
-    fabric: "Ultra-Heavy 280 GSM French Terry Cotton",
-    fit: "Extreme Box-Fit",
-    description: "Our heaviest tee to date. 280 GSM luxury-grade cotton with dropped shoulders, wide arm openings, and a thick 1.25 inch rib collar."
+    gsm: "320 GSM Ripstop",
+    fabric: "100% Tear-Resistant Ripstop Cotton",
+    fit: "Wide-Leg Cargo Fit",
+    description: "Functional combat-inspired silhouette with 6-pocket utility array, adjustable hem bungee toggles, and reinforced high-stress stress points."
   },
   {
-    id: "heavy-box-drop-sand",
-    name: "Heavy Heavyweight Box Tee Dune Sand",
-    category: "new-drops",
-    categoryName: "New Drops",
-    price: 849,
-    originalPrice: 1199,
-    discount: "29% OFF",
-    frontImage: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80",
-    backImage: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&auto=format&fit=crop&q=80",
-    color: "Dune Sand",
+    id: "archive-relaxed-pant",
+    name: "Archive Relaxed Pant",
+    category: "bottoms",
+    categoryName: "Bottoms",
+    price: 1650,
+    originalPrice: 2200,
+    discount: "25% OFF",
+    frontImage: "/images/Product06.png",
+    backImage: "/images/Product06.png",
+    image: "/images/Product06.png",
+    color: "Vintage Chalk",
     sizes: ["S", "M", "L", "XL"],
-    badge: "NEW DROP",
+    badge: "LIMITED",
     isBestseller: false,
-    isNew: true,
-    gsm: "280 GSM",
-    fabric: "Ultra-Heavy 280 GSM French Terry Cotton",
-    fit: "Extreme Box-Fit",
-    description: "Minimalist brutalist earth tone drop. Substantial weight, premium drape, pre-shrunk and bio-enzyme treated for zero shrinkage."
+    isNew: false,
+    gsm: "280 GSM Cotton Canvas",
+    fabric: "100% Heavy Combed Canvas",
+    fit: "Straight-Leg Loose Cut",
+    description: "Effortless casual straight drape cut from premium 280 GSM washed canvas. Clean waistband with belt loops and subtle rear logo embroidery."
+  },
+  {
+    id: "phantom-oversized-track-pant",
+    name: "Phantom Oversized Track Pant",
+    category: "bottoms",
+    categoryName: "Bottoms",
+    price: 1650,
+    originalPrice: 2200,
+    discount: "25% OFF",
+    frontImage: "/images/Product07.png",
+    backImage: "/images/Product07.png",
+    image: "/images/Product07.png",
+    color: "Washed Olive",
+    sizes: ["S", "M", "L", "XL"],
+    badge: "LIMITED",
+    isBestseller: false,
+    isNew: false,
+    gsm: "300 GSM Heavy Terry",
+    fabric: "100% Combed Terry Cotton",
+    fit: "Baggy Slouch Fit",
+    description: "Heavyweight street-ready sweatpants with extended contrast drawstrings, deep zip pockets, and elasticated cuffs that stack neatly on sneakers."
+  },
+  {
+    id: "division-street-trouser",
+    name: "Division Street Trouser",
+    category: "bottoms",
+    categoryName: "Bottoms",
+    price: 1650,
+    originalPrice: 2200,
+    discount: "25% OFF",
+    frontImage: "/images/Product08.png",
+    backImage: "/images/Product08.png",
+    image: "/images/Product08.png",
+    color: "Charcoal Melange",
+    sizes: ["S", "M", "L", "XL"],
+    badge: "LIMITED",
+    isBestseller: false,
+    isNew: false,
+    gsm: "290 GSM Heavy Twill",
+    fabric: "Structured Cotton Poly-Blend",
+    fit: "Relaxed Tapered Silhouette",
+    description: "Minimalist street trouser with clean front pleats, hidden stash pocket, and a structured drape that holds its shape all day long."
   }
 ];
 
 export const CATEGORIES = [
   {
-    id: "ringer",
-    name: "RINGER",
-    count: "4 Styles",
+    id: "outerwear",
+    name: "OUTERWEAR",
+    count: "2 Styles",
     images: [
-      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=400&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&auto=format&fit=crop&q=80"
+      "/images/Product01.png",
+      "/images/Product02.png"
     ],
     status: "active"
   },
   {
-    id: "raglan-half",
-    name: "RAGLAN HALF",
+    id: "tops",
+    name: "TOPS",
+    count: "1 Style",
+    images: [
+      "/images/Product03.png"
+    ],
+    status: "active"
+  },
+  {
+    id: "bottoms",
+    name: "BOTTOMS",
     count: "5 Styles",
     images: [
-      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=400&auto=format&fit=crop&q=80"
+      "/images/Product04.png",
+      "/images/Product05.png",
+      "/images/Product06.png"
     ],
     status: "active"
-  },
-  {
-    id: "raglan-full",
-    name: "RAGLAN FULL",
-    count: "4 Styles",
-    images: [
-      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=400&auto=format&fit=crop&q=80"
-    ],
-    status: "active"
-  },
-  // {
-  //   id: "lovely",
-  //   name: "LOVELY",
-  //   count: "Coming Soon",
-  //   images: [
-  //     "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&auto=format&fit=crop&q=80"
-  //   ],
-  //   status: "coming_soon"
-  // }
+  }
 ];
 
 export const ACCESSORIES = [
@@ -365,7 +281,7 @@ export const REVIEWS = [
     stars: 5,
     city: "Mumbai",
     text: "The cotton feels premium and the oversized fit sits perfectly on the shoulders. It looks even better in person than on screen. 10/10 silhouette.",
-    product: "Raglan Half Sleeve Green"
+    product: "Suede Moto Jacket"
   },
   {
     id: "rev-2",
@@ -374,7 +290,7 @@ export const REVIEWS = [
     stars: 5,
     city: "Bengaluru",
     text: "Ordered it for the artwork, but the fabric surprised me. Extremely comfortable for all-day wear and the fit has that heavy drape I've been looking for.",
-    product: "Raglan Full Sleeve Grey"
+    product: "Kinetic Hoodie"
   },
   {
     id: "rev-3",
@@ -382,8 +298,8 @@ export const REVIEWS = [
     initials: "A",
     stars: 5,
     city: "Delhi NCR",
-    text: "The print is sharp, the material feels heavy (definitely 240+ GSM), and the collar maintains structure even after several washes. Very satisfied.",
-    product: "Classic Ringer Tee White"
+    text: "The print is sharp, the material feels heavy, and the collar maintains structure even after several washes. Very satisfied.",
+    product: "Elevation Oversized Jacket"
   },
   {
     id: "rev-4",
@@ -391,8 +307,8 @@ export const REVIEWS = [
     initials: "RP",
     stars: 5,
     city: "Pune",
-    text: "A proper oversized silhouette without feeling too baggy or sloppy. The sleeve length hits right at the elbow. Quality easily rivals brands charging 3x more.",
-    product: "Raglan Full Sleeve Black"
+    text: "A proper oversized silhouette without feeling too baggy or sloppy. The cut is impeccable. Quality easily rivals brands charging 3x more.",
+    product: "Shadow Slim Trouser"
   },
   {
     id: "rev-5",
@@ -400,8 +316,8 @@ export const REVIEWS = [
     initials: "AR",
     stars: 5,
     city: "Hyderabad",
-    text: "Clean packaging, quick dispatch within 24 hours, and a really comfortable tee. The neck and sleeves keep their shape well. Already ordered another piece!",
-    product: "Archive Ringer Tee Maroon"
+    text: "Clean packaging, quick dispatch within 24 hours, and really comfortable trousers. The shape holds well. Already ordered another piece!",
+    product: "Tactical Utility Cargo"
   }
 ];
 
@@ -447,7 +363,15 @@ export const SIZE_GUIDE = [
 ];
 
 export function getProductById(id) {
-  return PRODUCTS.find((item) => item.id === id) || null;
+  if (!id) return null;
+  const cleanId = decodeURIComponent(String(id)).toLowerCase().trim();
+  return (
+    PRODUCTS.find((item) => {
+      const matchId = String(item.id || "").toLowerCase().trim();
+      const matchMongoId = String(item._id || "").toLowerCase().trim();
+      return matchId === cleanId || matchMongoId === cleanId;
+    }) || null
+  );
 }
 
 export function getProductGallery(product) {

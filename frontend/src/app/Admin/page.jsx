@@ -21,9 +21,9 @@ import {
 import "./Admin.css";
 
 const CATEGORIES = [
-  { id: "raglan-half", name: "Raglan Half" },
-  { id: "raglan-full", name: "Raglan Full" },
-  { id: "ringer", name: "Ringer Tees" },
+  { id: "outerwear", name: "Outerwear" },
+  { id: "tops", name: "Tops" },
+  { id: "bottoms", name: "Bottoms" },
   { id: "new-drops", name: "New Drops" },
   { id: "accessories", name: "Accessories" },
 ];
@@ -254,8 +254,8 @@ export default function AdminPage() {
   const [editingProduct, setEditingProduct] = useState(null);
   const [productFormData, setProductFormData] = useState({
     name: "",
-    category: "raglan-half",
-    categoryName: "Raglan Half",
+    category: "outerwear",
+    categoryName: "Outerwear",
     price: "",
     originalPrice: "",
     discount: "30% OFF",
@@ -389,23 +389,23 @@ export default function AdminPage() {
     setBackImageMode("url");
     setProductFormData({
       name: "",
-      category: "raglan-half",
-      categoryName: "Raglan Half",
+      category: "outerwear",
+      categoryName: "Outerwear",
       price: "",
       originalPrice: "",
-      discount: "30% OFF",
-      frontImage: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80",
+      discount: "25% OFF",
+      frontImage: "/images/Product01.png",
       backImage: "",
-      color: "Black & Cream",
+      color: "Mocha Brown",
       sizes: ["S", "M", "L", "XL"],
       badge: "NEW DROP",
       isBestseller: false,
       isNew: true,
-      gsm: "240 GSM",
-      fabric: "100% Combed Cotton",
+      gsm: "380 GSM Heavy Suede",
+      fabric: "Premium Heavyweight Fabric",
       fit: "Box-Fit Oversized",
       description: "Crafted for the culture. Heavyweight boxy silhouette.",
-      stock: 50,
+      stock: 30,
     });
     setIsProductModalOpen(true);
   };
@@ -424,7 +424,7 @@ export default function AdminPage() {
     );
     setProductFormData({
       name: prod.name || "",
-      category: prod.category || "raglan-half",
+      category: prod.category || "outerwear",
       categoryName: prod.categoryName || "",
       price: prod.price || "",
       originalPrice: prod.originalPrice || "",

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useCart } from "../../context/CartContext";
 import { XIcon, ShoppingBagIcon } from "../common/Icons";
 import "./QuickViewModal.css";
@@ -81,10 +82,10 @@ export const QuickViewModal = () => {
 
           <div className="quickview-price-row">
             <span className="quickview-current-price">
-              Rs. {quickViewProduct.price.toFixed(2)}
+              ₹{quickViewProduct.price}
             </span>
             <span className="quickview-old-price">
-              Rs. {quickViewProduct.originalPrice.toFixed(2)}
+              ₹{quickViewProduct.originalPrice}
             </span>
             <span className="quickview-discount">
               {quickViewProduct.discount}
@@ -131,8 +132,16 @@ export const QuickViewModal = () => {
             onClick={handleAdd}
           >
             <ShoppingBagIcon size={16} />
-            <span>ADD TO BAG • RS. {quickViewProduct.price}</span>
+            <span>ADD TO BAG • ₹{quickViewProduct.price}</span>
           </button>
+
+          <Link
+            href={`/product/${quickViewProduct.id}`}
+            className="quickview-view-details-link"
+            onClick={() => setQuickViewProduct(null)}
+          >
+            VIEW FULL PRODUCT DETAILS ↗
+          </Link>
         </div>
       </div>
     </div>

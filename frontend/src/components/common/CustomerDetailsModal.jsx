@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { WhatsAppIcon } from "./Icons";
+import { createOrder } from "../../utils/api";
 import {
   generateWhatsAppOrderMessage,
   openWhatsAppOrder,
@@ -83,13 +84,46 @@ export const CustomerDetailsModal = ({
     }
 
     // Generate exact WhatsApp message
-    const { message } = generateWhatsAppOrderMessage({
+    const { orderReference, message } = generateWhatsAppOrderMessage({
       cartItems: items,
       customerDetails: details,
       subtotal,
       shippingFee,
       total,
     });
+
+    // Asynchronously record order to backend database for admin tracking (non-blocking)
+    try {
+      createOrder({
+        orderReference,
+        customer: {
+          name: details.name,
+          phone: details.phone,
+          address: details.address,
+          pincode: details.pincode,
+        },
+        items: items.map((it) => {
+          const p = it.product || it;
+          return {
+            product: p._id || p.id,
+            name: p.name,
+            quantity: it.quantity || 1,
+            price: p.price,
+            size: it.size || "Free Size",
+            color: p.color || it.variant || "",
+          };
+        }),
+        subtotal,
+        shippingFee,
+        finalTotal: total,
+        source: "FLINTSECTOR Website",
+        paymentMethod: "WhatsApp Checkout",
+      }).catch((err) => {
+        console.warn("Backend order recording skipped:", err.message);
+      });
+    } catch (err) {
+      // non-blocking
+    }
 
     // Open WhatsApp
     openWhatsAppOrder(message);

@@ -36,7 +36,7 @@ export const SearchModal = () => {
           <input
             type="text"
             autoFocus
-            placeholder="Search oversized tees, raglan, ringer..."
+            placeholder="Search jackets, hoodies, trousers, cargo..."
             className="search-field"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -58,7 +58,7 @@ export const SearchModal = () => {
         <div className="search-results-list">
           {results.length === 0 ? (
             <p style={{ textAlign: "center", color: "#888", padding: "30px 0", fontSize: "13px" }}>
-              No matches found for &quot;{query}&quot;. Try searching &quot;Raglan&quot; or &quot;Ringer&quot;.
+              No matches found for &quot;{query}&quot;. Try searching &quot;Jacket&quot;, &quot;Hoodie&quot;, or &quot;Trouser&quot;.
             </p>
           ) : (
             results.map((product) => (
@@ -81,7 +81,7 @@ export const SearchModal = () => {
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <span style={{ fontSize: "13px", fontWeight: 900, color: "#111" }}>
-                    Rs. {product.price}
+                    ₹{product.price}
                   </span>
                   <div style={{ fontSize: "10px", color: "#d12b2b", fontWeight: 700 }}>
                     {product.discount}

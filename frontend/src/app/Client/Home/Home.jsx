@@ -22,12 +22,8 @@ export const Home = () => {
       <Hero />
       <ShopByCategory onSelectCategory={handleCategorySelect} />
       <TheDrop />
-
-      
-
-      <ProductGrid />
+      <ProductGrid activeCategory={activeCategory} />
       <EditorialBanner />
-
       <Reviews />
       <FAQ />
     </main>
