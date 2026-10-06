@@ -101,7 +101,7 @@ export const QuickViewModal = () => {
           </div>
 
           <div className="quickview-size-selector">
-            {quickViewProduct.sizes.map((sz) => (
+            {(quickViewProduct.sizes || ["S", "M", "L", "XL"]).map((sz) => (
               <button
                 key={sz}
                 type="button"

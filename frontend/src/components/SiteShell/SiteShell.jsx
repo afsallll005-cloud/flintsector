@@ -3,7 +3,7 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import Navbar from "../Navbar/Navbar";
-import { Footer } from "../Footer/Footer";
+import Footer from "../Footer/Footer";
 import { CartDrawer } from "../CartDrawer/CartDrawer";
 import { QuickViewModal } from "../QuickViewModal/QuickViewModal";
 import { SearchModal } from "../SearchModal/SearchModal";

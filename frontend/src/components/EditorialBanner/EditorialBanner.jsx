@@ -14,7 +14,7 @@ export const EditorialBanner = () => {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="./images/add.jpg"
+          src="/images/add.jpg"
           alt="FLINT SECTOR Streetwear Editorial"
           className="editorial-banner-bg"
           loading="lazy"

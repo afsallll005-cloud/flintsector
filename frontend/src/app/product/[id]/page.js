@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { PRODUCTS, getProductById } from "@/data/products";
+import { fetchProductById } from "@/utils/api";
 import { ProductDetails } from "@/components/ProductDetails/ProductDetails";
 
 export function generateStaticParams() {
@@ -8,7 +9,14 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const product = getProductById(id);
+  let product = getProductById(id);
+  if (!product) {
+    try {
+      product = await fetchProductById(id);
+    } catch (e) {
+      // ignore
+    }
+  }
   if (!product) {
     return { title: "Product | FLINT SECTOR" };
   }
@@ -20,7 +28,15 @@ export async function generateMetadata({ params }) {
 
 export default async function ProductPage({ params }) {
   const { id } = await params;
-  const product = getProductById(id);
+  let product = getProductById(id);
+  if (!product) {
+    try {
+      product = await fetchProductById(id);
+    } catch (e) {
+      // ignore
+    }
+  }
   if (!product) notFound();
   return <ProductDetails product={product} />;
 }
+

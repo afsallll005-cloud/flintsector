@@ -1,4 +1,4 @@
-import Hme from "./Client/Home/Home";
+import HomePage from "./Client/Home/Home";
 
 export const metadata = {
   title: "FLINT SECTOR | Oversized T-Shirts & Streetwear India",
@@ -21,6 +21,7 @@ export const metadata = {
   },
 };
 
-export default function Home() {
-  return <Home />;
+export default function Page() {
+  return <HomePage />;
 }
+

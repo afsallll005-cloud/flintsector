@@ -34,11 +34,22 @@ export const ProductDetails = ({ product }) => {
   const { addToCart } = useCart();
   const gallery = useMemo(() => getProductGallery(product), [product]);
   const [activeImage, setActiveImage] = useState(0);
-  const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || "L");
+  const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0] || "L");
   const [quantity, setQuantity] = useState(1);
   const [openAccordion, setOpenAccordion] = useState(null);
 
-  const savings = Math.max(0, product.originalPrice - product.price);
+  if (!product) {
+    return (
+      <main className="pdp-page" style={{ padding: "80px 20px", textAlign: "center" }}>
+        <h2>Product Not Found</h2>
+        <p style={{ marginTop: "16px" }}>
+          <Link href="/#bestsellers">← Back to shop</Link>
+        </p>
+      </main>
+    );
+  }
+
+  const savings = Math.max(0, (product.originalPrice || 0) - (product.price || 0));
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
 
   const directSubtotal = (product.price || 0) * quantity;
@@ -56,6 +67,8 @@ export const ProductDetails = ({ product }) => {
       block: "center",
     });
   };
+
+  const availableSizes = product.sizes && product.sizes.length > 0 ? product.sizes : ["S", "M", "L", "XL"];
 
   return (
     <main className="pdp-page">
@@ -116,7 +129,7 @@ export const ProductDetails = ({ product }) => {
           </div>
 
           <div className="pdp-sizes" role="group" aria-label="Select size">
-            {product.sizes.map((size) => (
+            {availableSizes.map((size) => (
               <button
                 key={size}
                 type="button"
@@ -230,7 +243,7 @@ export const ProductDetails = ({ product }) => {
                           </thead>
                           <tbody>
                             {SIZE_GUIDE.filter((row) =>
-                              product.sizes.includes(row.size)
+                              availableSizes.includes(row.size)
                             ).map((row) => (
                               <tr key={row.size}>
                                 <td>{row.size}</td>

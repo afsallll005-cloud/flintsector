@@ -14,7 +14,7 @@ const collections = [
     label: "EXCLUSIVE DROP",
     title: "New",
     button: "EXPLORE",
-    image: "/images/Neww.jpg",
+    image: "/images/neww.jpg",
     className: "drop-small",
   },
 ];

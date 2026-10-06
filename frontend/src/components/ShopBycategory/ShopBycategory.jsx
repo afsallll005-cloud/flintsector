@@ -27,7 +27,7 @@ const categories = [
 
 export default function ShopByCategory() {
   return (
-    <section className="shop-category">
+    <section id="shop-category" className="shop-category">
 
       {/* HEADER */}
       <div className="shop-category-header">

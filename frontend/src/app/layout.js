@@ -20,7 +20,12 @@ export const metadata = {
   title: "FLINT SECTOR | Oversized T-Shirts & Streetwear India",
   description:
     "Shop FLINT SECTOR for premium oversized T-shirts, box-fit tees, graphic streetwear and limited fashion drops with delivery across India.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
   themeColor: "#ffffff",
 };
 

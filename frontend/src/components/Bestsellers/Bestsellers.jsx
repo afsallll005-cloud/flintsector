@@ -105,7 +105,7 @@ export const Bestsellers = ({ activeCategory = "all", onTabChange }) => {
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#888", marginRight: "4px" }}>
                     QUICK SIZE:
                   </span>
-                  {product.sizes.map((sz) => (
+                  {(product.sizes || ["S", "M", "L", "XL"]).map((sz) => (
                     <button
                       key={sz}
                       type="button"

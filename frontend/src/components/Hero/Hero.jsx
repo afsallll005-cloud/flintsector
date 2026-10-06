@@ -13,10 +13,10 @@ const HERO_SLIDES = [
       "Structured boxy silhouettes engineered with heavy combed compact cotton and retro contrast finishes.",
 
     // Desktop / Laptop image
-    desktopImage: "./images/bg02.png",
+    desktopImage: "/images/bg02.png",
 
     // Mobile image
-    mobileImage: "./images/bg02.png",
+    mobileImage: "/images/bg02.png",
 
     badge: "DROP 04 / ACTIVE",
     linkText: "SHOP THE DROP",
@@ -31,10 +31,10 @@ const HERO_SLIDES = [
       "Contrasting sleeves, reinforced collar ribbing, and relaxed shoulder drape for an effortless street look.",
 
     // Desktop / Laptop image
-    desktopImage: "./images/bg04.png",
+    desktopImage: "/images/bg04.png",
 
     // Mobile image
-    mobileImage: "./images/bg04-mobile.png",
+    mobileImage: "/images/bg04.png",
 
     badge: "TRENDING NOW",
     linkText: "EXPLORE RAGLAN",
@@ -53,7 +53,7 @@ const HERO_SLIDES = [
       "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=1800&auto=format&fit=crop&q=85",
 
     // Mobile image
-    mobileImage: "./images/bg03-mobile.png",
+    mobileImage: "/images/bg03.jpg",
 
     badge: "LIMITED EDITION",
     linkText: "VIEW COLLECTION",
@@ -84,6 +84,7 @@ export const Hero = () => {
   const slide = HERO_SLIDES[currentSlide];
 
   return (
+    
     <>
       {/* =====================================================
           HERO SECTION

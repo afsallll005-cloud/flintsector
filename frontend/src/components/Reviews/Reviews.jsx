@@ -1,116 +1,173 @@
 "use client";
 
 import React from "react";
-import { REVIEWS } from "../../data/products";
-import { StarIcon, BadgeCheckIcon } from "../common/Icons";
 import "./Reviews.css";
 
-export const Reviews = () => {
+const reviews = [
+  {
+    rating: "★★★★★",
+    review:
+      "The fit is exactly what I was looking for. The quality feels premium and the details are really clean.",
+    name: "Arjun M.",
+    verified: "VERIFIED BUYER",
+    product: "Oversized Essential Tee",
+  },
+  {
+    rating: "★★★★★",
+    review:
+      "Really impressed with the fabric and overall finish. Looks even better in person.",
+    name: "Rihan K.",
+    verified: "VERIFIED BUYER",
+    product: "Shadow Cargo Trouser",
+  },
+  {
+    rating: "★★★★★",
+    review:
+      "Minimal, comfortable and stylish. Definitely one of my favourite pieces right now.",
+    name: "Adithya S.",
+    verified: "VERIFIED BUYER",
+    product: "Obsidian Hoodie",
+  },
+];
+
+export default function Reviews() {
   return (
-    <section id="customer-love" className="reviews-section">
-      <div className="reviews-inner-container">
+    <section className="reviews-section">
 
-        {/* Header */}
-        <div className="reviews-header-block">
-          <div className="reviews-heading-group">
-            <span className="reviews-eyebrow">
-              THE COMMUNITY
-            </span>
+      {/* =====================================
+          HEADER
+      ====================================== */}
 
-            <h2 className="reviews-title">
-              Customer Love
-            </h2>
+      <div className="reviews-header">
 
-            <p className="reviews-subtitle">
-              Real feedback from the streetwear community across India.
-            </p>
-          </div>
+        <div className="reviews-heading-wrap">
 
-          {/* Rating Summary */}
-          <div className="reviews-rating-summary">
-            <div className="reviews-rating-stars">
-              {[...Array(5)].map((_, i) => (
-                <StarIcon
-                  key={i}
-                  size={14}
-                  filled={true}
-                />
-              ))}
-            </div>
+          <span className="reviews-eyebrow">
+            FLINT SECTOR / COMMUNITY
+          </span>
 
-            <div className="reviews-rating-info">
-              <strong>4.9</strong>
-              <span>/ 5.0</span>
-            </div>
+          <h2>
+            What they’re
+            <br />
+            <span>saying.</span>
+          </h2>
 
-            <span className="reviews-rating-buyers">
-              2,400+ Verified Buyers
-            </span>
-          </div>
         </div>
 
-        {/* Reviews */}
-        <div className="reviews-scroll-row">
-          {REVIEWS.map((rev) => (
-            <article
-              key={rev.id}
-              className="review-card-item"
-            >
-              {/* Stars */}
-              <div className="review-stars-row">
-                {[...Array(rev.stars)].map((_, idx) => (
-                  <StarIcon
-                    key={idx}
-                    size={13}
-                    filled={true}
-                  />
-                ))}
-              </div>
 
-              {/* Quote */}
-              <p className="review-quote-text">
-                “{rev.text}”
-              </p>
+        {/* RATING SUMMARY */}
 
-              {/* Product */}
-              {rev.product && (
-                <span className="review-product-tag">
-                  Purchased: {rev.product}
-                </span>
-              )}
+        <div className="reviews-summary">
 
-              {/* Author */}
-              <div className="review-author-footer">
-                <div className="review-avatar-circle">
-                  {rev.initials}
-                </div>
+          <strong>4.9</strong>
 
-                <div className="review-author-info">
-                  <strong className="review-author-name">
-                    {rev.name}
-                  </strong>
+          <div className="reviews-summary-info">
 
-                  <span className="review-verified-badge">
-                    <BadgeCheckIcon size={12} />
-                    <span>Verified Buyer</span>
-                    <span className="review-dot">•</span>
-                    <span>{rev.city}</span>
-                  </span>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+            <div className="summary-stars">
+              ★★★★★
+            </div>
 
-        {/* Scroll Hint */}
-        <div className="reviews-scroll-hint">
-          <span>SWIPE TO EXPLORE</span>
-          <span className="reviews-scroll-line"></span>
+            <span>
+              BASED ON 120+ REVIEWS
+            </span>
+
+          </div>
+
         </div>
 
       </div>
+
+
+      {/* =====================================
+          REVIEWS
+      ====================================== */}
+
+      <div className="reviews-grid">
+
+        {reviews.map((review, index) => (
+
+          <article
+            className="review-card"
+            key={review.name}
+          >
+
+            {/* TOP */}
+
+            <div className="review-top">
+
+              <div className="review-stars">
+                {review.rating}
+              </div>
+
+              <span className="review-number">
+                0{index + 1}
+              </span>
+
+            </div>
+
+
+            {/* REVIEW */}
+
+            <p className="review-text">
+              “{review.review}”
+            </p>
+
+
+            {/* FOOTER */}
+
+            <div className="review-footer">
+
+              <div className="review-author">
+
+                <div className="review-avatar">
+                  {review.name.charAt(0)}
+                </div>
+
+                <div className="review-author-info">
+
+                  <h3>
+                    {review.name}
+                  </h3>
+
+                  <span>
+                    {review.verified}
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div className="review-product">
+                {review.product}
+              </div>
+
+            </div>
+
+          </article>
+
+        ))}
+
+      </div>
+
+
+      {/* =====================================
+          BOTTOM
+      ====================================== */}
+
+      <div className="reviews-bottom">
+
+        <span>
+          YOUR STYLE. YOUR STORY.
+        </span>
+
+        <a href="#reviews">
+          <span>READ ALL REVIEWS</span>
+          <b>↗</b>
+        </a>
+
+      </div>
+
     </section>
   );
-};
-
-export default Reviews;
+}

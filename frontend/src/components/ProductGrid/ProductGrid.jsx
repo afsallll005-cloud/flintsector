@@ -79,8 +79,8 @@ export default function ProductGrid() {
       {/* PRODUCTS */}
       <div className="product-grid">
 
-        {products.map((product) => (
-          <article className="product-card" key={product.name}>
+        {products.map((product, index) => (
+          <article className="product-card" key={`${product.name}-${index}`}>
 
             {/* IMAGE */}
             <div className="product-image-wrapper">
