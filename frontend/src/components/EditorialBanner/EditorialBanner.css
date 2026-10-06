@@ -1,17 +1,17 @@
 /* =========================================================
-   EDITORIAL BANNER
-   Modern Flint Sector Streetwear Style
+   FLINT SECTOR — MODERN EDITORIAL BANNER
 ========================================================= */
 
 .editorial-banner-section {
   width: 100%;
-  padding: 24px 24px 70px;
+  padding: 50px 5% 90px;
   background: #ffffff;
   box-sizing: border-box;
 }
 
+
 /* =========================================================
-   BANNER WRAPPER
+   BANNER
 ========================================================= */
 
 .editorial-banner-link {
@@ -20,25 +20,22 @@
   display: block;
 
   width: 100%;
-  max-width: 1380px;
+  max-width: 1500px;
+  height: clamp(480px, 48vw, 680px);
 
   margin: 0 auto;
 
-  aspect-ratio: 16 / 6;
-  min-height: 300px;
-
   overflow: hidden;
+  isolation: isolate;
 
-  /* Small modern radius */
-  border-radius: 5px;
+  background: #111;
 
-  background: #111111;
+  border-radius: 4px;
 
   text-decoration: none;
   cursor: pointer;
-
-  isolation: isolate;
 }
+
 
 /* =========================================================
    IMAGE
@@ -59,31 +56,30 @@
   filter:
     brightness(0.62)
     contrast(1.08)
-    saturate(0.9);
+    saturate(0.85);
 
   transform: scale(1.01);
 
   transition:
-    transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
     filter 0.7s ease;
 }
 
 .editorial-banner-link:hover .editorial-banner-bg {
-  transform: scale(1.045);
+  transform: scale(1.055);
 
   filter:
-    brightness(0.68)
+    brightness(0.7)
     contrast(1.08)
     saturate(0.95);
 }
 
+
 /* =========================================================
-   CINEMATIC OVERLAY
+   OVERLAY
 ========================================================= */
 
-.editorial-banner-link::before {
-  content: "";
-
+.editorial-banner-overlay {
   position: absolute;
   inset: 0;
 
@@ -94,33 +90,19 @@
   background:
     linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.62) 0%,
-      rgba(0, 0, 0, 0.28) 45%,
-      rgba(0, 0, 0, 0.55) 100%
-    );
-
-  opacity: 0.9;
-}
-
-/* Bottom cinematic fade */
-
-.editorial-banner-link::after {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  z-index: 1;
-
-  pointer-events: none;
-
-  background:
+      rgba(0, 0, 0, 0.78) 0%,
+      rgba(0, 0, 0, 0.38) 42%,
+      rgba(0, 0, 0, 0.08) 72%,
+      rgba(0, 0, 0, 0.3) 100%
+    ),
     linear-gradient(
       180deg,
-      transparent 35%,
-      rgba(0, 0, 0, 0.45) 100%
+      rgba(0, 0, 0, 0.12) 0%,
+      transparent 45%,
+      rgba(0, 0, 0, 0.62) 100%
     );
 }
+
 
 /* =========================================================
    CONTENT
@@ -130,92 +112,126 @@
   position: absolute;
   inset: 0;
 
-  z-index: 3;
+  z-index: 2;
 
   display: flex;
   flex-direction: column;
-
-  align-items: center;
   justify-content: center;
 
-  padding: 30px;
+  padding: 70px 8%;
 
-  text-align: center;
+  color: #fff;
 
-  color: #ffffff;
-
-  font-family: var(--font-outfit), sans-serif;
+  font-family: var(--font-outfit), Arial, sans-serif;
 }
 
+
 /* =========================================================
-   TOP LABEL
+   EYEBROW
 ========================================================= */
 
-.editorial-banner-tag {
-  display: inline-flex;
+.editorial-banner-eyebrow {
+  display: flex;
   align-items: center;
-  justify-content: center;
 
-  margin-bottom: 15px;
+  gap: 12px;
 
-  padding: 7px 12px;
+  width: fit-content;
 
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 3px;
+  margin-bottom: 25px;
 
-  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.72);
 
-  color: #ffffff;
+  font-size: 9px;
+  font-weight: 600;
 
-  font-family: var(--font-outfit), sans-serif;
-  font-size: 8px;
-  font-weight: 800;
+  letter-spacing: 2.8px;
 
-  letter-spacing: 2px;
   line-height: 1;
 
   text-transform: uppercase;
-
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.3s ease;
 }
 
-.editorial-banner-link:hover .editorial-banner-tag {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.4);
+.eyebrow-line {
+  width: 28px;
+  height: 1px;
+
+  background: rgba(255, 255, 255, 0.55);
 }
+
 
 /* =========================================================
    MAIN HEADING
 ========================================================= */
 
 .editorial-banner-heading {
-  margin: 0 0 22px;
+  margin: 0;
 
-  max-width: 1000px;
+  max-width: 900px;
 
-  color: #ffffff;
+  color: #fff;
 
   font-family: var(--font-bebas), Impact, sans-serif;
 
-  font-size: clamp(44px, 7vw, 92px);
+  font-size: clamp(68px, 9vw, 145px);
 
   font-weight: 400;
 
-  line-height: 0.88;
+  line-height: 0.8;
 
-  letter-spacing: 1px;
+  letter-spacing: -1px;
 
   text-transform: uppercase;
 
   text-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.25);
+    0 10px 35px rgba(0, 0, 0, 0.25);
+
+  transition:
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.editorial-banner-link:hover .editorial-banner-heading {
+  transform: translateX(7px);
+}
+
+
+/* =========================================================
+   BOTTOM AREA
+========================================================= */
+
+.editorial-banner-bottom {
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  width: 100%;
+
+  max-width: 1120px;
+
+  margin-top: 48px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.editorial-banner-description {
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 9px;
+
+  font-weight: 500;
+
+  letter-spacing: 2px;
+
+  line-height: 1.8;
+
+  text-transform: uppercase;
+}
+
 
 /* =========================================================
    CTA
@@ -223,270 +239,343 @@
 
 .editorial-banner-btn {
   display: inline-flex;
+
   align-items: center;
-  justify-content: center;
 
-  gap: 10px;
+  justify-content: space-between;
 
-  min-height: 42px;
+  gap: 28px;
 
-  padding: 0 20px;
+  min-width: 190px;
 
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  height: 52px;
 
-  /* Small modern radius */
-  border-radius: 4px;
+  padding: 0 18px 0 22px;
 
-  background: #ffffff;
+  box-sizing: border-box;
 
-  color: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.65);
 
-  font-family: var(--font-outfit), sans-serif;
+  background: rgba(255, 255, 255, 0.96);
+
+  color: #111;
 
   font-size: 9px;
-  font-weight: 900;
 
-  letter-spacing: 1.3px;
+  font-weight: 700;
+
+  letter-spacing: 1.7px;
 
   text-transform: uppercase;
 
-  box-shadow:
-    0 8px 25px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(8px);
 
   transition:
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.25s ease,
-    color 0.25s ease,
-    box-shadow 0.3s ease;
+    background 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    transform 0.4s ease;
 }
 
 .editorial-banner-link:hover .editorial-banner-btn {
-  background: #111111;
-  color: #ffffff;
+  background: #111;
 
-  transform: translateY(-3px);
+  color: #fff;
 
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.3);
+  border-color: #111;
+
+  transform: translateY(-4px);
 }
 
-.editorial-banner-btn svg {
-  transition:
-    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.editorial-banner-link:hover .editorial-banner-btn svg {
-  transform: translateX(4px);
-}
 
 /* =========================================================
-   LARGE DESKTOP
+   ARROW
 ========================================================= */
 
-@media (min-width: 1400px) {
-  .editorial-banner-section {
-    padding-left: 32px;
-    padding-right: 32px;
-  }
+.editorial-arrow {
+  display: flex;
 
-  .editorial-banner-link {
-    min-height: 340px;
-  }
+  align-items: center;
+  justify-content: center;
 
-  .editorial-banner-heading {
-    font-size: 96px;
-  }
+  width: 30px;
+  height: 30px;
+
+  border: 1px solid currentColor;
+
+  border-radius: 50%;
+
+  font-size: 15px;
+
+  line-height: 1;
+
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.editorial-banner-link:hover .editorial-arrow {
+  transform: translate(3px, -3px);
+}
+
 
 /* =========================================================
    TABLET
 ========================================================= */
 
 @media (max-width: 900px) {
+
   .editorial-banner-section {
-    padding: 20px 18px 55px;
+    padding: 40px 4% 70px;
   }
 
   .editorial-banner-link {
-    aspect-ratio: 16 / 7;
-    min-height: 280px;
+    height: 520px;
+  }
 
-    border-radius: 5px;
+  .editorial-banner-content {
+    padding: 50px 7%;
   }
 
   .editorial-banner-heading {
-    font-size: clamp(42px, 8vw, 70px);
-
-    margin-bottom: 18px;
+    font-size: clamp(62px, 11vw, 105px);
   }
 
-  .editorial-banner-tag {
-    font-size: 7px;
-    letter-spacing: 1.7px;
-
-    margin-bottom: 12px;
+  .editorial-banner-bottom {
+    margin-top: 38px;
   }
 }
+
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
 @media (max-width: 640px) {
+
   .editorial-banner-section {
-    padding: 14px 10px 45px;
+    padding: 30px 14px 55px;
   }
 
   .editorial-banner-link {
-    aspect-ratio: 4 / 5;
-    min-height: 0;
-
-    border-radius: 4px;
-  }
-
-  .editorial-banner-bg {
-    object-position: center center;
-
-    filter:
-      brightness(0.58)
-      contrast(1.08)
-      saturate(0.85);
-  }
-
-  .editorial-banner-link::before {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.18) 0%,
-        rgba(0, 0, 0, 0.35) 40%,
-        rgba(0, 0, 0, 0.72) 100%
-      );
-  }
-
-  .editorial-banner-content {
-    padding: 24px 18px;
-  }
-
-  .editorial-banner-tag {
-    margin-bottom: 13px;
-
-    padding: 6px 9px;
-
-    font-size: 6px;
-    letter-spacing: 1.4px;
-  }
-
-  .editorial-banner-heading {
-    max-width: 330px;
-
-    margin-bottom: 18px;
-
-    font-size: clamp(42px, 12vw, 62px);
-
-    line-height: 0.86;
-
-    letter-spacing: 0.5px;
-  }
-
-  .editorial-banner-btn {
-    min-height: 38px;
-
-    padding: 0 15px;
-
-    gap: 7px;
-
-    font-size: 7px;
-    letter-spacing: 1px;
+    height: 590px;
 
     border-radius: 3px;
   }
 
-  .editorial-banner-btn svg {
-    width: 12px;
-    height: 12px;
+
+  /* IMAGE */
+
+  .editorial-banner-bg {
+    object-position: 55% center;
+
+    filter:
+      brightness(0.58)
+      contrast(1.08)
+      saturate(0.82);
+  }
+
+
+  /* OVERLAY */
+
+  .editorial-banner-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.05) 0%,
+        rgba(0, 0, 0, 0.12) 35%,
+        rgba(0, 0, 0, 0.78) 100%
+      );
+  }
+
+
+  /* CONTENT */
+
+  .editorial-banner-content {
+    justify-content: flex-end;
+
+    padding: 28px 22px 25px;
+  }
+
+
+  /* EYEBROW */
+
+  .editorial-banner-eyebrow {
+    gap: 8px;
+
+    margin-bottom: 17px;
+
+    font-size: 7px;
+
+    letter-spacing: 1.8px;
+  }
+
+  .eyebrow-line {
+    width: 18px;
+  }
+
+
+  /* HEADING */
+
+  .editorial-banner-heading {
+    max-width: 350px;
+
+    font-size: clamp(56px, 15vw, 80px);
+
+    line-height: 0.82;
+
+    letter-spacing: -0.5px;
+  }
+
+
+  /* BOTTOM */
+
+  .editorial-banner-bottom {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 22px;
+
+    margin-top: 27px;
+  }
+
+
+  /* DESCRIPTION */
+
+  .editorial-banner-description {
+    font-size: 7px;
+
+    letter-spacing: 1.4px;
+
+    line-height: 1.7;
+  }
+
+
+  /* BUTTON */
+
+  .editorial-banner-btn {
+    width: 100%;
+
+    max-width: 205px;
+
+    height: 46px;
+
+    min-width: 0;
+
+    padding: 0 14px 0 18px;
+
+    font-size: 7px;
+
+    letter-spacing: 1.4px;
+  }
+
+  .editorial-arrow {
+    width: 27px;
+    height: 27px;
+
+    font-size: 13px;
   }
 }
+
 
 /* =========================================================
    SMALL PHONES
 ========================================================= */
 
 @media (max-width: 390px) {
+
   .editorial-banner-section {
-    padding: 10px 8px 38px;
+    padding: 24px 10px 45px;
   }
 
   .editorial-banner-link {
-    aspect-ratio: 3 / 4;
-
-    border-radius: 4px;
+    height: 520px;
   }
 
   .editorial-banner-content {
-    padding: 20px 14px;
+    padding: 22px 17px 20px;
   }
 
-  .editorial-banner-tag {
-    padding: 5px 8px;
+  .editorial-banner-eyebrow {
+    margin-bottom: 14px;
 
-    font-size: 5.5px;
-    letter-spacing: 1.1px;
+    font-size: 6px;
 
-    margin-bottom: 11px;
+    letter-spacing: 1.4px;
   }
 
   .editorial-banner-heading {
-    max-width: 290px;
+    max-width: 300px;
 
-    margin-bottom: 16px;
+    font-size: 56px;
 
-    font-size: 45px;
+    line-height: 0.84;
+  }
+
+  .editorial-banner-bottom {
+    gap: 18px;
+
+    margin-top: 22px;
+  }
+
+  .editorial-banner-description {
+    font-size: 6px;
+
+    letter-spacing: 1.1px;
   }
 
   .editorial-banner-btn {
-    min-height: 35px;
+    max-width: 185px;
 
-    padding: 0 13px;
+    height: 42px;
 
-    font-size: 6.5px;
-    letter-spacing: 0.8px;
+    font-size: 6px;
+
+    letter-spacing: 1.1px;
   }
 }
+
 
 /* =========================================================
    TOUCH DEVICES
 ========================================================= */
 
 @media (hover: none) {
+
   .editorial-banner-link:hover .editorial-banner-bg {
     transform: scale(1.01);
   }
 
-  .editorial-banner-link:hover .editorial-banner-btn {
-    background: #ffffff;
-    color: #111111;
+  .editorial-banner-link:hover .editorial-banner-heading {
     transform: none;
   }
 
-  .editorial-banner-link:hover .editorial-banner-tag {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.25);
+  .editorial-banner-link:hover .editorial-banner-btn {
+    background: rgba(255, 255, 255, 0.96);
+
+    color: #111;
+
+    border-color: rgba(255, 255, 255, 0.65);
+
+    transform: none;
   }
 
-  .editorial-banner-link:hover .editorial-banner-btn svg {
+  .editorial-banner-link:hover .editorial-arrow {
     transform: none;
   }
 }
+
 
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   .editorial-banner-bg,
-  .editorial-banner-tag,
+  .editorial-banner-heading,
   .editorial-banner-btn,
-  .editorial-banner-btn svg {
+  .editorial-arrow {
     transition: none;
   }
 }

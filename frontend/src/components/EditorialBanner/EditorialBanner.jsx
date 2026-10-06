@@ -1,7 +1,7 @@
+
 "use client";
 
 import React from "react";
-import { ArrowRightIcon } from "../common/Icons";
 import "./EditorialBanner.css";
 
 export const EditorialBanner = () => {
@@ -14,19 +14,39 @@ export const EditorialBanner = () => {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1800&auto=format&fit=crop&q=85"
+          src="./images/add.jpg"
           alt="FLINT SECTOR Streetwear Editorial"
           className="editorial-banner-bg"
           loading="lazy"
         />
 
+        <div className="editorial-banner-overlay" />
+
         <div className="editorial-banner-content">
-          <span className="editorial-banner-tag">LIMITED DROP // HEAVYWEIGHT 280 GSM</span>
-          <h2 className="editorial-banner-heading">CRAFTED FOR THE CULTURE</h2>
-          <span className="editorial-banner-btn">
-            <span>SHOP THE COLLECTION</span>
-            <ArrowRightIcon size={14} />
-          </span>
+          <div className="editorial-banner-eyebrow">
+            <span className="eyebrow-line" />
+            <span>FLINT SECTOR / 01</span>
+            <span className="eyebrow-line" />
+          </div>
+
+          <h2 className="editorial-banner-heading">
+            CRAFTED
+            <br />
+            FOR THE CULTURE
+          </h2>
+
+          <div className="editorial-banner-bottom">
+            <span className="editorial-banner-description">
+              HEAVYWEIGHT ESSENTIALS
+              <br />
+              BUILT FOR EVERYDAY MOVEMENT
+            </span>
+
+            <span className="editorial-banner-btn">
+              <span>SHOP COLLECTION</span>
+              <span className="editorial-arrow">↗</span>
+            </span>
+          </div>
         </div>
       </a>
     </section>
