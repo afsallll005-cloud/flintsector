@@ -18,35 +18,35 @@
 
 .product-header {
   display: flex;
-
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-
+  gap: 24px;
   margin-bottom: 38px;
+  width: 100%;
+}
+
+.product-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
 }
 
 .product-header h2 {
   margin: 0;
-
-  color: #111;
-
-  font-size: clamp(36px, 4vw, 52px);
-
+  color: #111111;
+  font-size: clamp(34px, 4vw, 52px);
   font-weight: 700;
-
   letter-spacing: -2.5px;
-
   line-height: 1;
 }
 
 .product-count {
-  color: #777;
-
+  color: #777777;
   font-size: 11px;
-
-  font-weight: 500;
-
+  font-weight: 600;
   letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 
 
@@ -93,27 +93,32 @@
 }
 
 .product-tab-btn {
-  padding: 6px 14px;
+  padding: 8px 16px;
   border: 1px solid #e2e2df;
-  background: transparent;
-  color: #666666;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  background: #fdfdfc;
+  border-radius: 0;
+  color: #555550;
+  font-size: 10.5px;
+  font-weight: 750;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   font-family: inherit;
+  white-space: nowrap;
 }
 
 .product-tab-btn:hover {
   border-color: #111111;
   color: #111111;
+  background: #ffffff;
 }
 
 .product-tab-btn.active {
   background: #111111;
   border-color: #111111;
   color: #ffffff;
+  box-shadow: 0 4px 14px rgba(17, 17, 17, 0.16);
 }
 
 
@@ -310,6 +315,43 @@
 
 
 /* =========================================
+   TABLET & MOBILE BREAKPOINT
+========================================= */
+
+@media (max-width: 860px) {
+  .product-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .product-header-left {
+    width: 100%;
+  }
+
+  .product-tabs {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .product-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-tab-btn {
+    flex-shrink: 0;
+  }
+}
+
+/* =========================================
    MOBILE
 ========================================= */
 
@@ -320,17 +362,36 @@
   }
 
   .product-header {
-    margin-bottom: 25px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .product-header-left {
+    width: 100%;
   }
 
   .product-header h2 {
-    font-size: 34px;
-
+    font-size: clamp(30px, 8.5vw, 38px);
     letter-spacing: -1.5px;
+    line-height: 1.05;
   }
 
   .product-count {
-    font-size: 9px;
+    font-size: 9.5px;
+    letter-spacing: 1.2px;
+  }
+
+  .product-tabs {
+    width: 100%;
+    gap: 7px;
+    padding-bottom: 5px;
+  }
+
+  .product-tab-btn {
+    padding: 7px 14px;
+    font-size: 10px;
   }
 
   .product-grid {
@@ -389,19 +450,35 @@
 @media (max-width: 390px) {
 
   .product-section {
-    padding: 42px 15px;
+    padding: 40px 15px;
+  }
+
+  .product-header {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .product-header h2 {
+    font-size: 28px;
+    letter-spacing: -1.2px;
+  }
+
+  .product-count {
+    font-size: 8.5px;
+    letter-spacing: 1px;
+  }
+
+  .product-tabs {
+    gap: 6px;
+  }
+
+  .product-tab-btn {
+    padding: 6px 12px;
+    font-size: 9.5px;
   }
 
   .product-grid {
     gap: 16px 8px;
-  }
-
-  .product-header h2 {
-    font-size: 29px;
-  }
-
-  .product-count {
-    font-size: 8px;
   }
 
   .product-details h3 {

@@ -74,7 +74,7 @@ export default function ProductGrid({ activeCategory: initialCategory = "all" })
 
       {/* HEADER */}
       <div className="product-header">
-        <div>
+        <div className="product-header-left">
           <h2>All Products</h2>
           <span className="product-count">
             {filteredProducts.length} ITEMS AVAILABLE
