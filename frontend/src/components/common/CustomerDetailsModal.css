@@ -1,45 +1,42 @@
-
 /* =========================================================
-   FLINTSECTOR — CUSTOMER DETAILS WHATSAPP MODAL
-   Premium / Modern / Minimal Streetwear UI
+   FLINT SECTOR — DELIVERY DETAILS MODAL
+   Modern, Ultra-Premium Streetwear Checkout UI
    ========================================================= */
 
 :root {
-  --customer-black: #111111;
-  --customer-text: #202020;
-  --customer-muted: #777777;
-  --customer-light: #f7f7f5;
-  --customer-border: #e6e6e2;
-  --customer-green: #25d366;
-  --customer-green-dark: #1ebe5d;
-  --customer-danger: #e5484d;
-  --customer-radius: 14px;
-  --customer-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --modal-bg: #ffffff;
+  --modal-card: #fbfbf9;
+  --modal-border: #e8e8e3;
+  --modal-border-subtle: #f0f0eb;
+  --modal-text-primary: #111111;
+  --modal-text-secondary: #63635d;
+  --modal-text-muted: #8e8e87;
+  --modal-wa-green: #25d366;
+  --modal-wa-green-dark: #1db853;
+  --modal-danger: #ef4444;
+  --modal-radius-dialog: 24px;
+  --modal-radius-card: 16px;
+  --modal-radius-input: 12px;
+  --modal-radius-btn: 14px;
+  --modal-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* =========================================================
-   BACKDROP
+   BACKDROP OVERLAY
    ========================================================= */
 
 .customer-modal-backdrop {
   position: fixed;
   inset: 0;
-
   z-index: 99999;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 20px;
-
-  background: rgba(10, 10, 10, 0.48);
-
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  animation: customerModalFadeIn 0.3s ease forwards;
-
+  padding: 24px 20px;
+  background: rgba(10, 12, 16, 0.65);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  animation: customerModalFadeIn 0.28s var(--modal-ease) forwards;
   overscroll-behavior: contain;
 }
 
@@ -47,45 +44,51 @@
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
 }
 
 /* =========================================================
-   MODAL
+   MODAL DIALOG (CARD)
    ========================================================= */
 
 .customer-modal-dialog {
   position: relative;
-
-  width: min(100%, 500px);
-  max-height: min(90vh, 760px);
-
+  width: min(100%, 480px);
+  max-height: min(90vh, 780px);
   overflow-y: auto;
   overscroll-behavior: contain;
-
-  background: #ffffff;
-
+  background: var(--modal-bg);
   border: 1px solid rgba(17, 17, 17, 0.08);
-
-  border-radius: 20px;
-
-  padding: 26px;
-
-  color: var(--customer-text);
-
-  font-family: var(--font-outfit), sans-serif;
-
+  border-radius: var(--modal-radius-dialog);
+  padding: 28px 28px 26px;
+  color: var(--modal-text-primary);
+  font-family: var(--font-outfit), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   box-shadow:
-    0 30px 90px rgba(0, 0, 0, 0.22),
-    0 10px 30px rgba(0, 0, 0, 0.08);
-
-  animation: customerModalSlideUp 0.4s var(--customer-ease) forwards;
-
+    0 28px 75px -14px rgba(0, 0, 0, 0.32),
+    0 10px 24px -6px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
+  animation: customerModalSlideUp 0.35s var(--modal-ease) forwards;
   scrollbar-width: thin;
-  scrollbar-color: #ccccca transparent;
+  scrollbar-color: #d8d8d3 transparent;
+}
+
+/* Sleek gradient top accent line */
+.customer-modal-dialog::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    #111111 0%,
+    var(--modal-wa-green) 50%,
+    #111111 100%
+  );
+  border-radius: 24px 24px 0 0;
 }
 
 .customer-modal-dialog::-webkit-scrollbar {
@@ -97,20 +100,24 @@
 }
 
 .customer-modal-dialog::-webkit-scrollbar-thumb {
-  background: #d0d0cd;
+  background: #d4d4ce;
   border-radius: 999px;
 }
 
 @keyframes customerModalSlideUp {
   from {
     opacity: 0;
-    transform: translateY(24px) scale(0.97);
+    transform: translateY(22px) scale(0.97);
   }
-
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+/* Pull bar (visible on mobile bottom sheet) */
+.customer-modal-pull-bar {
+  display: none;
 }
 
 /* =========================================================
@@ -121,45 +128,64 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-
-  gap: 20px;
-
+  gap: 18px;
   margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--modal-border);
+}
 
-  padding-bottom: 17px;
+.customer-modal-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  background: #ecfdf5;
+  border: 1px solid #d1fae5;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #047857;
+  margin-bottom: 7px;
+}
 
-  border-bottom: 1px solid var(--customer-border);
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--modal-wa-green);
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.25);
+  animation: eyebrowPulse 2s infinite ease-in-out;
+}
+
+@keyframes eyebrowPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
 }
 
 .customer-modal-title {
   margin: 0;
-
-  font-size: 20px;
-  line-height: 1.1;
-
-  font-weight: 950;
-
-  letter-spacing: 1.4px;
-
+  font-size: 22px;
+  line-height: 1.15;
+  font-weight: 900;
+  letter-spacing: -0.4px;
   color: #111111;
-
   text-transform: uppercase;
-}
-
-.customer-modal-title span {
-  color: var(--customer-green);
 }
 
 .customer-modal-subtitle {
   max-width: 360px;
-
-  margin: 7px 0 0;
-
-  color: #858585;
-
-  font-size: 12px;
-  line-height: 1.55;
-
+  margin: 5px 0 0;
+  color: var(--modal-text-secondary);
+  font-size: 12.5px;
+  line-height: 1.5;
   font-weight: 500;
 }
 
@@ -169,137 +195,173 @@
 
 .customer-modal-close {
   flex-shrink: 0;
-
-  width: 38px;
-  height: 38px;
-
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 0;
-
-  border: 1px solid var(--customer-border);
-
+  border: 1px solid var(--modal-border);
   border-radius: 50%;
-
-  background: #ffffff;
-
-  color: #555555;
-
-  font-size: 22px;
-  line-height: 1;
-
+  background: #f5f5f2;
+  color: #555550;
   cursor: pointer;
-
   transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.25s ease;
+    background 0.2s var(--modal-ease),
+    color 0.2s var(--modal-ease),
+    border-color 0.2s var(--modal-ease),
+    transform 0.25s var(--modal-ease);
 }
 
 .customer-modal-close:hover {
   background: #111111;
-
   border-color: #111111;
-
   color: #ffffff;
-
-  transform: rotate(90deg);
+  transform: rotate(90deg) scale(1.05);
 }
 
 .customer-modal-close:active {
-  transform: scale(0.92) rotate(90deg);
+  transform: rotate(90deg) scale(0.94);
 }
 
 /* =========================================================
-   ORDER SUMMARY
+   ORDER SUMMARY CARD (RECEIPT STYLE)
    ========================================================= */
 
 .customer-modal-summary {
-  margin-bottom: 21px;
+  margin-bottom: 20px;
+  padding: 15px 16px;
+  background: var(--modal-card);
+  border: 1px solid var(--modal-border);
+  border-radius: var(--modal-radius-card);
+}
 
-  padding: 14px;
+.modal-summary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 11px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--modal-border-subtle);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--modal-text-muted);
+}
 
-  background: #f8f8f6;
+.modal-summary-count {
+  padding: 2px 8px;
+  background: #ebebe5;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 750;
+  color: #444440;
+}
 
-  border: 1px solid var(--customer-border);
-
-  border-radius: 12px;
-
-  font-size: 11px;
+.modal-summary-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .modal-summary-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  gap: 15px;
-
-  margin-bottom: 9px;
-
-  color: #666666;
-
-  line-height: 1.4;
+  gap: 14px;
 }
 
-.modal-summary-item:last-of-type {
-  margin-bottom: 0;
-}
-
-.modal-summary-item span {
+.modal-summary-item-info {
+  display: flex;
+  align-items: center;
+  gap: 7px;
   min-width: 0;
+  flex: 1;
+}
 
+.summary-qty-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 7px;
+  background: #ebebe5;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #111111;
+}
+
+.summary-item-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #222220;
   overflow: hidden;
-
   text-overflow: ellipsis;
-
   white-space: nowrap;
+}
+
+.summary-size-badge {
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 1px 6px;
+  background: #ffffff;
+  border: 1px solid #deded8;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #555550;
+  text-transform: uppercase;
 }
 
 .modal-summary-item strong {
   flex-shrink: 0;
-
-  color: #222222;
-
-  font-size: 11px;
-
-  font-weight: 850;
+  font-size: 13px;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.2px;
 }
 
 .modal-summary-total {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 15px;
-
-  margin-top: 12px;
-  padding-top: 12px;
-
-  border-top: 1px dashed #d8d8d4;
-
-  color: #111111;
-
-  font-size: 13px;
-
-  font-weight: 900;
+  margin-top: 11px;
+  padding-top: 11px;
+  border-top: 1px solid var(--modal-border);
 }
 
-.modal-summary-total span:last-child {
+.modal-total-label-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.modal-total-label {
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
   color: #111111;
+}
 
-  font-size: 17px;
+.modal-total-sublabel {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--modal-text-muted);
+}
 
+.modal-total-price {
+  font-size: 19px;
   font-weight: 950;
-
-  letter-spacing: 0.3px;
+  letter-spacing: -0.3px;
+  color: #111111;
 }
 
 /* =========================================================
-   FORM
+   FORM & INPUTS
    ========================================================= */
 
 .customer-modal-dialog form {
@@ -307,228 +369,245 @@
   flex-direction: column;
 }
 
-/* =========================================================
-   FORM GROUP
-   ========================================================= */
-
 .customer-form-group {
-  margin-bottom: 16px;
+  margin-bottom: 15px;
 }
 
 .customer-form-group label {
-  display: block;
-
+  display: flex;
+  align-items: center;
+  gap: 2px;
   margin-bottom: 7px;
-
-  color: #4d4d4d;
-
-  font-size: 10px;
+  color: #2c2c28;
+  font-size: 10.5px;
   line-height: 1;
-
-  font-weight: 900;
-
+  font-weight: 800;
   letter-spacing: 0.85px;
-
   text-transform: uppercase;
 }
 
-/* =========================================================
-   INPUTS
-   ========================================================= */
+.field-required {
+  color: var(--modal-danger);
+  font-weight: 900;
+}
 
+/* Base input styling */
 .customer-input,
 .customer-textarea {
   width: 100%;
-
   box-sizing: border-box;
-
-  background: #ffffff;
-
-  border: 1px solid #dcdcd8;
-
-  border-radius: 9px;
-
+  background: #fdfdfc;
+  border: 1.5px solid var(--modal-border);
+  border-radius: var(--modal-radius-input);
   color: #111111;
-
-  font-family: var(--font-outfit), sans-serif;
-
-  font-size: 13px;
-
+  font-family: inherit;
+  font-size: 13.5px;
   font-weight: 500;
-
   outline: none;
-
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+    border-color 0.2s var(--modal-ease),
+    box-shadow 0.2s var(--modal-ease),
+    background 0.2s var(--modal-ease);
 }
 
 .customer-input {
-  height: 46px;
-
-  padding: 0 13px;
+  height: 48px;
+  padding: 0 15px;
 }
 
 .customer-textarea {
-  min-height: 88px;
-
-  padding: 12px 13px;
-
+  min-height: 84px;
+  max-height: 150px;
+  padding: 12px 15px;
   resize: vertical;
-
   line-height: 1.5;
 }
 
 .customer-input::placeholder,
 .customer-textarea::placeholder {
-  color: #aaa9a5;
+  color: #a8a8a2;
+  font-weight: 400;
 }
 
 .customer-input:hover,
 .customer-textarea:hover {
-  border-color: #c6c6c2;
+  border-color: #c8c8c2;
 }
 
 .customer-input:focus,
 .customer-textarea:focus {
   background: #ffffff;
-
   border-color: #111111;
-
-  box-shadow:
-    0 0 0 3px rgba(17, 17, 17, 0.06);
+  box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.07);
 }
 
 .customer-input.error,
 .customer-textarea.error {
-  border-color: var(--customer-danger);
-
-  box-shadow:
-    0 0 0 3px rgba(229, 72, 77, 0.08);
+  border-color: var(--modal-danger) !important;
+  background: #fffcfc;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08) !important;
 }
 
-/* =========================================================
-   TWO-COLUMN FIELDS
-   ========================================================= */
-
-/*
-   This targets your existing inline grid:
-   Pincode + Phone Number
-*/
-
-.customer-modal-dialog form > div[style*="grid-template-columns"] {
-  margin-bottom: 0;
+/* Two-column layout */
+.customer-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 12px;
+  margin-bottom: 2px;
 }
 
-.customer-modal-dialog
-  form
-  > div[style*="grid-template-columns"]
-  .customer-form-group {
+.customer-form-row .customer-form-group {
   min-width: 0;
 }
 
-/* =========================================================
-   VALIDATION ERROR
-   ========================================================= */
+/* Phone input with country code badge */
+.customer-phone-group {
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid var(--modal-border);
+  border-radius: var(--modal-radius-input);
+  background: #fdfdfc;
+  transition:
+    border-color 0.2s var(--modal-ease),
+    box-shadow 0.2s var(--modal-ease),
+    background 0.2s var(--modal-ease);
+  overflow: hidden;
+}
 
+.customer-phone-group:hover {
+  border-color: #c8c8c2;
+}
+
+.customer-phone-group:focus-within {
+  background: #ffffff;
+  border-color: #111111;
+  box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.07);
+}
+
+.customer-phone-group.error {
+  border-color: var(--modal-danger) !important;
+  background: #fffcfc;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08) !important;
+}
+
+.customer-phone-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  background: #f3f3ee;
+  border-right: 1.5px solid var(--modal-border);
+  font-size: 12px;
+  font-weight: 750;
+  color: #383832;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.customer-phone-input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 13px;
+  color: #111111;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.customer-phone-input::placeholder {
+  color: #a8a8a2;
+  font-weight: 400;
+}
+
+/* Validation error text */
 .customer-input-error {
   margin-top: 5px;
+  color: var(--modal-danger);
+  font-size: 11px;
+  line-height: 1.35;
+  font-weight: 600;
+  animation: errorShake 0.25s ease;
+}
 
-  color: var(--customer-danger);
-
-  font-size: 10px;
-
-  line-height: 1.4;
-
-  font-weight: 700;
+@keyframes errorShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
 }
 
 /* =========================================================
-   WHATSAPP BUTTON
+   WHATSAPP CTA BUTTON
    ========================================================= */
 
 .customer-whatsapp-submit-btn {
   position: relative;
-
   width: 100%;
-  min-height: 52px;
-
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  gap: 9px;
-
-  margin-top: 5px;
-
-  padding: 0 20px;
-
+  gap: 10px;
+  margin-top: 8px;
+  padding: 0 24px;
   overflow: hidden;
-
   border: 0;
-
-  border-radius: 999px;
-
-  background: var(--customer-green);
-
-  color: #071b0d;
-
-  font-family: var(--font-outfit), sans-serif;
-
-  font-size: 11px;
-
-  font-weight: 950;
-
+  border-radius: var(--modal-radius-btn);
+  background: linear-gradient(135deg, var(--modal-wa-green) 0%, var(--modal-wa-green-dark) 100%);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 850;
   letter-spacing: 1.1px;
-
   text-transform: uppercase;
-
   cursor: pointer;
-
   box-shadow:
-    0 8px 24px rgba(37, 211, 102, 0.22);
-
+    0 10px 24px -5px rgba(37, 211, 102, 0.42),
+    0 3px 8px rgba(0, 0, 0, 0.06);
   transition:
-    background 0.25s ease,
-    transform 0.25s var(--customer-ease),
-    box-shadow 0.25s ease;
+    transform 0.22s var(--modal-ease),
+    box-shadow 0.22s var(--modal-ease),
+    filter 0.22s var(--modal-ease);
 }
 
-.customer-whatsapp-submit-btn::before {
+/* Shimmer light sweep on hover */
+.customer-whatsapp-submit-btn::after {
   content: "";
-
   position: absolute;
-
   top: 0;
   left: -120%;
-
-  width: 80%;
+  width: 70%;
   height: 100%;
-
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0.32),
     transparent
   );
-
   transform: skewX(-20deg);
-
-  transition: left 0.6s ease;
+  transition: left 0.65s ease;
 }
 
 .customer-whatsapp-submit-btn:hover {
-  background: #2be06c;
-
   transform: translateY(-2px);
-
   box-shadow:
-    0 12px 30px rgba(37, 211, 102, 0.3);
+    0 14px 28px -5px rgba(37, 211, 102, 0.54),
+    0 4px 10px rgba(0, 0, 0, 0.08);
+  filter: brightness(1.03);
 }
 
-.customer-whatsapp-submit-btn:hover::before {
-  left: 140%;
+.customer-whatsapp-submit-btn:hover::after {
+  left: 150%;
 }
 
 .customer-whatsapp-submit-btn:active {
@@ -536,66 +615,80 @@
 }
 
 .customer-whatsapp-submit-btn svg {
-  width: 18px;
-  height: 18px;
-
   flex-shrink: 0;
-
   transition: transform 0.2s ease;
 }
 
 .customer-whatsapp-submit-btn:hover svg {
-  transform: scale(1.08);
+  transform: scale(1.1);
+}
+
+.customer-btn-arrow {
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.customer-whatsapp-submit-btn:hover .customer-btn-arrow {
+  transform: translateX(4px);
 }
 
 /* =========================================================
-   PRIVACY / WHATSAPP HINT
+   PRIVACY / SECURITY HINT
    ========================================================= */
 
 .customer-privacy-hint {
-  max-width: 400px;
-
-  margin: 10px auto 0;
-
-  color: #999995;
-
-  font-size: 10px;
-
-  line-height: 1.55;
-
+  max-width: 420px;
+  margin: 12px auto 0;
+  color: var(--modal-text-muted);
+  font-size: 11px;
+  line-height: 1.5;
   text-align: center;
+  padding: 0 6px;
+}
+
+.privacy-badge-icon {
+  font-size: 11px;
+  margin-right: 2px;
+}
+
+.customer-privacy-hint strong {
+  color: var(--modal-text-primary);
+  font-weight: 700;
 }
 
 /* =========================================================
-   MOBILE
+   RESPONSIVE: MOBILE BOTTOM SHEET (<= 600px)
    ========================================================= */
 
 @media (max-width: 600px) {
   .customer-modal-backdrop {
     align-items: flex-end;
-
     padding: 0;
   }
 
   .customer-modal-dialog {
     width: 100%;
-
-    max-width: none;
-
+    max-width: 100%;
     max-height: 92vh;
-
-    padding: 21px 18px 20px;
-
-    border-radius: 20px 20px 0 0;
-
+    padding: 16px 18px 28px;
+    border-radius: 24px 24px 0 0;
     border-left: 0;
     border-right: 0;
     border-bottom: 0;
-
     box-shadow:
-      0 -15px 50px rgba(0, 0, 0, 0.18);
+      0 -18px 50px rgba(0, 0, 0, 0.25),
+      0 -2px 8px rgba(0, 0, 0, 0.06);
+    animation: customerMobileSlideUp 0.38s var(--modal-ease) forwards;
+  }
 
-    animation: customerMobileSlideUp 0.4s var(--customer-ease) forwards;
+  /* Rounded pull bar */
+  .customer-modal-pull-bar {
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: #deded8;
+    border-radius: 99px;
+    margin: 0 auto 16px;
   }
 
   @keyframes customerMobileSlideUp {
@@ -603,7 +696,6 @@
       opacity: 0;
       transform: translateY(100%);
     }
-
     to {
       opacity: 1;
       transform: translateY(0);
@@ -611,9 +703,63 @@
   }
 
   .customer-modal-header {
-    margin-bottom: 17px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+  }
 
-    padding-bottom: 15px;
+  .customer-modal-title {
+    font-size: 20px;
+  }
+
+  .customer-modal-subtitle {
+    font-size: 11.5px;
+  }
+
+  .customer-modal-close {
+    width: 34px;
+    height: 34px;
+  }
+
+  .customer-modal-summary {
+    padding: 13px 14px;
+    margin-bottom: 16px;
+  }
+
+  .customer-input {
+    height: 46px;
+  }
+
+  .customer-textarea {
+    min-height: 78px;
+  }
+
+  .customer-phone-input {
+    height: 46px;
+  }
+
+  .customer-whatsapp-submit-btn {
+    height: 50px;
+    font-size: 11.5px;
+  }
+
+  .customer-privacy-hint {
+    font-size: 10px;
+    margin-top: 10px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE: SMALL SMARTPHONES (<= 380px)
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .customer-modal-dialog {
+    padding: 14px 14px 24px;
+  }
+
+  .customer-form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 
   .customer-modal-title {
@@ -624,81 +770,14 @@
     font-size: 11px;
   }
 
-  .customer-modal-close {
-    width: 35px;
-    height: 35px;
-
-    font-size: 20px;
-  }
-
-  .customer-modal-summary {
-    padding: 12px;
-
-    margin-bottom: 18px;
-  }
-
-  .customer-input {
-    height: 45px;
-  }
-
-  .customer-textarea {
-    min-height: 82px;
-  }
-
   .customer-whatsapp-submit-btn {
-    min-height: 50px;
-  }
-}
-
-/* =========================================================
-   SMALL PHONES
-   ========================================================= */
-
-@media (max-width: 390px) {
-  .customer-modal-dialog {
-    padding: 18px 15px;
-  }
-
-  .customer-modal-title {
-    font-size: 17px;
-    letter-spacing: 1.1px;
-  }
-
-  .customer-modal-subtitle {
-    font-size: 10px;
-  }
-
-  .customer-form-group {
-    margin-bottom: 13px;
-  }
-
-  .customer-form-group label {
-    font-size: 9px;
-  }
-
-  .customer-input,
-  .customer-textarea {
-    font-size: 12px;
-  }
-
-  .customer-modal-dialog
-    form
-    > div[style*="grid-template-columns"] {
-    gap: 8px !important;
-  }
-
-  .customer-whatsapp-submit-btn {
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.9px;
   }
-
-  .customer-privacy-hint {
-    font-size: 9px;
-  }
 }
 
 /* =========================================================
-   ACCESSIBILITY
+   ACCESSIBILITY & REDUCED MOTION
    ========================================================= */
 
 .customer-input:focus-visible,
@@ -709,16 +788,13 @@
   outline-offset: 2px;
 }
 
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
 @media (prefers-reduced-motion: reduce) {
   .customer-modal-backdrop,
   .customer-modal-dialog,
   .customer-modal-close,
-  .customer-whatsapp-submit-btn {
-    animation: none;
-    transition: none;
+  .customer-whatsapp-submit-btn,
+  .eyebrow-dot {
+    animation: none !important;
+    transition: none !important;
   }
 }

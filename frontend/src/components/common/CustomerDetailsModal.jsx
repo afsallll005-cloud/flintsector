@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { WhatsAppIcon } from "./Icons";
+import { WhatsAppIcon, XIcon } from "./Icons";
 import { createOrder } from "../../utils/api";
 import {
   generateWhatsAppOrderMessage,
@@ -141,10 +141,16 @@ export const CustomerDetailsModal = ({
         aria-modal="true"
         aria-labelledby="customer-details-modal-title"
       >
+        <div className="customer-modal-pull-bar" aria-hidden="true" />
+
         <div className="customer-modal-header">
           <div>
+            <div className="customer-modal-eyebrow">
+              <span className="eyebrow-dot" />
+              <span>Direct WhatsApp Order</span>
+            </div>
             <h2 id="customer-details-modal-title" className="customer-modal-title">
-              DELIVERY <span>DETAILS</span>
+              Delivery Details
             </h2>
             <p className="customer-modal-subtitle">
               Enter your shipping info to complete your order on WhatsApp.
@@ -156,39 +162,61 @@ export const CustomerDetailsModal = ({
             onClick={onClose}
             aria-label="Close delivery details modal"
           >
-            &times;
+            <XIcon size={15} />
           </button>
         </div>
 
         {/* Order Item Preview */}
         {items.length > 0 && (
           <div className="customer-modal-summary">
-            {items.map((it, idx) => {
-              const p = it.product || it;
-              return (
-                <div key={idx} className="modal-summary-item">
-                  <span>
-                    {it.quantity}x {p.name} ({it.size || "Free Size"})
-                  </span>
-                  <strong>{formatRupees((p.price || 0) * (it.quantity || 1))}</strong>
-                </div>
-              );
-            })}
+            <div className="modal-summary-header">
+              <span>Order Summary</span>
+              <span className="modal-summary-count">
+                {items.reduce((acc, it) => acc + (it.quantity || 1), 0)}{" "}
+                {items.length === 1 && (items[0].quantity || 1) === 1
+                  ? "item"
+                  : "items"}
+              </span>
+            </div>
+            <div className="modal-summary-items">
+              {items.map((it, idx) => {
+                const p = it.product || it;
+                return (
+                  <div key={idx} className="modal-summary-item">
+                    <div className="modal-summary-item-info">
+                      <span className="summary-qty-badge">{it.quantity || 1}×</span>
+                      <span className="summary-item-name">{p.name}</span>
+                      {it.size && (
+                        <span className="summary-size-badge">{it.size}</span>
+                      )}
+                    </div>
+                    <strong>
+                      {formatRupees((p.price || 0) * (it.quantity || 1))}
+                    </strong>
+                  </div>
+                );
+              })}
+            </div>
             <div className="modal-summary-total">
-              <span>Final Total:</span>
-              <span>{formatRupees(total)}</span>
+              <div className="modal-total-label-wrap">
+                <span className="modal-total-label">Final Total</span>
+                <span className="modal-total-sublabel">Inclusive of all taxes</span>
+              </div>
+              <span className="modal-total-price">{formatRupees(total)}</span>
             </div>
           </div>
         )}
 
         <form onSubmit={handleSubmit} noValidate>
           <div className="customer-form-group">
-            <label htmlFor="customer-name">Full Name *</label>
+            <label htmlFor="customer-name">
+              Full Name <span className="field-required">*</span>
+            </label>
             <input
               id="customer-name"
               type="text"
               className={`customer-input ${errors.name ? "error" : ""}`}
-              placeholder="Enter your name"
+              placeholder="e.g. Rahul Sharma"
               value={details.name}
               onChange={(e) => handleChange("name", e.target.value)}
               required
@@ -197,11 +225,13 @@ export const CustomerDetailsModal = ({
           </div>
 
           <div className="customer-form-group">
-            <label htmlFor="customer-address">Delivery Address *</label>
+            <label htmlFor="customer-address">
+              Delivery Address <span className="field-required">*</span>
+            </label>
             <textarea
               id="customer-address"
               className={`customer-textarea ${errors.address ? "error" : ""}`}
-              placeholder="Enter your complete delivery address"
+              placeholder="House/Flat no, Street, Landmark, City..."
               value={details.address}
               onChange={(e) => handleChange("address", e.target.value)}
               required
@@ -211,9 +241,11 @@ export const CustomerDetailsModal = ({
             )}
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+          <div className="customer-form-row">
             <div className="customer-form-group">
-              <label htmlFor="customer-pincode">Pincode *</label>
+              <label htmlFor="customer-pincode">
+                Pincode <span className="field-required">*</span>
+              </label>
               <input
                 id="customer-pincode"
                 type="text"
@@ -221,7 +253,7 @@ export const CustomerDetailsModal = ({
                 pattern="[0-9]*"
                 maxLength={6}
                 className={`customer-input ${errors.pincode ? "error" : ""}`}
-                placeholder="Enter 6-digit pincode"
+                placeholder="6-digit PIN"
                 value={details.pincode}
                 onChange={(e) => handleChange("pincode", e.target.value)}
                 required
@@ -232,18 +264,23 @@ export const CustomerDetailsModal = ({
             </div>
 
             <div className="customer-form-group">
-              <label htmlFor="customer-phone">Phone Number *</label>
-              <input
-                id="customer-phone"
-                type="tel"
-                inputMode="tel"
-                maxLength={10}
-                className={`customer-input ${errors.phone ? "error" : ""}`}
-                placeholder="Enter 10-digit mobile number"
-                value={details.phone}
-                onChange={(e) => handleChange("phone", e.target.value)}
-                required
-              />
+              <label htmlFor="customer-phone">
+                Phone Number <span className="field-required">*</span>
+              </label>
+              <div className={`customer-phone-group ${errors.phone ? "error" : ""}`}>
+                <span className="customer-phone-code">+91</span>
+                <input
+                  id="customer-phone"
+                  type="tel"
+                  inputMode="tel"
+                  maxLength={10}
+                  className="customer-phone-input"
+                  placeholder="10-digit mobile"
+                  value={details.phone}
+                  onChange={(e) => handleChange("phone", e.target.value)}
+                  required
+                />
+              </div>
               {errors.phone && (
                 <div className="customer-input-error">{errors.phone}</div>
               )}
@@ -251,12 +288,13 @@ export const CustomerDetailsModal = ({
           </div>
 
           <button type="submit" className="customer-whatsapp-submit-btn">
-            <WhatsAppIcon size={18} />
+            <WhatsAppIcon size={19} />
             <span>{actionTitle}</span>
+            <span className="customer-btn-arrow">→</span>
           </button>
 
           <p className="customer-privacy-hint">
-            You will be redirected to WhatsApp to send this order directly to FlintSector (+91 9526304560).
+            <span className="privacy-badge-icon">🔒</span> Direct WhatsApp checkout • Sent securely to <strong>FlintSector</strong> (+91 9526304560).
           </p>
         </form>
       </div>
