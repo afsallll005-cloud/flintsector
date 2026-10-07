@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "../../context/CartContext";
 import { PRODUCTS } from "../../data/products";
@@ -9,88 +9,297 @@ import "./SearchModal.css";
 
 export const SearchModal = () => {
   const { isSearchOpen, setIsSearchOpen } = useCart();
+
   const [query, setQuery] = useState("");
+
   const router = useRouter();
 
-  if (!isSearchOpen) return null;
+  /* =========================================
+     CLOSE WITH ESC + LOCK BODY SCROLL
+  ========================================= */
 
-  const results = query.trim()
-    ? PRODUCTS.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query.toLowerCase()) ||
-          p.categoryName.toLowerCase().includes(query.toLowerCase()) ||
-          p.color.toLowerCase().includes(query.toLowerCase())
-      )
-    : PRODUCTS.slice(0, 4);
+  useEffect(() => {
+    if (!isSearchOpen) return;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsSearchOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isSearchOpen, setIsSearchOpen]);
+
+  /* =========================================
+     SEARCH RESULTS
+  ========================================= */
+
+  const normalizedQuery = query.trim().toLowerCase();
+
+  const results = normalizedQuery
+    ? PRODUCTS.filter((product) => {
+        const name = product.name?.toLowerCase() || "";
+        const category =
+          product.categoryName?.toLowerCase() || "";
+        const color = product.color?.toLowerCase() || "";
+
+        return (
+          name.includes(normalizedQuery) ||
+          category.includes(normalizedQuery) ||
+          color.includes(normalizedQuery)
+        );
+      })
+    : PRODUCTS.slice(0, 6);
+
+  /* =========================================
+     SELECT PRODUCT
+  ========================================= */
 
   const handleSelect = (product) => {
     setIsSearchOpen(false);
+    setQuery("");
+
     router.push(`/product/${product.id}`);
   };
 
+  /* =========================================
+     CLOSE
+  ========================================= */
+
+  const handleClose = () => {
+    setIsSearchOpen(false);
+    setQuery("");
+  };
+
+  if (!isSearchOpen) return null;
+
   return (
-    <div className="search-backdrop" onClick={() => setIsSearchOpen(false)}>
-      <div className="search-modal-box" onClick={(e) => e.stopPropagation()}>
-        <div className="search-input-header">
-          <SearchIcon size={22} />
-          <input
-            type="text"
-            autoFocus
-            placeholder="Search jackets, hoodies, trousers, cargo..."
-            className="search-field"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
+    <div
+      className="search-backdrop"
+      onClick={handleClose}
+    >
+      <div
+        className="search-modal-box"
+        onClick={(event) => event.stopPropagation()}
+      >
+
+        {/* =====================================
+            HEADER
+        ===================================== */}
+
+        <div className="search-top">
+
+          <div className="search-label">
+            SEARCH
+          </div>
+
           <button
             type="button"
+            className="search-close"
+            onClick={handleClose}
             aria-label="Close search"
-            className="icon-btn"
-            onClick={() => setIsSearchOpen(false)}
           >
             <XIcon size={18} />
           </button>
+
         </div>
 
-        <div style={{ marginTop: "14px", fontSize: "11px", fontWeight: 800, textTransform: "uppercase", color: "#888" }}>
-          {query.trim() ? `Search Results (${results.length})` : "Trending Drops"}
+        {/* =====================================
+            SEARCH INPUT
+        ===================================== */}
+
+        <div className="search-input-wrapper">
+
+          <SearchIcon
+            size={21}
+            className="search-main-icon"
+          />
+
+          <input
+            type="text"
+            autoFocus
+            value={query}
+            onChange={(event) =>
+              setQuery(event.target.value)
+            }
+            placeholder="Search products..."
+            className="search-field"
+          />
+
+          {query && (
+            <button
+              type="button"
+              className="search-clear"
+              onClick={() => setQuery("")}
+              aria-label="Clear search"
+            >
+              <XIcon size={14} />
+            </button>
+          )}
+
         </div>
+
+        {/* =====================================
+            SEARCH META
+        ===================================== */}
+
+        <div className="search-meta">
+
+          <div className="search-meta-title">
+            {normalizedQuery
+              ? "SEARCH RESULTS"
+              : "TRENDING DROPS"}
+          </div>
+
+          {normalizedQuery && (
+            <div className="search-count">
+              {results.length}{" "}
+              {results.length === 1
+                ? "RESULT"
+                : "RESULTS"}
+            </div>
+          )}
+
+        </div>
+
+        {/* =====================================
+            RESULTS
+        ===================================== */}
 
         <div className="search-results-list">
+
           {results.length === 0 ? (
-            <p style={{ textAlign: "center", color: "#888", padding: "30px 0", fontSize: "13px" }}>
-              No matches found for &quot;{query}&quot;. Try searching &quot;Jacket&quot;, &quot;Hoodie&quot;, or &quot;Trouser&quot;.
-            </p>
-          ) : (
-            results.map((product) => (
-              <div
-                key={product.id}
-                className="search-item-card"
-                onClick={() => handleSelect(product)}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={product.frontImage}
-                  alt={product.name}
-                  className="search-item-thumb"
-                />
-                <div style={{ flex: 1 }}>
-                  <h4 className="search-item-title">{product.name}</h4>
-                  <div className="search-item-meta">
-                    {product.gsm} • {product.color}
-                  </div>
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 900, color: "#111" }}>
-                    ₹{product.price}
-                  </span>
-                  <div style={{ fontSize: "10px", color: "#d12b2b", fontWeight: 700 }}>
-                    {product.discount}
-                  </div>
-                </div>
+            <div className="search-empty">
+
+              <div className="search-empty-icon">
+                ×
               </div>
+
+              <h3>
+                NO MATCHES FOUND
+              </h3>
+
+              <p>
+                We couldn't find anything for
+                <strong> "{query}"</strong>
+              </p>
+
+              <span>
+                Try searching for jackets, hoodies,
+                trousers or cargo.
+              </span>
+
+            </div>
+          ) : (
+            results.map((product, index) => (
+
+              <button
+                key={product.id}
+                type="button"
+                className="search-item-card"
+                onClick={() =>
+                  handleSelect(product)
+                }
+              >
+
+                {/* PRODUCT NUMBER */}
+
+                <span className="search-item-number">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                {/* PRODUCT IMAGE */}
+
+                <div className="search-item-image">
+
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={product.frontImage}
+                    alt={product.name}
+                  />
+
+                </div>
+
+                {/* PRODUCT INFORMATION */}
+
+                <div className="search-item-info">
+
+                  <h4 className="search-item-title">
+                    {product.name}
+                  </h4>
+
+                  <div className="search-item-meta">
+                    <span>
+                      {product.categoryName}
+                    </span>
+
+                    <span className="meta-dot">
+                      •
+                    </span>
+
+                    <span>
+                      {product.color}
+                    </span>
+                  </div>
+
+                </div>
+
+                {/* PRICE */}
+
+                <div className="search-item-price">
+
+                  <strong>
+                    ₹
+                    {product.price.toLocaleString(
+                      "en-IN"
+                    )}
+                  </strong>
+
+                  {product.discount && (
+                    <span>
+                      {product.discount}
+                    </span>
+                  )}
+
+                </div>
+
+                {/* ARROW */}
+
+                <span className="search-item-arrow">
+                  ↗
+                </span>
+
+              </button>
+
             ))
           )}
+
         </div>
+
+        {/* =====================================
+            FOOTER
+        ===================================== */}
+
+        <div className="search-footer">
+
+          <span>
+            PRESS ESC TO CLOSE
+          </span>
+
+          <span>
+            FLINT SECTOR / SEARCH
+          </span>
+
+        </div>
+
       </div>
     </div>
   );

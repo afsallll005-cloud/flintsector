@@ -121,9 +121,11 @@ export function ProductDetails({ product: initialProduct }) {
           <span>←</span> Back to All Products
         </Link>
         <span className="breadcrumb-sep">/</span>
-        <span>{product.categoryName || product.category || "Collection"}</span>
+        <span className="breadcrumb-category">
+          {product.categoryName || product.category || "Collection"}
+        </span>
         <span className="breadcrumb-sep">/</span>
-        <span className="breadcrumb-current">{product.name}</span>
+        {/* <span className="breadcrumb-current">{product.name}</span> */}
       </nav>
 
       <div className="product-details-container">
