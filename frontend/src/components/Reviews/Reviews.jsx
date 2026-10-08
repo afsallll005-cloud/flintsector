@@ -8,7 +8,7 @@ const reviews = [
     rating: "★★★★★",
     review:
       "The fit is exactly what I was looking for. The quality feels premium and the details are really clean.",
-    name: "Arjun M.",
+    name: "Afsal",
     verified: "VERIFIED BUYER",
     product: "Oversized Essential Tee",
   },
@@ -24,7 +24,7 @@ const reviews = [
     rating: "★★★★★",
     review:
       "Minimal, comfortable and stylish. Definitely one of my favourite pieces right now.",
-    name: "Adithya S.",
+    name: "sahan",
     verified: "VERIFIED BUYER",
     product: "Obsidian Hoodie",
   },
