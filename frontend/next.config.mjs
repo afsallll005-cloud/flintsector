@@ -20,12 +20,20 @@ const nextConfig = {
     ],
   },
   async rewrites() {
-    return [
-      {
-        source: "/admin",
-        destination: "/Admin",
-      },
-    ];
+    return {
+      beforeFiles: [
+        {
+          source: "/favicon.ico",
+          destination: "/images/logo.png",
+        },
+      ],
+      afterFiles: [
+        {
+          source: "/admin",
+          destination: "/Admin",
+        },
+      ],
+    };
   },
 };
 

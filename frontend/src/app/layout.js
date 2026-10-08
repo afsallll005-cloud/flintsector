@@ -20,6 +20,14 @@ export const metadata = {
   title: "FLINT SECTOR | Oversized T-Shirts & Streetwear India",
   description:
     "Shop FLINT SECTOR for premium oversized T-shirts, box-fit tees, graphic streetwear and limited fashion drops with delivery across India.",
+  icons: {
+    icon: [
+      { url: "/images/logo.png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
 };
 
 export const viewport = {
@@ -33,6 +41,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en-IN" className={`${outfit.variable} ${bebasNeue.variable}`}>
       <head>
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png" />
+        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+        <link rel="shortcut icon" href="/images/logo.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

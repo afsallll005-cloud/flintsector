@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141416" />
+      <stop offset="100%" stop-color="#050507" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e5c78a" />
+      <stop offset="100%" stop-color="#c4a46c" />
+    </linearGradient>
+  </defs>
+
+  <rect fill="url(#bgGrad)" width="512" height="512" />
+  <circle cx="395" cy="115" r="14" fill="url(#goldGrad)" />
+
+  <text 
+    x="248" 
+    y="295" 
+    text-anchor="middle" 
+    dominant-baseline="central" 
+    font-family="'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+    font-weight="900" 
+    font-size="240"
+    fill="#ffffff"
+    letter-spacing="-6px"
+  >FS</text>
+
+  <text 
+    x="256" 
+    y="415" 
+    text-anchor="middle" 
+    font-family="'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
+    font-weight="800" 
+    font-size="34" 
+    fill="url(#goldGrad)" 
+    letter-spacing="9"
+  >FLINT SECTOR</text>
+</svg>

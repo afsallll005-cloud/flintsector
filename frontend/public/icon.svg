@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141416" />
+      <stop offset="100%" stop-color="#050507" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e5c78a" />
+      <stop offset="100%" stop-color="#c4a46c" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <style>
+    .brand-bg {
+      fill: url(#bgGrad);
+      stroke: #27272d;
+      stroke-width: 14;
+    }
+    .brand-monogram {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 900;
+      fill: #ffffff;
+      letter-spacing: -6px;
+    }
+    .brand-accent {
+      fill: url(#goldGrad);
+    }
+    @media (prefers-color-scheme: light) {
+      .brand-bg {
+        fill: #0c0d10;
+        stroke: #222328;
+      }
+    }
+  </style>
+
+  <!-- Background tile with smooth rounded corners -->
+  <rect class="brand-bg" x="16" y="16" width="480" height="480" rx="112" ry="112" />
+
+  <!-- Subtle gold corner spark/accent -->
+  <circle cx="395" cy="115" r="14" class="brand-accent" />
+
+  <!-- Bold Streetwear Monogram 'FS' -->
+  <text 
+    x="248" 
+    y="295" 
+    text-anchor="middle" 
+    dominant-baseline="central" 
+    class="brand-monogram" 
+    font-size="240"
+    filter="url(#glow)"
+  >FS</text>
+
+  <!-- Brand Subtitle / Micro wordmark -->
+  <text 
+    x="256" 
+    y="415" 
+    text-anchor="middle" 
+    font-family="'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
+    font-weight="800" 
+    font-size="34" 
+    class="brand-accent" 
+    letter-spacing="9"
+  >FLINT SECTOR</text>
+</svg>
