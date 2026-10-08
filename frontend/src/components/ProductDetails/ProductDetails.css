@@ -509,7 +509,7 @@
   align-items: center;
   justify-content: space-between;
   border: 1px solid #16a34a;
-  /* border-radius: var(--pd-radius-sm); */
+  border-radius: 0 !important;
   background: #16a34a;
   color: #ffffff;
   font-family: inherit;
