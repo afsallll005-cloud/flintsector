@@ -5,7 +5,7 @@ import "./Hero.css";
 
 const slides = [
   {
-    desktop: "/images/Oversize.png",
+    desktop: "/images/laptop-hero01.png",
     mobile: "/images/hero-mob01.png",
     eyebrow: "FLINT SECTOR / 01",
     title: (
@@ -22,7 +22,7 @@ const slides = [
     button: "SHOP COLLECTION",
   },
   {
-    desktop: "/images/hero-2-desktop.jpg",
+    desktop: "/images/laptop-hero02.png",
     mobile: "/images/hero-mob02.png",
     eyebrow: "FLINT SECTOR / 02",
     title: (
@@ -39,7 +39,7 @@ const slides = [
     button: "EXPLORE DROP",
   },
   {
-    desktop: "/images/hero-3-desktop.jpg",
+    desktop: "/images/laptop-hero03.png",
     mobile: "/images/hero-mob03.png",
     eyebrow: "FLINT SECTOR / 03",
     title: (
