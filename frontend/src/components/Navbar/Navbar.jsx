@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { useCart } from "../../context/CartContext";
 
 import {
@@ -14,14 +15,35 @@ import {
 import "./Navbar.css";
 
 /* =====================================================
+   NAV ITEMS CONFIGURATION
+===================================================== */
+
+const DESKTOP_NAV_ITEMS = [
+  { label: "Home", id: "home", href: "/" },
+  { label: "Shop", id: "shop", href: "/#shop" },
+  { label: "Collections", id: "collections", href: "/#collections" },
+  { label: "About", id: "about", href: "/#about" },
+];
+
+const MOBILE_NAV_ITEMS = [
+  { label: "Home", id: "home", href: "/" },
+  { label: "Shop", id: "shop", href: "/#shop" },
+  { label: "Collections", id: "collections", href: "/#collections" },
+  { label: "About", id: "about", href: "/#about" },
+  { label: "Best Sellers", id: "bestsellers", href: "/#bestsellers" },
+  { label: "FAQ", id: "faq", href: "/#faq" },
+];
+
+/* =====================================================
    BRAND LOGO
 ===================================================== */
 
-const BrandLogo = () => (
+const BrandLogo = ({ onClick }) => (
   <a
     href="/"
     className="brand-logo"
     aria-label="FLINT SECTOR Home"
+    onClick={onClick}
   >
     <img
       src="/images/logo.png"
@@ -130,219 +152,264 @@ const Navbar = () => {
 
 
   /* =====================================================
-     SCROLL STATE
+     SCROLL & ACTIVE NAVIGATION STATE
   ===================================================== */
 
-  const [showAnnouncement, setShowAnnouncement] =
-    useState(true);
+  const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState("home");
+  const isScrollingToSectionRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
+  const currentSectionRef = useRef("home");
 
-  const [isLogoCompact, setIsLogoCompact] =
-    useState(false);
+  const [showAnnouncement, setShowAnnouncement] = useState(true);
+  const [isLogoCompact, setIsLogoCompact] = useState(false);
 
+  /* Helper to evaluate active state */
+  const isDesktopActive = (itemId) => {
+    if (pathname === "/") {
+      if (itemId === "shop") {
+        return activeSection === "shop" || activeSection === "bestsellers";
+      }
+      return activeSection === itemId;
+    }
+    if (pathname && pathname.startsWith("/product")) {
+      return itemId === "shop";
+    }
+    return false;
+  };
+
+  const isMobileActive = (itemId) => {
+    if (pathname === "/") {
+      if (itemId === "shop") {
+        return activeSection === "shop";
+      }
+      if (itemId === "bestsellers") {
+        return activeSection === "bestsellers";
+      }
+      return activeSection === itemId;
+    }
+    if (pathname && pathname.startsWith("/product")) {
+      return itemId === "shop";
+    }
+    return false;
+  };
+
+  /* Navigation click handler */
+  const handleNavClick = (e, targetId, href) => {
+    if (pathname === "/") {
+      e.preventDefault();
+
+      isScrollingToSectionRef.current = true;
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      currentSectionRef.current = targetId;
+      setActiveSection(targetId);
+
+      if (targetId === "home") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (window.location.hash) {
+          try {
+            history.pushState(null, "", window.location.pathname);
+          } catch (_) {}
+        }
+      } else {
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth" });
+          try {
+            history.pushState(null, "", `#${targetId}`);
+          } catch (_) {}
+        } else {
+          window.location.href = href;
+        }
+      }
+
+      scrollTimeoutRef.current = setTimeout(() => {
+        isScrollingToSectionRef.current = false;
+      }, 850);
+
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    } else {
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+      window.location.href = href;
+    }
+  };
+
+  /* Route & Hash sync */
+  useEffect(() => {
+    if (pathname !== "/") {
+      if (pathname && pathname.startsWith("/product")) {
+        currentSectionRef.current = "shop";
+        setActiveSection("shop");
+      } else {
+        currentSectionRef.current = "";
+        setActiveSection("");
+      }
+      return;
+    }
+
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      currentSectionRef.current = hash;
+      setActiveSection(hash);
+      const targetElement = document.getElementById(hash);
+      if (targetElement) {
+        setTimeout(() => {
+          targetElement.scrollIntoView({ behavior: "smooth" });
+        }, 120);
+      }
+    } else {
+      if (window.scrollY < 220) {
+        currentSectionRef.current = "home";
+        setActiveSection("home");
+      }
+    }
+
+    const handleHashChange = () => {
+      const currentHash = window.location.hash.replace("#", "");
+      if (currentHash) {
+        currentSectionRef.current = currentHash;
+        setActiveSection(currentHash);
+      } else if (window.scrollY < 220) {
+        currentSectionRef.current = "home";
+        setActiveSection("home");
+      }
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("popstate", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("popstate", handleHashChange);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, [pathname]);
 
   /* =====================================================
-     SCROLL DIRECTION
+     SCROLL LISTENER (ANNOUNCEMENT + LOGO + SCROLLSPY)
   ===================================================== */
 
   useEffect(() => {
-
     const SCROLL_THRESHOLD = 10;
-
     const TOP_OFFSET = 8;
-
     let previousScrollY = window.scrollY;
-
     let ticking = false;
-
     let currentAnnouncementState = true;
-
     let currentLogoState = false;
 
+    const updateNavbarState = (atTop, scrollingDown) => {
+      const nextAnnouncementState = atTop || !scrollingDown;
+      const nextLogoState = !atTop && scrollingDown;
 
-    const updateNavbarState = (
-      atTop,
-      scrollingDown
-    ) => {
-
-      /* ---------------------------------------------
-         ANNOUNCEMENT
-      --------------------------------------------- */
-
-      const nextAnnouncementState =
-        atTop || !scrollingDown;
-
-
-      /* ---------------------------------------------
-         LOGO
-      --------------------------------------------- */
-
-      const nextLogoState =
-        !atTop && scrollingDown;
-
-
-      /* ---------------------------------------------
-         UPDATE ANNOUNCEMENT
-      --------------------------------------------- */
-
-      if (
-        nextAnnouncementState !==
-        currentAnnouncementState
-      ) {
-
-        currentAnnouncementState =
-          nextAnnouncementState;
-
-        setShowAnnouncement(
-          nextAnnouncementState
-        );
+      if (nextAnnouncementState !== currentAnnouncementState) {
+        currentAnnouncementState = nextAnnouncementState;
+        setShowAnnouncement(nextAnnouncementState);
       }
 
-
-      /* ---------------------------------------------
-         UPDATE LOGO
-      --------------------------------------------- */
-
-      if (
-        nextLogoState !==
-        currentLogoState
-      ) {
-
-        currentLogoState =
-          nextLogoState;
-
-        setIsLogoCompact(
-          nextLogoState
-        );
+      if (nextLogoState !== currentLogoState) {
+        currentLogoState = nextLogoState;
+        setIsLogoCompact(nextLogoState);
       }
-
     };
 
+    const updateActiveSectionFromScroll = () => {
+      if (pathname !== "/" || isScrollingToSectionRef.current) return;
 
-    /* =================================================
-       SCROLL UPDATE
-    ================================================= */
+      const scrollY = window.scrollY;
 
-    const updateFromScroll = () => {
-
-      const currentScrollY =
-        Math.max(
-          0,
-          window.scrollY
-        );
-
-
-      const delta =
-        currentScrollY -
-        previousScrollY;
-
-
-      const atTop =
-        currentScrollY <=
-        TOP_OFFSET;
-
-
-      /* ---------------------------------------------
-         AT TOP
-      --------------------------------------------- */
-
-      if (atTop) {
-
-        updateNavbarState(
-          true,
-          false
-        );
-
-        previousScrollY =
-          currentScrollY;
-
-      }
-
-
-      /* ---------------------------------------------
-         DIRECTION CHANGED
-      --------------------------------------------- */
-
-      else if (
-        Math.abs(delta) >=
-        SCROLL_THRESHOLD
-      ) {
-
-        const scrollingDown =
-          delta > 0;
-
-
-        updateNavbarState(
-          false,
-          scrollingDown
-        );
-
-
-        previousScrollY =
-          currentScrollY;
-
-      }
-
-
-      ticking = false;
-
-    };
-
-
-    /* =================================================
-       SCROLL HANDLER
-    ================================================= */
-
-    const handleScroll = () => {
-
-      if (ticking) {
+      // 1. Top of page
+      if (scrollY < 220) {
+        if (currentSectionRef.current !== "home") {
+          currentSectionRef.current = "home";
+          setActiveSection("home");
+        }
         return;
       }
 
+      // 2. Near bottom of page
+      if (
+        window.innerHeight + scrollY >=
+        document.documentElement.scrollHeight - 70
+      ) {
+        if (currentSectionRef.current !== "faq") {
+          currentSectionRef.current = "faq";
+          setActiveSection("faq");
+        }
+        return;
+      }
 
-      ticking = true;
+      // 3. Focal line check across sections
+      const focalLine = 220;
+      const tracked = [
+        { id: "faq", el: document.getElementById("faq") },
+        { id: "about", el: document.getElementById("about") },
+        { id: "shop", el: document.getElementById("shop") },
+        { id: "collections", el: document.getElementById("collections") },
+        { id: "home", el: document.getElementById("home") },
+      ];
 
+      let candidate = null;
+      let maxTop = -Infinity;
 
-      window.requestAnimationFrame(
-        updateFromScroll
-      );
+      for (const item of tracked) {
+        if (!item.el) continue;
+        const rect = item.el.getBoundingClientRect();
+        if (rect.top <= focalLine && rect.top > maxTop) {
+          maxTop = rect.top;
+          candidate = item.id;
+        }
+      }
 
+      if (candidate && currentSectionRef.current !== candidate) {
+        currentSectionRef.current = candidate;
+        setActiveSection(candidate);
+      }
     };
 
+    const updateFromScroll = () => {
+      const currentScrollY = Math.max(0, window.scrollY);
+      const delta = currentScrollY - previousScrollY;
+      const atTop = currentScrollY <= TOP_OFFSET;
 
-    /* =================================================
-       INITIAL STATE
-    ================================================= */
+      if (atTop) {
+        updateNavbarState(true, false);
+        previousScrollY = currentScrollY;
+      } else if (Math.abs(delta) >= SCROLL_THRESHOLD) {
+        const scrollingDown = delta > 0;
+        updateNavbarState(false, scrollingDown);
+        previousScrollY = currentScrollY;
+      }
+
+      updateActiveSectionFromScroll();
+
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (ticking) {
+        return;
+      }
+      ticking = true;
+      window.requestAnimationFrame(updateFromScroll);
+    };
 
     updateFromScroll();
 
-
-    /* =================================================
-       EVENT
-    ================================================= */
-
-    window.addEventListener(
-      "scroll",
-      handleScroll,
-      {
-        passive: true,
-      }
-    );
-
-
-    /* =================================================
-       CLEANUP
-    ================================================= */
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
-
+      window.removeEventListener("scroll", handleScroll);
     };
-
-  }, []);
+  }, [pathname]);
 
 
   /* =====================================================
@@ -485,40 +552,20 @@ const Navbar = () => {
               ============================================== */}
 
               <nav className="desktop-navigation">
-
-
-                <a
-                  href="/"
-                  className="desktop-nav-link active"
-                >
-                  Home
-                </a>
-
-
-                <a
-                  href="/#bestsellers"
-                  className="desktop-nav-link"
-                >
-                  Shop
-                </a>
-
-
-                <a
-                  href="/#bestsellers"
-                  className="desktop-nav-link"
-                >
-                  Collections
-                </a>
-
-
-                <a
-                  href="/#faq"
-                  className="desktop-nav-link"
-                >
-                  About
-                </a>
-
-
+                {DESKTOP_NAV_ITEMS.map((item) => {
+                  const active = isDesktopActive(item.id);
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      className={`desktop-nav-link ${active ? "active" : ""}`}
+                      onClick={(e) => handleNavClick(e, item.id, item.href)}
+                      aria-current={active ? "page" : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
               </nav>
 
             </div>
@@ -530,7 +577,7 @@ const Navbar = () => {
 
             <div className="center-logo">
 
-              <BrandLogo />
+              <BrandLogo onClick={(e) => handleNavClick(e, "home", "/")} />
 
             </div>
 
@@ -638,7 +685,7 @@ const Navbar = () => {
 
             <div className="mobile-logo">
 
-              <BrandLogo />
+              <BrandLogo onClick={(e) => handleNavClick(e, "home", "/")} />
 
             </div>
 
@@ -665,130 +712,21 @@ const Navbar = () => {
           ================================================= */}
 
           <nav className="mobile-navigation">
-
-
-            {/* HOME */}
-
-            <a
-              href="/"
-              className="mobile-nav-link active"
-              onClick={
-                closeMobileMenu
-              }
-            >
-
-              <span>
-                Home
-              </span>
-
-            </a>
-
-
-            {/* SHOP */}
-
-            <a
-              href="/#bestsellers"
-              className="mobile-nav-link"
-              onClick={
-                closeMobileMenu
-              }
-            >
-
-              <span>
-                Shop
-              </span>
-
-              <ArrowRightIcon
-                size={15}
-              />
-
-            </a>
-
-
-            {/* COLLECTIONS */}
-
-            <a
-              href="/#bestsellers"
-              className="mobile-nav-link"
-              onClick={
-                closeMobileMenu
-              }
-            >
-
-              <span>
-                Collections
-              </span>
-
-              <ArrowRightIcon
-                size={15}
-              />
-
-            </a>
-
-
-            {/* ABOUT */}
-
-            <a
-              href="/#faq"
-              className="mobile-nav-link"
-              onClick={
-                closeMobileMenu
-              }
-            >
-
-              <span>
-                About
-              </span>
-
-              <ArrowRightIcon
-                size={15}
-              />
-
-            </a>
-
-
-            {/* BEST SELLERS */}
-
-            <a
-              href="/#bestsellers"
-              className="mobile-nav-link"
-              onClick={
-                closeMobileMenu
-              }
-            >
-
-              <span>
-                Best Sellers
-              </span>
-
-              <ArrowRightIcon
-                size={15}
-              />
-
-            </a>
-
-
-            {/* FAQ */}
-
-            <a
-              href="/#faq"
-              className="mobile-nav-link"
-              onClick={
-                closeMobileMenu
-              }
-            >
-
-              <span>
-                FAQ
-              </span>
-
-              <ArrowRightIcon
-                size={15}
-              />
-
-            </a>
-
-
+            {MOBILE_NAV_ITEMS.map((item) => {
+              const active = isMobileActive(item.id);
+              return (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  className={`mobile-nav-link ${active ? "active" : ""}`}
+                  onClick={(e) => handleNavClick(e, item.id, item.href)}
+                  aria-current={active ? "page" : undefined}
+                >
+                  <span>{item.label}</span>
+                  {item.id !== "home" && <ArrowRightIcon size={15} />}
+                </a>
+              );
+            })}
           </nav>
 
 

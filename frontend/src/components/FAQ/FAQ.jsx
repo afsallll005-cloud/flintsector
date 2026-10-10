@@ -44,7 +44,7 @@ export default function FAQ() {
   };
 
   return (
-    <section className="faq-section">
+    <section id="faq" className="faq-section">
 
       {/* HEADER */}
       <div className="faq-header">

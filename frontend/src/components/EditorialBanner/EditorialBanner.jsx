@@ -6,7 +6,7 @@ import "./EditorialBanner.css";
 
 export const EditorialBanner = () => {
   return (
-    <section className="editorial-banner-section">
+    <section id="about" className="editorial-banner-section">
       <a
         href="#bestsellers"
         className="editorial-banner-link"

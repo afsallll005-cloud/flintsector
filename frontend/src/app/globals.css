@@ -29,6 +29,31 @@ html {
   color: var(--text-primary);
 }
 
+/* Offset for fixed navbar anchor navigation */
+#home,
+#shop,
+#collections,
+#about,
+#faq,
+#bestsellers,
+#shop-category,
+#reviews {
+  scroll-margin-top: 110px;
+}
+
+@media (max-width: 768px) {
+  #home,
+  #shop,
+  #collections,
+  #about,
+  #faq,
+  #bestsellers,
+  #shop-category,
+  #reviews {
+    scroll-margin-top: 75px;
+  }
+}
+
 body {
   min-height: 100vh;
   overflow-x: hidden;

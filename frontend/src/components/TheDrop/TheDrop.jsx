@@ -21,7 +21,7 @@ const collections = [
 
 export default function TheDrop() {
   return (
-    <section className="the-drop">
+    <section id="collections" className="the-drop">
 
       {/* HEADER */}
       <div className="drop-header">

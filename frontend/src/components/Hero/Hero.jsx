@@ -97,7 +97,7 @@ export default function Hero() {
   const slide = slides[currentSlide];
 
   return (
-    <section className="hero-section">
+    <section id="home" className="hero-section">
 
       {/* =====================================
           SLIDES

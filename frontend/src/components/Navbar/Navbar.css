@@ -312,16 +312,7 @@
 }
 
 
-.desktop-nav-link.active {
-  color: var(--black);
-}
-
-
-/* =========================================================
-   ACTIVE UNDERLINE
-========================================================= */
-
-.desktop-nav-link.active::after {
+.desktop-nav-link::after {
   content: "";
 
   position: absolute;
@@ -331,7 +322,36 @@
 
   bottom: -7px;
 
-  height: 1px;
+  height: 1.5px;
+
+  background: var(--black);
+
+  transform: scaleX(0);
+
+  transform-origin: center;
+
+  transition:
+    transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.25s ease;
+}
+
+
+.desktop-nav-link:hover::after {
+  transform: scaleX(0.45);
+
+  background: #a3a8b4;
+}
+
+
+.desktop-nav-link.active {
+  color: var(--black);
+
+  font-weight: 600;
+}
+
+
+.desktop-nav-link.active::after {
+  transform: scaleX(1);
 
   background: var(--black);
 }
@@ -848,11 +868,13 @@
 
 
 /* =========================================================
-   ACTIVE HOME
+   ACTIVE LINK IN MOBILE DRAWER
 ========================================================= */
 
 .mobile-nav-link.active {
   color: #000000;
+
+  font-weight: 600;
 
   padding-left: 12px;
 }
@@ -867,14 +889,21 @@
 
   top: 50%;
 
-  width: 2px;
+  width: 2.5px;
 
-  height: 21px;
+  height: 22px;
 
   background: #000000;
 
+  border-radius: 2px;
+
   transform:
     translateY(-50%);
+}
+
+
+.mobile-nav-link.active svg {
+  color: #000000;
 }
 
 
