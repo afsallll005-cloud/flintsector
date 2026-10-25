@@ -4,22 +4,22 @@ import "./ShopBycategory.css";
 
 const categories = [
   {
-    name: "Outerwear",
-    slug: "outerwear",
+    name: "Oversize",
+    slug: "Oversize",
     products: "2 STYLES",
-    image: "/images/tshirtwithicon.png",
+    image: "/images/oversize001.png",
   },
   {
-    name: "Tops & Hoodies",
-    slug: "tops",
+    name: "Jersey",
+    slug: "Jersey",
     products: "1 STYLE",
-    image: "/images/jerseywithicon.png",
+    image: "/images/oversize002.png",
   },
   {
-    name: "Pants & Bottoms",
+    name: "Bottoms",
     slug: "bottoms",
     products: "5 STYLES",
-    image: "/images/pantwithicon.png",
+    image: "/images/oversize003.png",
   },
 ];
 
